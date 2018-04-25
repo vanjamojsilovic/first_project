@@ -1,0 +1,88 @@
+<html><meta charset="utf-8">
+     
+<body>
+ <script type='text/javascript'>
+    function Vrati(){
+        window.location.href = "pocetna.php";
+    }
+    
+    function Action() {
+    document.getElementById("forma_unos").action = "konekcija.php";
+    }
+ </script>
+<form id="forma_unos" action="forma_za_unos.php" method="post"><center>
+        <hr>
+Име: <?php echo '<input type="text" name="ime" value="' . $ime . '">' . $ime_err; ?> <br><br>
+Презиме: <?php echo '<input type="text" name="prezime" value="' . $prezime . '">' . $prezime_err; ?><br><br>
+Име оца: <input type="text" name="srednje_ime"><br><br>
+Матични број: <input type="text" name="jmbg"><br><br>
+Година рођења:
+<?php 
+    echo '<select name="godina_rodjenja">';
+    echo '<option value=""></option>';
+    
+        $pocetnaGod = date('Y', strtotime( '-25 year' , time()));
+        $period = 10;
+        for ($i = 0; $i < $period; $i++){
+            $optVal = $pocetnaGod + $i;
+            if ($godina_rodjenja == $optVal){
+                echo '<option value="' . $optVal . '" selected>' . $optVal . '</option>';
+            }
+            else{
+                echo '<option value="' . $optVal . '">' . $optVal . '</option>';
+            }
+        }
+    echo '</select>';
+    ?>
+Месец:
+    <?php 
+        echo '<select name="mesec_rodjenja">';
+        echo '<option value=""></option>';
+
+        for ($i = 1; $i <= 12; $i++){
+            $month = substr('0' . $i, -2);
+            $monthName = date('M', strtotime( '2018-' . $i . '-01'));
+            if ($mesec_rodjenja == $month){
+                echo '<option value="' . $month . '" selected>' . $monthName . '</option>';
+            }
+            else{
+                echo '<option value="' . $month . '">' . $monthName . '</option>';
+            }
+        }
+        echo '</select>';
+    ?> 
+    
+Дан:
+    <?php 
+        echo '<select name="dan_rodjenja">';
+        echo '<option value=""></option>';
+
+        for ($i = 1; $i < 32; $i++){
+            $day = substr('0' . $i, -2);
+            if ($dan_rodjenja == $day){
+                echo '<option value="' . $day . '" selected>' . $day . '</option>';
+            }
+            else{
+                echo '<option value="' . $day . '">' . $day . '</option>';
+            }
+        }
+        echo '</select>';
+    ?>   
+<?php echo $datum_err; ?>
+<br><br>
+Пол:<br>
+<input type="radio" name="pol" value="muski" checked> Мушки<br>
+<input type="radio" name="pol" value="zenski">Женски<br><br>
+<hr>
+<input type="submit"  value="Унеси"><br><br>
+ 
+         <center>
+            <button type="reset" value="Reset">Ресетуј</button><br><br>
+             
+             <button type="button" onclick="Vrati()">Не желим више да уносим</button> 
+        </center>
+    </center>
+</form>
+ 
+</body>
+</html>    
