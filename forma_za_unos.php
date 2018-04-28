@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 // cuvanje prethodno unetih vrednosti cak i kad nisu sve unete
 if (isset($GLOBALS['form_values']) && !empty($GLOBALS['form_values'])){
     extract($GLOBALS['form_values']);
-    var_dump($GLOBALS['form_values']);
+    
 }
 else{
     // kada se prvi put otvara strana

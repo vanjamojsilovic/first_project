@@ -1,19 +1,63 @@
 <html><meta charset="utf-8">
      
 <body>
- <script type='text/javascript'>
+   
+ <script type="text/javascript">
+    
+    var ime_e='<?php echo $ime_err; ?>';
+    var prezime_e='<?php echo $prezime_err; ?>';
+    var datum_e='<?php echo $datum_err; ?>';
+    
+    var ime_v=document.forms['forma_za_unos'].ime.value;
     function Vrati(){
         window.location.href = "pocetna.php";
     }
     
-    function Action() {
-    document.getElementById("forma_unos").action = "konekcija.php";
+    function Izbrisi(){
+       if(document.getElementById("forma_unos").elements.namedItem("ime").value !="")
+       {ime_e="";}
+         else
+         {ime_e="Обавезан унос!";}
+        if(document.getElementById("forma_unos").elements.namedItem("prezime").value !="")
+        {prezime_e="";}
+        else
+        {prezime_e="Обавезан унос!";}
+        if(document.getElementById("forma_unos").elements.namedItem("ime").value !="" &&
+        document.getElementById("forma_unos").elements.namedItem("ime").value !=""   &&
+        document.getElementById("forma_unos").elements.namedItem("ime").value !="")
+        {datum_e="";}
+        else{datum_e="Обавезан унос!";}
+        document.getElementById('ime_label').innerHTML = ime_e;
+        document.getElementById('prezime_label').innerHTML = prezime_e;
+        document.getElementById('datum_label').innerHTML = prezime_e;
     }
+    function Resetuj()
+    {document.getElementById("forma_unos").elements.namedItem("ime").value="";
+     document.getElementById("forma_unos").elements.namedItem("prezime").value="";
+    document.getElementById("forma_unos").elements.namedItem("srednje_ime").value="";
+    document.getElementById("forma_unos").elements.namedItem("jmbg").value="";
+    document.getElementById("forma_unos").elements.namedItem("godina_rodjenja").value="";
+    document.getElementById("forma_unos").elements.namedItem("mesec_rodjenja").value="";
+    document.getElementById("forma_unos").elements.namedItem("dan_rodjenja").value="";
+    }
+    
  </script>
+
 <form id="forma_unos" action="forma_za_unos.php" method="post"><center>
         <hr>
-Име: <?php echo '<input type="text" name="ime" value="' . $ime . '">' . $ime_err; ?> <br><br>
-Презиме: <?php echo '<input type="text" name="prezime" value="' . $prezime . '">' . $prezime_err; ?><br><br>
+Име: <?php echo '<input type="text" name="ime" value="' . $ime . '" onfocusout="Izbrisi()">' ;?> 
+    <label id="ime_label">
+    <script type="text/javascript">
+     document.write(ime_e);
+    </script>
+     </label>
+<br><br>
+Презиме: <?php echo '<input type="text" name="prezime" value="' . $prezime . '"   onfocusout="Izbrisi()" >' ?>
+<label id="prezime_label">
+ <script type="text/javascript">
+      document.write(prezime_e);
+  </script>   
+</label><br><br>
 Име оца: <input type="text" name="srednje_ime"><br><br>
 Матични број: <input type="text" name="jmbg"><br><br>
 Година рођења:
@@ -68,7 +112,11 @@
         }
         echo '</select>';
     ?>   
-<?php echo $datum_err; ?>
+<label id="datum_label">
+    <script type="text/javascript">
+     document.write(datum_e);
+    </script>
+     </label>
 <br><br>
 Пол:<br>
 <input type="radio" name="pol" value="muski" checked> Мушки<br>
@@ -77,7 +125,7 @@
 <input type="submit"  value="Унеси"><br><br>
  
          <center>
-            <button type="reset" value="Reset">Ресетуј</button><br><br>
+            <button type="button" onclick="Resetuj();Izbrisi();">Ресетуј</button><br><br>
              
              <button type="button" onclick="Vrati()">Не желим више да уносим</button> 
         </center>
