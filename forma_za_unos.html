@@ -7,52 +7,20 @@
     var ime_e='<?php echo $ime_err; ?>';
     var prezime_e='<?php echo $prezime_err; ?>';
     var datum_e='<?php echo $datum_err; ?>';
-    
-    var ime_v=document.forms['forma_za_unos'].ime.value;
-    function Vrati(){
-        window.location.href = "pocetna.php";
-    }
-    
-    function Izbrisi(){
-       if(document.getElementById("forma_unos").elements.namedItem("ime").value !="")
-       {ime_e="";}
-         else
-         {ime_e="Обавезан унос!";}
-        if(document.getElementById("forma_unos").elements.namedItem("prezime").value !="")
-        {prezime_e="";}
-        else
-        {prezime_e="Обавезан унос!";}
-        if(document.getElementById("forma_unos").elements.namedItem("ime").value !="" &&
-        document.getElementById("forma_unos").elements.namedItem("ime").value !=""   &&
-        document.getElementById("forma_unos").elements.namedItem("ime").value !="")
-        {datum_e="";}
-        else{datum_e="Обавезан унос!";}
-        document.getElementById('ime_label').innerHTML = ime_e;
-        document.getElementById('prezime_label').innerHTML = prezime_e;
-        document.getElementById('datum_label').innerHTML = prezime_e;
-    }
-    function Resetuj()
-    {document.getElementById("forma_unos").elements.namedItem("ime").value="";
-     document.getElementById("forma_unos").elements.namedItem("prezime").value="";
-    document.getElementById("forma_unos").elements.namedItem("srednje_ime").value="";
-    document.getElementById("forma_unos").elements.namedItem("jmbg").value="";
-    document.getElementById("forma_unos").elements.namedItem("godina_rodjenja").value="";
-    document.getElementById("forma_unos").elements.namedItem("mesec_rodjenja").value="";
-    document.getElementById("forma_unos").elements.namedItem("dan_rodjenja").value="";
-    }
-    
  </script>
 
+ <script type="text/javascript" src="forma_za_unos.js"></script>
+ 
 <form id="forma_unos" action="forma_za_unos.php" method="post"><center>
         <hr>
-Име: <?php echo '<input type="text" name="ime" value="' . $ime . '" onfocusout="Izbrisi()">' ;?> 
+Име: <?php echo '<input type="text" name="ime" value="' . $ime . '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'Ime je obavezan podatak\')">' ;?> 
     <label id="ime_label">
     <script type="text/javascript">
      document.write(ime_e);
     </script>
      </label>
 <br><br>
-Презиме: <?php echo '<input type="text" name="prezime" value="' . $prezime . '"   onfocusout="Izbrisi()" >' ?>
+Презиме: <?php echo '<input type="text" name="prezime" value="' . $prezime . '" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Prezime je obavezan podatak\')" >' ?>
 <label id="prezime_label">
  <script type="text/javascript">
       document.write(prezime_e);
@@ -62,7 +30,7 @@
 Матични број: <input type="text" name="jmbg"><br><br>
 Година рођења:
 <?php 
-    echo '<select name="godina_rodjenja">';
+    echo '<select name="godina_rodjenja" onchange="SetLabels(\'forma_unos\', [\'godina_rodjenja\'], \'datum_label\', \'\', \'Godina rodjenja je obavezan podatak\')">';
     echo '<option value=""></option>';
     
         $pocetnaGod = date('Y', strtotime( '-25 year' , time()));
@@ -80,7 +48,7 @@
     ?>
 Месец:
     <?php 
-        echo '<select name="mesec_rodjenja">';
+        echo '<select name="mesec_rodjenja" onchange="SetLabels(\'forma_unos\', [\'mesec_rodjenja\'], \'datum_label\', \'\', \'Mesec rodjenja je obavezan podatak\')">';
         echo '<option value=""></option>';
 
         for ($i = 1; $i <= 12; $i++){
@@ -98,7 +66,7 @@
     
 Дан:
     <?php 
-        echo '<select name="dan_rodjenja">';
+        echo '<select name="dan_rodjenja" onchange="SetLabels(\'forma_unos\', [\'dan_rodjenja\'], \'datum_label\', \'\', \'Dan rodjenja je obavezan podatak\')">';
         echo '<option value=""></option>';
 
         for ($i = 1; $i < 32; $i++){
@@ -125,7 +93,7 @@
 <input type="submit"  value="Унеси"><br><br>
  
          <center>
-            <button type="button" onclick="Resetuj();Izbrisi();">Ресетуј</button><br><br>
+            <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'godina_rodjenja', 'mesec_rodjenja', 'dan_rodjenja'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Ресетуј</button><br><br>
              
              <button type="button" onclick="Vrati()">Не желим више да уносим</button> 
         </center>
