@@ -1,0 +1,67 @@
+
+
+ .div_class table{
+    table-layout: auto;
+    width: 100%; 
+/*    border: 1px solid black;*/
+    border-collapse: collapse;
+    vertical-align: middle;
+       
+}
+
+
+
+
+
+.div_class tr{
+    height:  50px;
+}
+
+ .div_class th{
+    /*border: 1px solid black;*/
+    
+   
+}
+
+.div_class td{
+  text-align: center; 
+/*  border: 1px solid black;  */
+   
+}
+
+.div_class button{
+    height: 30px;
+    width: 150px;
+}
+
+.div_class button:hover{
+    color:green;
+   
+}
+
+p.red_class {
+    color:red;
+    
+    
+}
+div.header_class {
+    width: 100%;
+/*    border: 3px solid brown;
+    border-radius: 5px;*/
+    text-align: center;
+}
+
+div.header_class p{
+ font-size: 50px;
+ 
+}
+
+.div_class input[type=text]{
+    border: 2px solid black;
+    border-radius: 4px;
+    
+}
+.div_class input[type=submit]{
+    height: 30px;
+    width: 150px;
+}

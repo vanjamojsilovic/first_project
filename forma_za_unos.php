@@ -11,17 +11,23 @@ $datum_err = $ime_err  = $prezime_err= '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
-    $dan= (!empty($_POST['dan_rodjenja'])?$_POST['dan_rodjenja']:0);
-    $mesec= (!empty($_POST['mesec_rodjenja'])?$_POST['mesec_rodjenja']:0);
-    $godina= (!empty($_POST['godina_rodjenja'])?$_POST['godina_rodjenja']:0);
+//    $dan= (!empty($_POST['dan_rodjenja'])?$_POST['dan_rodjenja']:0);
+//    $mesec= (!empty($_POST['mesec_rodjenja'])?$_POST['mesec_rodjenja']:0);
+//    $godina= (!empty($_POST['godina_rodjenja'])?$_POST['godina_rodjenja']:0);
 
-    if (empty($_POST['ime']) || empty($_POST['prezime']) || !checkdate($mesec, $dan, $godina)|| empty($dan) || empty($mesec) || empty($godina))
-    {
+    $dan= (!empty($_POST['bday'])? '' :0);
+   $mesec= (!empty($_POST['bday'])?'':0);
+   $godina= (!empty($_POST['bday'])?'':0);
+    
+   //    if (empty($_POST['ime']) || empty($_POST['prezime']) || !checkdate($mesec, $dan, $godina)|| empty($dan) || empty($mesec) || empty($godina))
+     if (empty($_POST['ime']) || empty($_POST['prezime'])){
         $ime_err = (empty($_POST['ime']) ? 'Обавезно унети!' : '');
         $prezime_err = (empty($_POST['prezime']) ? 'Обавезно унети!' : '');
-        $datum_err = ((empty($dan) || empty($mesec) || empty($godina)) ? 'Обавезно унети!' : (!checkdate($mesec,$dan,$godina) ? 'Neispravan datum' : ''));
+//        $datum_err = ((empty($dan) || empty($mesec) || empty($godina)) ? 'Обавезно унети!' : (!checkdate($mesec,$dan,$godina) ? 'Neispravan datum' : ''));      
+        $datum_err = (empty($_POST['bday']) ? 'Обавезно унети!' :  '');
         
-        // dodeljivanje null vrednosti
+
+// dodeljivanje null vrednosti
         $globalArray = array (
                                 'ime' => $_POST['ime'],
                                 'prezime' => $_POST['prezime'],
@@ -34,13 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     // ako je sve uneto kako treba
     else
     { 
-      /*  Action(); 
-     echo" <script type='text/javascript'>  
-         var a=\"konekcija.php\";
-        document.getElementById(\"forma_unos\").action = a;
-        document.getElementById(\"forma_unos\").submit();
-             </script>";
-        */
+     
         $servername = "localhost";
         $username = "root";
         $password = "";
@@ -71,10 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
           $prezime_zaposleni= test_input($_POST["prezime"]);
           $srednje_ime_zaposleni= test_input($_POST["srednje_ime"]);
           $jmbg_zaposleni= test_input($_POST["jmbg"]);
-          $godina_rodjenja=$_POST["godina_rodjenja"];
-          $mesec_rodjenja=$_POST["mesec_rodjenja"];
-          $dan_rodjenja=$_POST["dan_rodjenja"];
-          $datum_rodjenja_zaposleni=$godina_rodjenja.$crta.$mesec_rodjenja.$crta.$dan_rodjenja;
+//          $godina_rodjenja=$_POST["godina_rodjenja"];
+//          $mesec_rodjenja=$_POST["mesec_rodjenja"];
+//          $dan_rodjenja=$_POST["dan_rodjenja"];
+//          $datum_rodjenja_zaposleni=$godina_rodjenja.$crta.$mesec_rodjenja.$crta.$dan_rodjenja;
+          $datum_rodjenja_zaposleni=$_POST["bday"];
           if($_POST["pol"]=="muski")
               {$pol="m";}
               else
