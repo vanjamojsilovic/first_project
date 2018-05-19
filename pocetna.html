@@ -1,26 +1,49 @@
 <html>
-    <head>
-      
-        <meta charset="UTF-8">
+<head>
+    <link rel="stylesheet" type="text/css" href="Styles.css">  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
        
-    </head>
-    <body>
-       
       
-        <script type='text/javascript'>
-            function Unos(){
-            window.location.href = "forma_za_unos.php";
-            }
-            
-        
-         </script>
-         <br><br><br><center>
-          <button onclick="Unos()">Унос података</button> <br><br>
+    <script type='text/javascript'>
+        function Unos(){
+        window.location.href = "forma_za_unos.php";
+        }
+    </script>
+
+
           
+ <!--taken from w3schools Website Layout-->         
+  <div class="header">
+  <h1>Header</h1>
+  <p>Resize the browser window to see the responsive effect.</p>
+</div>
+
+<div class="topnav">
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+  <a href="#">Link</a>
+</div>
+
+<div class="row">
+  <div class="column side">
+    <h2>Left Side</h2>
+    <button onclick="Unos()">Insert data into database</button>
+  </div>
+  <div class="column middle">
+    <h2>In The Middle</h2>
+    <?php echo $names[0]['ime']; ?>
+
+
+</div>
+  <div class="column side">
+    <h2>Right Side</h2>
+    <p>Христос васкрсе!</p>
+  </div>
+</div>        
           
-          
-          
-          
-        </center>
-    </body>
+ <!--end-->
+</body>
 </html>

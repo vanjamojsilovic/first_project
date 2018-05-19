@@ -37,7 +37,7 @@ function employee_address($employee_id){
     if ($sqlResult->num_rows > 0) {
         while($row = $sqlResult->fetch_assoc()) {
             $row = array_map('utf8_encode', $row);
-            $result[] = $row;
+            $result[] = $row; 
         }
     }
     
@@ -105,11 +105,12 @@ if ($result->num_rows > 0) {
     $i = 0;
     while($row = $result->fetch_assoc()) {
         $row = array_map('utf8_encode', $row);
-        $emplooyes[] = $row;
+        
+        $emplooyes[] = $row; 
         $emplooyes[$i]['address'] = employee_address($emplooyes[$i]['id']);
         $emplooyes[$i]['education'] = employee_education($emplooyes[$i]['id']);
         $emplooyes[$i]['phone'] = employee_phone($emplooyes[$i]['id']);
-        
+       
         $i = $i + 1;
     }
 }
