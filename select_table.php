@@ -39,10 +39,5 @@ function db_disconnect($db_conection){
        
 
       db_disconnect($conn);
-      include_once 'pocetna.html';
-      include_once 'right_side.html';
-
-
-
-
-
+include_once 'select_table.html';
+include_once 'right_side.html';

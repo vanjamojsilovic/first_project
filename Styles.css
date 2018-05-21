@@ -68,7 +68,7 @@ div.header_class p{
 /*forma_za_unos.php end*/
 
 
-/* taken from w3schools Website Layout*/
+/* Website Layout*/
 
 * {
     box-sizing: border-box;
@@ -88,7 +88,7 @@ body {
 /* Style the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: #333;
+    background-color: #209020;
 }
 
 /* Style the topnav links */
@@ -111,6 +111,7 @@ body {
 .column {
     float: left;
     padding: 10px;
+    
 }
 
 /* Left and right column */
@@ -123,12 +124,7 @@ body {
     width: 50%;
 }
 
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
+
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
@@ -136,5 +132,28 @@ body {
         width: 100%;
     }
 } 
+
+
+
+
 /* Website Layout end  */
 
+/*select_table.php*/
+.column.middle table, tr, td, th {
+    
+    border: 1px solid black;
+    text-align: center;
+    
+}
+
+.column.middle table {
+border-collapse: collapse;
+}
+
+.column.middle td {
+max-width: 100px;
+}
+
+.image:hover {
+    opacity: 0.5;
+}
