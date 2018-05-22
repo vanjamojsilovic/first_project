@@ -1,12 +1,21 @@
 <html>
 <head>
+    
     <link rel="stylesheet" type="text/css" href="Styles.css">  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-       
-      
+     <script type="text/javascript" src="forma_za_unos.js"></script>  
+     <script type='text/javascript'>
+        function Unos(){
+        window.location.href = "forma_za_unos.php";
+        }
+        
+        function Select_table(){
+        window.location.href = "select_table.php";   
+        }
+    </script>
    
 
 
@@ -24,7 +33,7 @@
   <a href="#">Edit</a>
 </div>
  
-  <div class="column side">
+  <div class="column left">
     <h2>Left Side</h2>
     <button onclick="Unos()">Insert data</button><br><br>
     <button onclick="Select_table()">Employees</button>

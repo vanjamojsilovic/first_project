@@ -44,12 +44,10 @@
         }
     }
     
-    //        change background color of input elelment
-        
-    function Change_bgcolor(input_name, form_name){
-              
-                document.getElementById(form_name).elements.namedItem(input_name).style.backgroundColor = "red";
-             console.log(document.getElementById(form_name).elements.namedItem(input_name).style.backgroundColor);
-            
+    function Unos(){
+        window.location.href = "forma_za_unos.php";
         }
-    
+        
+    function Select_table(){
+        window.location.href = "select_table.php";   
+        }

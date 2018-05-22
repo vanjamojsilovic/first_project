@@ -38,10 +38,12 @@ function db_disconnect($db_conection){
 
        
 
-      db_disconnect($conn);
-      include_once 'pocetna.html';
-      include_once 'right_side.html';
+    db_disconnect($conn);
+    include_once 'pocetna.html';
 
+    echo "<div class='column right'>";
+    include_once 'right_side.html';
+    echo'</div>';
 
 
 

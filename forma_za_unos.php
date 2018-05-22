@@ -1,6 +1,6 @@
 <?php
 
-
+include_once 'website_layout.html';
  
 
 $datum_err = $ime_err  = $prezime_err= '';
@@ -19,10 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
    
      if (empty($_POST['ime']) || empty($_POST['prezime'])){
-        $ime_err = (empty($_POST['ime']) ? 'Обавезно унети!' : '');
-        $prezime_err = (empty($_POST['prezime']) ? 'Обавезно унети!' : '');
-      
-        $datum_err = (empty($_POST['bday']) ? 'Обавезно унети!' :  '');
+        $ime_err = (empty($_POST['ime']) ? 'Required!' : '');
+        $prezime_err = (empty($_POST['prezime']) ? 'Required!' : '');
+        $datum_err = (empty($_POST['bday'])  ? 'Required!' :  '');
         
 
 // dodeljivanje null vrednosti
@@ -124,6 +123,10 @@ else{
     $mesec_rodjenja = '';
     $godina_rodjenja = '';
 }
-
+echo '<div class="column middle">';
 include_once 'forma_za_unos.html';
-?>
+echo '</div>';
+echo "<div class='column right'>";
+include_once 'right_side.html';
+echo'</div>';
+

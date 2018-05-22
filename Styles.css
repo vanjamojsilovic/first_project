@@ -52,7 +52,7 @@ div.header_class {
 }
 
 div.header_class p{
- font-size: 50px;
+ font-size: 30px;
  
 }
 
@@ -88,7 +88,7 @@ body {
 /* Style the top navigation bar */
 .topnav {
     overflow: hidden;
-    background-color: #209020;
+    background-color: #202090;
 }
 
 /* Style the topnav links */
@@ -115,20 +115,27 @@ body {
 }
 
 /* Left and right column */
-.column.side {
+.column.left {
     width: 25%;
+    text-align: left;
+}
+
+.column.right {
+    width: 25%;
+    text-align: center;
 }
 
 /* Middle column */
 .column.middle {
     width: 50%;
+    text-align: center;
 }
 
 
 
 /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
-    .column.side, .column.middle {
+    .column.left, .column.middle, .column.right {
         width: 100%;
     }
 } 
@@ -150,8 +157,9 @@ body {
 border-collapse: collapse;
 }
 
+/*column width*/
 .column.middle td {
-max-width: 100px;
+width: 100px;
 }
 
 .image:hover {

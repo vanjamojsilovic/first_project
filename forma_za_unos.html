@@ -2,24 +2,33 @@
 <link rel="stylesheet" type="text/css" href="Styles.css">
 </head>    
 <body>
-   
+    <script type="text/javascript" src="forma_za_unos.js"></script>
+   <script type='text/javascript'>
+        function Unos(){
+        window.location.href = "forma_za_unos.php";
+        }
+        
+        function Select_table(){
+        window.location.href = "select_table.php";   
+        }
+    </script>
  <script type="text/javascript">
     
     var ime_e='<?php echo $ime_err; ?>';
     var prezime_e='<?php echo $prezime_err; ?>';
     var datum_e='<?php echo $datum_err; ?>';
     
-    ;
+    
  </script>
 
- <script type="text/javascript" src="forma_za_unos.js"></script>
+ 
  
  
  <form id="forma_unos" action="forma_za_unos.php" method="post">
-     <div class="header_class">
-     <p>Форма за унос података</p>
-    
-     </div>
+     <center>
+     <h2>Insert data</h2>
+     
+     </center>
      <div class="div_class">
      <table>
      <col width="30%">
@@ -31,7 +40,7 @@
      <td></td><td>
 
        
-Име:</td><td> 
+Name:</td><td> 
 <?php echo '<input type="text" name="ime" value="' . $ime . '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
      </td><td><label id="ime_label"><p class="red_class">
     <script type="text/javascript">
@@ -42,6 +51,7 @@
      else{
         document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor=""; 
      }
+   
     </script></p>
      </label>
 </td>
@@ -49,91 +59,53 @@
      </td>
      </tr><tr><td></td><td>
 
-Презиме: 
+Surename: 
 </td><td><?php echo '<input type="text" name="prezime" value="' . $prezime . '" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Обавезан податак!\')" >' ?>
 </td><td><label id="prezime_label"><p class="red_class">
  <script type="text/javascript">
       document.write(prezime_e);
+      if(prezime_e.length>0){
+         document.getElementById("forma_unos").elements.namedItem("prezime").style.backgroundColor="red";
+     }
+     else{
+        document.getElementById("forma_unos").elements.namedItem("prezime").style.backgroundColor=""; 
+     }
   </script>   </p>
 </label></td><td></td></tr><tr><td></td><td>
-Име оца: 
+Parent's name: 
 </td><td><input type="text" name="srednje_ime"></td><td></td><td></td></tr><tr><td></td><td>
-Матични број: 
-</td><td><input type="text" name="jmbg" border="3px"></td><td></td><td></td></tr><tr><td></td><td>Датум рођења:</td><td>
-<!--Година рођења:
-<?php 
-    echo '<select name="godina_rodjenja" onchange="SetLabels(\'forma_unos\', [\'godina_rodjenja\'], \'datum_label\', \'\', \'Godina rodjenja je obavezan podatak\')">';
-    echo '<option value=""></option>';
-    
-        $pocetnaGod = date('Y', strtotime( '-25 year' , time()));
-        $period = 10;
-        for ($i = 0; $i < $period; $i++){
-            $optVal = $pocetnaGod + $i;
-            if ($godina_rodjenja == $optVal){
-                echo '<option value="' . $optVal . '" selected>' . $optVal . '</option>';
-            }
-            else{
-                echo '<option value="' . $optVal . '">' . $optVal . '</option>';
-            }
-        }
-    echo '</select>';
-    ?>
-    <br><br>
-Месец:
-    <?php 
-        echo '<select name="mesec_rodjenja" onchange="SetLabels(\'forma_unos\', [\'mesec_rodjenja\'], \'datum_label\', \'\', \'Mesec rodjenja je obavezan podatak\')">';
-        echo '<option value=""></option>';
+JMBG: 
+</td><td><input type="text" name="jmbg" border="3px"></td><td></td><td></td></tr><tr><td></td><td>
+Date of bitrh:</td><td>
 
-        for ($i = 1; $i <= 12; $i++){
-            $month = substr('0' . $i, -2);
-            $monthName = date('M', strtotime( '2018-' . $i . '-01'));
-            if ($mesec_rodjenja == $month){
-                echo '<option value="' . $month . '" selected>' . $monthName . '</option>';
-            }
-            else{
-                echo '<option value="' . $month . '">' . $monthName . '</option>';
-            }
-        }
-        echo '</select>';
-    ?> 
-   <br><br> 
-Дан:
-    <?php 
-        echo '<select name="dan_rodjenja" onchange="SetLabels(\'forma_unos\', [\'dan_rodjenja\'], \'datum_label\', \'\', \'Dan rodjenja je obavezan podatak\')">';
-        echo '<option value=""></option>';
-
-        for ($i = 1; $i < 32; $i++){
-            $day = substr('0' . $i, -2);
-            if ($dan_rodjenja == $day){
-                echo '<option value="' . $day . '" selected>' . $day . '</option>';
-            }
-            else{
-                echo '<option value="' . $day . '">' . $day . '</option>';
-            }
-        }
-        echo '</select>';
-    ?>  
-    <br><br> -->
-    <input type="date" name="bday" value="2000-05-05" onchange="SetLabels('forma_unos', ['bday'], 'datum_label', '', 'Обавезан податак!')" >
+    <input type="date" name="bday" value="" onchange="SetLabels('forma_unos', ['bday'], 'datum_label', '', 'Required!')" >
      
-   </td><td><label id="datum_label"><p class="red_class">
+   </td><td><label id="datum_label" style="color:red" >
+                   <p class="red_class">
     <script type="text/javascript">
      document.write(datum_e);
+     if(datum_e.length>0){
+
+         document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="red";
+     }
+     else{
+        document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="";
+    }
     </script></p>
      </label>
     </td><td></td></tr><tr><td></td><td>
 
-Пол:</td><td>
-<input type="radio" name="pol" value="muski" checked> Мушки<br>
-<input type="radio" name="pol" value="zenski">Женски<br><br>
+Gender:</td><td>
+<input type="radio" name="pol" value="muski" checked> Male<br>
+<input type="radio" name="pol" value="zenski">Female<br><br>
 
-</td><td></td><td></td></tr><tr><td></td><td><input type="submit"  value="Унеси" >
+</td><td></td><td></td></tr><tr><td></td><td><input type="submit"  value="Insert" >
  
          
             
-        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Ресетуј</button>
+        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
              
-         </td><td><button type="button" onclick="Vrati()">Изађи</button></td><td></td></tr>   
+         </td><td><button type="button" onclick="Vrati()">Home page</button></td><td></td></tr>   
      
  </table></div>
  

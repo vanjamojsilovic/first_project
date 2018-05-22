@@ -19,15 +19,14 @@ function db_disconnect($db_conection){
 }
 
 
-            $sql = "SELECT ime, prezime, srednje_ime FROM zaposleni";
+            $sql = "SELECT ime, prezime, srednje_ime FROM zaposleni LIMIT 1, 2";
 
             $conn = db_connect();
 
             $result = $conn->query($sql);
             $names = [];
-            // fill the array
-            if ($result->num_rows > 0) {
             
+            if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $row = array_map('utf8_encode', $row);
                     
@@ -39,5 +38,9 @@ function db_disconnect($db_conection){
        
 
       db_disconnect($conn);
+echo "<div class='column middle'>";
 include_once 'select_table.html';
+echo'</div>';
+echo "<div class='column right'>";
 include_once 'right_side.html';
+echo'</div>';
