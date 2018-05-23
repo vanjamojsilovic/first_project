@@ -1,49 +1,16 @@
 <?php
 
+session_start();
+
+$_SESSION['employees_list_page'] = 0;
+
 include_once 'website_layout.html';
 
+include_once 'pocetna.html';
 
-function db_connect(){
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "agencija";   
-    
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    return $conn;
-}
-function db_disconnect($db_conection){
-    $db_conection->close();
-}
-
-
-            $sql = "SELECT ime, prezime, srednje_ime FROM zaposleni";
-
-            $conn = db_connect();
-
-            $result = $conn->query($sql);
-            $names = [];
-            // fill the array
-            if ($result->num_rows > 0) {
-            
-                while($row = $result->fetch_assoc()) {
-                    $row = array_map('utf8_encode', $row);
-                    
-                    $names[] = $row; 
-                    
-                }
-            }
-
-       
-
-    db_disconnect($conn);
-    include_once 'pocetna.html';
-
-    echo "<div class='column right'>";
-    include_once 'right_side.html';
-    echo'</div>';
+echo "<div class='column right'>";
+include_once 'right_side.html';
+echo'</div>';
 
 
 

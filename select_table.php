@@ -1,43 +1,19 @@
 <?php
 
+session_start();
+
 include_once 'website_layout.html';
 
+require('libs/db_methods.php');
 
-function db_connect(){
-
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "agencija";   
-    
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    
-    return $conn;
-}
-function db_disconnect($db_conection){
-    $db_conection->close();
+if (isset($_GET['page'])){
+    $_SESSION['employees_list_page'] = $_SESSION['employees_list_page'] + $_GET['page'];
 }
 
+$employees_data = new data_management();
 
-            $sql = "SELECT ime, prezime, srednje_ime FROM zaposleni";
-
-            $conn = db_connect();
-
-            $result = $conn->query($sql);
-            $names = [];
-            
-            if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    $row = array_map('utf8_encode', $row);
-                    
-                    $names[] = $row; 
-                    
-                }
-            }
-
-       
-
-      db_disconnect($conn);
+$employees_list = $employees_data->get_employees_list($_SESSION['employees_list_page'], 10);
+    
 echo "<div class='column middle'>";
 include_once 'select_table.html';
 echo'</div>';

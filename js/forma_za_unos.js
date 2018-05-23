@@ -1,5 +1,5 @@
     
-   
+   var currentPage = "<?php echo $_SESSION['employees_list_page']; ?>";
     
     function Vrati(){
         window.location.href = "pocetna.php";
@@ -42,6 +42,18 @@
         for (i = 0; i < elementNameArray.length; i++) {
             document.getElementById(formName).elements.namedItem(elementNameArray[i]).value = defaultValue;
         }
+    }
+    
+    function loadPage(pagePath){
+        window.location.href = pagePath;
+    }
+    
+    function getListPage(pageValue){
+//        var newPage = "select_table.php?page=" + pageValue;
+//        document.location = "select_table.php?page=" + pageValue;
+        history.pushState({}, "", "select_table.php?page=" + pageValue);
+//        console.log(newPage);
+//        loadPage(newPage);
     }
     
     function Unos(){
