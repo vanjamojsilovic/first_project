@@ -19,7 +19,7 @@ function db_disconnect($db_conection){
 }
 
 
-            $sql = "SELECT ime, prezime, srednje_ime FROM zaposleni LIMIT 1, 2";
+            $sql = "SELECT ime, prezime, srednje_ime FROM zaposleni";
 
             $conn = db_connect();
 
