@@ -1,43 +1,108 @@
 
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+    
+}
+
+.column.middle table{
+   
+    
+}
+/*select_table.php*/
+.column.middle table, tr, td, th {
+    
+    border: 1px solid black;
+    text-align: center;
+    
+}
+
+.column.middle table {
+border-collapse: collapse;
+width: 100%;
+}
+
+
+
+.image:hover {
+    opacity: 0.5;
+}
+
+
+/* Left and right column */
+.column.left {
+    width: 25%;
+    text-align: left;
+}
+
+.column.right {
+    width: 25%;
+    text-align: center;
+}
+
+/* Middle column */
+.column.middle {
+    width: 50%;
+    text-align: center;
+}
+
+
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column.left, .column.middle, .column.right {
+        width: 100%;
+    }
+} 
+
+
 /*forma_za_unos.html*/
- .div_class table{
+  div.insert_data table{
     table-layout: auto;
     width: 100%; 
-
     border-collapse: collapse;
     vertical-align: middle;
+    border-color: white;  
+}
+
+/*forma_za_unos.html*/
+div.insert_data td{
+    
+    text-align: left;
+    border-color: white; 
        
 }
 
 
 
 
-
-.div_class tr{
+div.insert_data tr{
     height:  50px;
 }
 
- .div_class th{
-    /*border: 1px solid black;*/
-    
-   
-}
+ 
 
-.div_class td{
-  text-align: center; 
-/*  border: 1px solid black;  */
-   
-}
 
-.div_class button{
+
+div.insert_data button{
     height: 30px;
     width: 150px;
 }
 
-.div_class button:hover{
+div.insert_data button:hover{
     color:green;
    
 }
+
+div.insert_data input[type=text]{
+    border: 2px solid black;
+    border-radius: 4px;
+    
+}
+div.insert_data input[type=submit]{
+    height: 30px;
+    width: 150px;
 
 p.red_class {
     color:red;
@@ -56,14 +121,7 @@ div.header_class p{
  
 }
 
-.div_class input[type=text]{
-    border: 2px solid black;
-    border-radius: 4px;
-    
-}
-.div_class input[type=submit]{
-    height: 30px;
-    width: 150px;
+
 } 
 /*forma_za_unos.php end*/
 
@@ -107,61 +165,8 @@ body {
     color: black;
 }
 
-/* Create three unequal columns that floats next to each other */
-.column {
-    float: left;
-    padding: 10px;
-    
-}
-
-/* Left and right column */
-.column.left {
-    width: 25%;
-    text-align: left;
-}
-
-.column.right {
-    width: 25%;
-    text-align: center;
-}
-
-/* Middle column */
-.column.middle {
-    width: 50%;
-    text-align: center;
-}
-
-
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-    .column.left, .column.middle, .column.right {
-        width: 100%;
-    }
-} 
 
 
 
 
-/* Website Layout end  */
 
-/*select_table.php*/
-.column.middle table, tr, td, th {
-    
-    border: 1px solid black;
-    text-align: center;
-    
-}
-
-.column.middle table {
-border-collapse: collapse;
-}
-
-/*column width*/
-.column.middle td {
-width: 100px;
-}
-
-.image:hover {
-    opacity: 0.5;
-}

@@ -8,9 +8,9 @@ include_once 'website_layout.html';
 
 include_once 'pocetna.html';
 
-echo "<div class='column right'>";
+//echo "<div class='column right'>";
 include_once 'right_side.html';
-echo'</div>';
+//echo'</div>';
 
 
 

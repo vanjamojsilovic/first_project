@@ -47,15 +47,19 @@
             $i=$i+1;
         } 
         
-        echo "</td></tr></table>";
+        echo "</td></tr>";
+        echo "</table>";
+        
       
         if ($_SESSION['employees_list_page'] > 0){
             echo '<a href="" onClick="getListPage(-1)">Previous</a>';
         }
-        
+        echo"&emsp;&emsp;&emsp;&emsp;";
         if($employees_list['offset']*$employees_list['row_count'] + $i <> $employees_list['total']){
             echo '<a href="" onClick="getListPage(1)">Next</a>';
         }
+        
+        
     ?>
     
     

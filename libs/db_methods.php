@@ -29,6 +29,7 @@ class data_management
         
         return $result;
     }
+    
     function get_employees_list($sql_offset = 0, $row_count = 20){
         $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM zaposleni LIMIT " . $sql_offset . ", " . $row_count;
 
@@ -56,5 +57,41 @@ class data_management
                             );
         
         return $employee_list;
+    }
+    
+    function search_data($table_name, $column_name, $letters){
+        $sql = "SELECT * FROM".$table_name."WHERE".$column_name." LIKE '%".$letters."%'";
+        
+        $this->db_connect();
+        $result = $this->db_connection->query($sql);
+        $row = $result->fetch_assoc();
+        $result = $row['recordCount'];
+        $this->db_disconnect();
+        
+        return $result;
+    }
+    
+    function update_data($table_name, $column_id , $row_id, $column_name, $new_data){
+        $sql = "UPDATE". $table_name ."SET". $column_name."='".$new_data."' WHERE". $column_id."=".$row_id;
+        
+        $this->db_connect();
+        $result = $this->db_connection->query($sql);
+        $row = $result->fetch_assoc();
+        $result = $row['recordCount'];
+        $this->db_disconnect();
+        
+        return $result;
+    }
+    
+    function insert_data($table_name, $column_name, $new_value,$column_id ,$row_id){
+        $sql = "INSERT INTO". $table_name ."(".$column_name.")VALUES ('".$new_value."')WHERE". $column_id."=".$row_id;
+        
+        $this->db_connect();
+        $result = $this->db_connection->query($sql);
+        $row = $result->fetch_assoc();
+        $result = $row['recordCount'];
+        $this->db_disconnect();
+        
+        return $result;
     }
 }

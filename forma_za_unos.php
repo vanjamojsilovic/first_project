@@ -126,7 +126,7 @@ else{
 echo '<div class="column middle">';
 include_once 'forma_za_unos.html';
 echo '</div>';
-echo "<div class='column right'>";
+
 include_once 'right_side.html';
-echo'</div>';
+
 

@@ -49,11 +49,10 @@
     }
     
     function getListPage(pageValue){
-//        var newPage = "select_table.php?page=" + pageValue;
-//        document.location = "select_table.php?page=" + pageValue;
+        
+         
         history.pushState({}, "", "select_table.php?page=" + pageValue);
-//        console.log(newPage);
-//        loadPage(newPage);
+
     }
     
     function Unos(){
