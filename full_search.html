@@ -32,58 +32,38 @@
 
        
 Name:</td><td> 
-<?php echo '<input type="text" name="ime" value="' . $ime . '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
-     </td><td><label id="ime_label"><p class="red_class">
-    <script type="text/javascript">
-     document.write(ime_e);
-     if(ime_e.length>0){
-         document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor="red";
-     }
-     else{
-        document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor=""; 
-     }
-   
-    </script></p>
+<?php echo '<input type="text" name="ime" value="' . $ime . '" >' ;?> 
+     </td><td><label id="ime_label">
+             
      </label>
 </td>
      
      </tr><tr><td>
 
 Surename: 
-</td><td><?php echo '<input type="text" name="prezime" value="' . $prezime . '" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Обавезан податак!\')" >' ?>
-</td><td><label id="prezime_label"><p class="red_class">
- <script type="text/javascript">
-      document.write(prezime_e);
-      if(prezime_e.length>0){
-         document.getElementById("forma_unos").elements.namedItem("prezime").style.backgroundColor="red";
-     }
-     else{
-        document.getElementById("forma_unos").elements.namedItem("prezime").style.backgroundColor=""; 
-     }
-  </script>   </p>
+</td><td><?php echo '<input type="text" name="prezime" value="' . $prezime . '"  >' ?>
+</td><td><label id="prezime_label">
 </label></td></tr><tr><td>
 Parent's name: 
 </td><td><input type="text" name="srednje_ime"></td><td></td></tr><tr><td>
 JMBG: 
-</td><td><input type="text" name="jmbg" border="3px"></td><td></td></tr><tr><td>
-Date of bitrh:</td><td>
-
-    <input type="date" name="bday" value="1990-01-01" onchange="SetLabels('forma_unos', ['bday'], 'datum_label', '', 'Required!')" >
+</td><td><input type="text" name="jmbg" border="3px"></td><td></td></tr><tr>
+        <td>
+           Date of bitrh - FROM:
+        </td>
+        <td>
+            <input name="bDateFrom" placeholder="" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" >
+        </td>
+        <td>
+           Date of bitrh - TO:
+        </td>
+        <td>
+            <input name="bDateTo" placeholder="" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" >
+        </td>
+     </tr>
      
-   </td><td><label id="datum_label" style="color:red" >
-                   <p class="red_class">
-    <script type="text/javascript">
-     document.write(datum_e);
-     if(datum_e.length>0){
-
-         document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="red";
-     }
-     else{
-        document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="";
-    }
-    </script></p>
-     </label>
-    </td></tr><tr><td>
+     
+     <tr><td>
 
 Gender:</td><td>
 <input type="radio" name="pol" value="muski" checked> Male<br>
@@ -93,7 +73,7 @@ Gender:</td><td>
  
          
             
-        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
+        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo'], '');">Reset</button>
              
          </td><td></td></tr>   
      

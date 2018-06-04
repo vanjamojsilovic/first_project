@@ -146,7 +146,8 @@ class data_management
         
         return $result;
     }
-     function search_data($table_name, $search_data, $sql_offset = 0, $row_count = 20){
+    
+    function search_data($table_name, $search_data, $sql_offset = 0, $row_count = 20){
     
         $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name." WHERE ";
         foreach ($search_data as $key => $value) {
@@ -181,6 +182,47 @@ class data_management
                                 "offset" => $sql_offset,
                                 "row_count" => $row_count,
                                 "total" => $this->table_count($sql_count)
+                            );
+        
+        return $employee_list;
+    }
+    
+    function get_employees_list_filter_full($search_data){
+        
+        $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM zaposleni WHERE ";
+        
+        foreach ($search_data as $criteria) {
+            if ($criteria['fType'] == 'text'){
+                $sql = $sql . $criteria['fName'] . " LIKE '" . $criteria['fValue'] . "%' AND ";
+            }
+            elseif ($criteria['fType'] == 'date') {
+                $sql = $sql . $criteria['fName']  . $criteria['fSign'] . " '" . $criteria['fValue'] . "' AND ";
+            }
+        }
+        
+        $sql = substr($sql, 0, strlen($sql) - 4);
+
+        $this->db_connect();
+        $result = $this->db_connection->query($sql);
+        
+        $names = [];
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $row = array_map('utf8_encode', $row);
+
+                $names[] = $row; 
+
+            }
+        }
+        
+        $this->db_disconnect();
+        $employee_list = array(
+                                "names" => $names, 
+                                "sql"=>$sql
+//                                "offset" => $sql_offset,
+//                                "row_count" => $row_count,
+//                                "total" => $this->table_count('zaposleni')
                             );
         
         return $employee_list;
