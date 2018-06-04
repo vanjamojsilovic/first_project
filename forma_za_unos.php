@@ -2,7 +2,7 @@
 
 include_once 'website_layout.html';
  
-
+require('libs/db_methods.php');
 $datum_err = $ime_err  = $prezime_err= '';
 
 
@@ -54,12 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $datum_rodjenja_zaposleni="";
         $pol="";
 
-        function test_input($data) {
-          $data = trim($data);
-          $data = stripslashes($data);
-          $data = htmlspecialchars($data);
-          return $data;
-        }
+       
 
 
 
@@ -76,32 +71,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
               {$pol="z";};
          }
 
-
-
+        $insert_data=array('ime'=>$ime_zaposleni, 
+                           'prezime'=>$prezime_zaposleni,
+                           'srednje_ime'=>$srednje_ime_zaposleni,
+                           'jmbg'=>$jmbg_zaposleni,
+                           'datum_rodjenja'=>$datum_rodjenja_zaposleni,
+                           'pol'=>$pol);
+        
+        $variable=new data_management();
+        $insert_result=$variable->insert_data('zaposleni', $insert_data);
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        } 
+       
 
-        $sql = "INSERT INTO zaposleni (ime, prezime, srednje_ime, jmbg, datum_rodjenja,pol) "
-                . "VALUES ('$ime_zaposleni',"
-                . "'$prezime_zaposleni',"
-                . "'$srednje_ime_zaposleni',"
-                . "'$jmbg_zaposleni',"
-                . "'$datum_rodjenja_zaposleni',"
-                . "'$pol')";
-
-        if ($conn->query($sql) === TRUE) {
+        if ($insert_result === TRUE) {
             header('Location: ponovo.php');
 
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $sql . "<br>" ;
         }
 
-        $conn->close();
+     
         // posle unosenja vrednosti u bazu, dodeljujemo prazne stringove
         // da bi smo imali novi unos - reset
 //   
@@ -125,6 +115,7 @@ else{
 }
 echo '<div class="column middle">';
 include_once 'forma_za_unos.html';
+include_once 'small_serch.html';
 echo '</div>';
 
 include_once 'right_side.html';

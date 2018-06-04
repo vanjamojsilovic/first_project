@@ -55,6 +55,13 @@
 
     }
     
+    function getFilterListPage(pageValue){
+        
+         
+        history.pushState({}, "", "search_list.php?page=" + pageValue);
+
+    }
+    
     function Unos(){
         window.location.href = "forma_za_unos.php";
         }
@@ -62,3 +69,10 @@
     function Select_table(){
         window.location.href = "select_table.php";   
         }
+        
+    function Full_search(){
+        window.location.href = "full_search.php";
+    }
+    function Clear_session(){
+         
+    }

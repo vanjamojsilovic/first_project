@@ -1,4 +1,6 @@
 
+
+
 /* Create three unequal columns that floats next to each other */
 .column {
     float: left;
@@ -6,23 +8,32 @@
     
 }
 
-.column.middle table{
-   
-    
-}
+
 /*select_table.php*/
-.column.middle table, tr, td, th {
+div.select_table table, tr, td, th {
     
     border: 1px solid black;
     text-align: center;
     
 }
 
-.column.middle table {
+div.no_border table, tr, td, th {
+    
+   border-color: white;
+   text-align: center;
+    
+}
+
+
+div.select_table table {
 border-collapse: collapse;
 width: 100%;
 }
 
+div.no_border table {
+border-collapse: collapse;
+width: 100%;
+}
 
 
 .image:hover {
@@ -163,6 +174,9 @@ body {
 .topnav a:hover {
     background-color: #ddd;
     color: black;
+}
+div.no_border table, tr, td {
+    border-color: white ;
 }
 
 

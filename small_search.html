@@ -1,0 +1,53 @@
+<html>
+    <head>
+       
+        <meta charset="UTF-8">
+        
+    </head>
+    <body>
+       
+    <div class="select_table">
+    <?php
+        
+        echo "<table>";
+        
+        $i=0;
+        while($i < count($employees_list['names'])){
+            echo "<tr id='zaposleni_" . $employees_list["names"][$i]["id_zaposleni"] . "'>";
+             if(array_key_exists ( 'offset' , $employees_list )){
+                echo "<td>" . ($employees_list['offset']*$employees_list['row_count'] + $i + 1) . "</td>";
+            }
+            else{
+                echo "<td>" . ($i + 1) . "</td>";
+            }
+            echo "<td>";
+            foreach($employees_list['names'][$i] as $x => $x_value){
+                if ($x <> "id_zaposleni"){
+                    echo $x_value;
+                    echo '</td><td>';
+                }
+            }
+            echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a><br><br>'
+            .'<a href="#"><img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
+            ."</td></tr>";
+            $i=$i+1;
+        } 
+        
+        echo "</td></tr>";
+        echo "</table>";
+        
+        if(array_key_exists ( 'offset' , $employees_list )){
+            if ($_SESSION['employees_filter_list_page'] > 0){
+                echo '<a href="" onClick="getFilterListPage(-1)">Previous</a>';
+            }
+            echo"&emsp;&emsp;&emsp;&emsp;";
+            
+            if($employees_list['offset']*$employees_list['row_count'] + $i <> $employees_list['total']){
+                echo '<a href="" onClick="getFilterListPage(1)">Next</a>';
+            }
+        }
+        
+    ?>
+    </div>
+    </body>
+</html>
