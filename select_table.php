@@ -53,7 +53,7 @@ else{
                 $_SESSION['employees_list_page'] = $_SESSION['employees_list_page'] + $_GET['page'];
                                                   }
                                 }
-    }
+                            }
 
     $employees_data = new data_management();
 

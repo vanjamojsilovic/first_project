@@ -29,7 +29,7 @@ if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'
     
 }
 else{
-    // pagination
+    // ako kliknemo na next ili na previous
     if (isset($_GET['page'])){
         if($_GET['page']==1){
             if($_SESSION['employees_filter_list_page']>=0){
@@ -50,6 +50,5 @@ else{
 }
 include_once 'search_list.html';
 
-//echo "<div class='column right'>";
 include_once 'right_side.html';
 
