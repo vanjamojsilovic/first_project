@@ -136,9 +136,6 @@ class data_management
         $sql = substr($sql, 0, strlen($sql) - 2);
         
         $sql=$sql.")";
-        
-         
-        
         $this->db_connect();
         $result = $this->db_connection->query($sql);
        
@@ -157,10 +154,6 @@ class data_management
         $sql_count="( ".$sql." )";
         $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
        
-      
-       
-       
-        
         $this->db_connect();
         $result = $this->db_connection->query($sql);
         
@@ -187,21 +180,38 @@ class data_management
         return $employee_list;
     }
     
-    function get_employees_list_filter_full($search_data){
+    function get_employees_list_filter_full($table_name,$search_data,$sql_offset = 0,$row_count = 20){
         
-        $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM zaposleni WHERE ";
+        $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name. " WHERE ";
         
-        foreach ($search_data as $criteria) {
-            if ($criteria['fType'] == 'text'){
-                $sql = $sql . $criteria['fName'] . " LIKE '" . $criteria['fValue'] . "%' AND ";
-            }
-            elseif ($criteria['fType'] == 'date') {
-                $sql = $sql . $criteria['fName']  . $criteria['fSign'] . " '" . $criteria['fValue'] . "' AND ";
-            }
+        if(empty($search_data)){
+            $sql = substr($sql, 0, strlen($sql) - 6);
+            $sql_count="( ".$sql." )";
+            $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
         }
-        
-        $sql = substr($sql, 0, strlen($sql) - 4);
+        else{
+            foreach ($search_data as $criteria) {
 
+                        if ($criteria['fType'] == 'text'){
+                            $sql = $sql . $criteria['fName'] . " LIKE '" . $criteria['fValue'] . "%' AND ";
+                        }
+                        elseif ($criteria['fType'] == 'date') {
+                            $sql = $sql . $criteria['fName']  . $criteria['fSign'] . " '" . $criteria['fValue'] . "' AND ";
+                        }
+                        elseif ($criteria['fType'] == 'enum_text') {
+                            $sql = $sql . $criteria['fName'] . " = '" . $criteria['fValue'] . "' AND ";
+                        }
+
+                }
+            
+
+
+            $sql = substr($sql, 0, strlen($sql) - 4);
+            $sql_count="( ".$sql." )";
+            $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
+            
+        }
+        var_dump($sql);
         $this->db_connect();
         $result = $this->db_connection->query($sql);
         
@@ -219,10 +229,10 @@ class data_management
         $this->db_disconnect();
         $employee_list = array(
                                 "names" => $names, 
-                                "sql"=>$sql
-//                                "offset" => $sql_offset,
-//                                "row_count" => $row_count,
-//                                "total" => $this->table_count('zaposleni')
+                                "sql" => $sql,
+                                "offset" => $sql_offset,
+                                "row_count" => $row_count,
+                                "total" => $this->table_count($sql_count)
                             );
         
         return $employee_list;

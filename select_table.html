@@ -62,7 +62,7 @@
               <input type="submit"  value="Search list" >
             </td>
             <td>
-              <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '')">Clear</button>
+              <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '');loadPage('select_table.php')">Clear</button>
             </td>
         </tr>
     </table>
@@ -90,7 +90,7 @@
                     echo '</td><td>';
                 }
             }
-            echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a><br><br>'
+            echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a>&emsp;&emsp;'
             .'<a href="#"><img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
             ."</td></tr>";
             $i=$i+1;

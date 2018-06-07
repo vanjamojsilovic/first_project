@@ -1,20 +1,8 @@
 <html><meta charset="utf-8">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>    
-<body>
-    
- <script type="text/javascript">
-    
-    var ime_e='<?php echo $ime_err; ?>';
-    var prezime_e='<?php echo $prezime_err; ?>';
-    var datum_e='<?php echo $datum_err; ?>';
-    
-    
- </script>
-
- 
-  <div class="column middle">
-    
+<body> 
+  <div class="column middle">   
  
  <form id="forma_unos" action="full_search.php" method="post">
      <center>
@@ -22,63 +10,166 @@
      
      </center>
      <div class="insert_data">
-     <table>
+        <table>
 
-     <col width="">
-     <col width="">
-     <col width=""> 
-     <tr>
-     <td>
+        <col width="">
+        <col width="">
+        <col width=""> 
+        <tr>
+           <td>       
+               Name:
+           </td>
+           <td> 
+               <?php 
+                    echo '<input type="text" name="ime" value="'.$_SESSION['data_array']['ime'].'" >';?> 
+               
+           </td>
+           <td>
+           </td>
+       </tr>
+       <tr>
+           <td>
+               Surename: 
+           </td>
+           <td>
+               <?php echo '<input type="text" name="prezime" value="'.$_SESSION['data_array']['prezime'].'"  >';?>
+           </td>
+           <td>
+           </td>
+       </tr>
+       <tr>
+           <td>
+               Parent's name: 
+           </td>
+           <td>
+               <?php echo '<input type="text" name="srednje_ime" value="'.$_SESSION['data_array']['srednje_ime'].'"  >';?>
+           </td>
+           <td>            
+           </td>
+       </tr>
+       <tr>
+           <td>
+               JMBG: 
+           </td>
+           <td>
+                <?php echo '<input type="text" name="jmbg" border="3px" value="'.$_SESSION['data_array']['jmbg'].'"  >'; ?>
+           </td>
+           <td>            
+           </td>
+       </tr>
+       <tr>
+           <td>
+              Date of bitrh - FROM:
+           </td>
+           <td>
+              <?php echo '<input name="bDateFrom" placeholder="" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="'.$_SESSION['data_array']['datum_rodjenja_od'].'"  >'; ?>
 
-       
-Name:</td><td> 
-<?php echo '<input type="text" name="ime" value="' . $ime . '" >' ;?> 
-     </td><td><label id="ime_label">
-             
-     </label>
-</td>
-     
-     </tr><tr><td>
+           </td>
+           <td>               
+           </td>        
+       </tr>
+       <tr>
+           <td>
+               Date of bitrh - TO:
+           </td>
+           <td>
+              <?php echo '<input name="bDateTo" placeholder="" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="'.$_SESSION['data_array']['datum_rodjenja_do'].'"  >' ;?>
 
-Surename: 
-</td><td><?php echo '<input type="text" name="prezime" value="' . $prezime . '"  >' ?>
-</td><td><label id="prezime_label">
-</label></td></tr><tr><td>
-Parent's name: 
-</td><td><input type="text" name="srednje_ime"></td><td></td></tr><tr><td>
-JMBG: 
-</td><td><input type="text" name="jmbg" border="3px"></td><td></td></tr><tr>
-        <td>
-           Date of bitrh - FROM:
-        </td>
-        <td>
-            <input name="bDateFrom" placeholder="" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" >
-        </td>
-        <td>
-           Date of bitrh - TO:
-        </td>
-        <td>
-            <input name="bDateTo" placeholder="" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" >
-        </td>
-     </tr>
-     
-     
-     <tr><td>
-
-Gender:</td><td>
-<input type="radio" name="pol" value="muski" checked> Male<br>
-<input type="radio" name="pol" value="zenski">Female<br>
-
-</td><td></td></tr><tr><td><input type="submit"  value="Search" >
- 
-         
+           </td>
+           <td>               
+           </td>        
+       </tr>
+       <tr>
+           <td>
+               Gender:
+           </td>
+           <td>
+               <?php echo '<input type="radio" name="pol" value="m">'; ?>
+               Male<br>
+               <?php echo '<input type="radio" name="pol" value="z">'; ?>
+               Female<br>
+           </td>
+           <td>            
+           </td>
+       </tr>
+       <tr>
+           <td>
+               <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo','pol'], '');loadPage('blanco.php')">Reset</button>
+           </td>
+           <td>
+                            
+           </td>
+           <td>
+               <input type="submit"  value="Search" >
+           </td>
+       </tr>     
+    </table>
+     </div>
+        <?php
+        
+        echo "<table>";
+        
+        $i=0;
+        while($i < count($employees_list['names'])){
+            echo "<tr id='zaposleni_" . $employees_list["names"][$i]["id_zaposleni"] . "'>";
+             if(array_key_exists ( 'offset' , $employees_list )){
+                echo "<td>" . ($employees_list['offset']*$employees_list['row_count'] + $i + 1) . "</td>";
+            }
+            else{
+                echo "<td>" . ($i + 1) . "</td>";
+            }
+            echo "<td>";
+            foreach($employees_list['names'][$i] as $x => $x_value){
+                if ($x <> "id_zaposleni"){
+                    echo $x_value;
+                    echo '</td><td>';
+                }
+            }
+            echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a>&emsp;&emsp;'
+            .'<a href="#"><img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
+            ."</td></tr>";
+            $i=$i+1;
+        } 
+        
+        echo "</td></tr>";
+        echo "</table>";
+        
+        if(array_key_exists ( 'offset' , $employees_list )){
+            $row_count_list=false;
             
-        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo'], '');">Reset</button>
-             
-         </td><td></td></tr>   
-     
- </table></div>
- 
+            if ($_SESSION['full_filter_list_page'] > 0){
+                $row_count_list=true;
+                echo '<a href="" onClick="getFullFilterListPage(-1)">Previous</a>';
+            }
+            echo"&emsp;&emsp;&emsp;&emsp;";
+            
+            if($employees_list['offset']*$employees_list['row_count'] + $i <> $employees_list['total']){
+                $row_count_list=true;
+                echo '<a href="" onClick="getFullFilterListPage(1)">Next</a>';
+            }
+            if($row_count_list){
+            echo '<select name="select_limit" >'; 
+          
+               
+                $i=1;
+                while($i<=10){
+                    if($_SESSION["limit"]==$i*5){
+                        
+                        echo '<option selected="selected" value="'.($i*5).'">'.($i*5).'</option>';
+                        
+                    }
+                    else{
+                        echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+                    }
+                    $i=$i+1;
+                }
+            echo '</select>';
+           
+            
+            }
+        }
+        
+    ?>
  
 </body>
 </html>    

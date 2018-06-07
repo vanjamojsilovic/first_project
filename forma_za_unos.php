@@ -115,7 +115,7 @@ else{
 }
 echo '<div class="column middle">';
 include_once 'forma_za_unos.html';
-include_once 'small_serch.html';
+//include_once 'small_search.html';
 echo '</div>';
 
 include_once 'right_side.html';

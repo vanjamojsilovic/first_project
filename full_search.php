@@ -3,33 +3,32 @@ session_start();
 include_once 'website_layout.html';
 
 require('libs/db_methods.php');
-$datum_err = $ime_err  = $prezime_err= '';
+//$datum_err = $ime_err  = $prezime_err= '';
 
 
 
 
 // cuvanje prethodno unetih vrednosti cak i kad nisu sve unete
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
-//    $dan= (!empty($_POST['bday'])? '' :0);
-//    $mesec= (!empty($_POST['bday'])?'':0);
-//    $godina= (!empty($_POST['bday'])?'':0);
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST"){     
     $data_array=array();
     $filter_array = array();
+    $_SESSION['full_filter_list_page']=0;
+    
     if(!empty($_POST['ime']) && isset($_POST['ime'])){
+        //only one row
         $criteria_array = array(
                                 "fType" => 'text', 
                                 "fName" => 'ime', 
                                 "fValue" => $_POST['ime']
                                 );
-        $data_array['ime'] = $_POST['ime'];
+       $_SESSION['data_array']['ime'] = $_POST['ime'];
     }
     else{
         $criteria_array = array(
                                 "fType" => 'none'
                                 );
-        $data_array['ime'] = '';
+        $_SESSION['data_array']['ime'] = '';
     }
     $filter_array[] = $criteria_array;
     
@@ -39,22 +38,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 "fName" => 'prezime', 
                                 "fValue" => $_POST['prezime']
                                 );
-        $data_array['prezime'] = $_POST['prezime'];
+        $_SESSION['data_array']['prezime'] = $_POST['prezime'];
     }
     else{
         $criteria_array = array(
                                 "fType" => 'none'
                                 );
-        $data_array['prezime'] = "";
+        $_SESSION['data_array']['prezime'] = "";
     }
     $filter_array[] = $criteria_array;
     
-//    if(!empty($_POST['srednje_ime']) && isset($_POST['srednje_ime'])){
-//        $data_array['srednje_ime']=$_POST['srednje_ime'];
-//    }
-//    else{
-//        $data_array['srednje_ime'] = "";
-//    }
+    if(!empty($_POST['srednje_ime']) && isset($_POST['srednje_ime'])){
+           $criteria_array = array(
+                                   "fType" => 'text', 
+                                   "fName" => 'srednje_ime', 
+                                   "fValue" => $_POST['srednje_ime']
+                                   );
+           $_SESSION['data_array']['srednje_ime'] = $_POST['srednje_ime'];
+       }
+       else{
+           $criteria_array = array(
+                                   "fType" => 'none'
+                                   );
+           $_SESSION['data_array']['srednje_ime'] = "";
+       }
+       $filter_array[] = $criteria_array;  
+       
+       if(!empty($_POST['jmbg']) && isset($_POST['jmbg'])){
+           $criteria_array = array(
+                                   "fType" => 'text', 
+                                   "fName" => 'jmbg', 
+                                   "fValue" => $_POST['srednje_ime']
+                                   );
+           $_SESSION['data_array']['jmbg'] = $_POST['jmbg'];
+       }
+       else{
+           $criteria_array = array(
+                                   "fType" => 'none'
+                                   );
+           $_SESSION['data_array']['jmbg'] = "";
+       }
+       $filter_array[] = $criteria_array;  
+
     
     if(!empty($_POST['bDateFrom']) && isset($_POST['bDateFrom'])){
         $criteria_array = array(
@@ -63,13 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 "fValue" => $_POST['bDateFrom'] . ' 00:00:00',
                                 "fSign" => '>='
                                 );
-        $data_array['datum_rodjenja_od'] = $_POST['bDateFrom'];
+        $_SESSION['data_array']['datum_rodjenja_od'] = $_POST['bDateFrom'];
     }
     else{
         $criteria_array = array(
                                 "fType" => 'none'
                                 );
-        $data_array['datum_rodjenja_od'] = "";
+        $_SESSION['data_array']['datum_rodjenja_od'] = "";
     }
     $filter_array[] = $criteria_array;
     
@@ -80,75 +105,87 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                                 "fValue" => $_POST['bDateTo'] . ' 23:59:59',
                                 "fSign" => '<='
                                 );
-        $data_array['datum_rodjenja_do']=$_POST['bDateTo'];
+        $_SESSION['data_array']['datum_rodjenja_do']=$_POST['bDateTo'];
     }
     else{
         $criteria_array = array(
                                 "fType" => 'none'
                                 );
-        $data_array['datum_rodjenja_do'] = "";
+        $_SESSION['data_array']['datum_rodjenja_do'] = "";
+    }
+    $filter_array[] = $criteria_array;
+    if(!empty($_POST['pol']) && isset($_POST['pol'])){
+        $criteria_array = array(
+                                "fType" => 'enum_text', 
+                                "fName" => 'pol', 
+                                "fValue" => $_POST['pol'],
+                           
+                                );
+        $_SESSION['data_array']['pol'] = $_POST['pol'];
+    }
+    else{
+        $criteria_array = array(
+                                "fType" => 'none'
+                                );
+        $_SESSION['data_array']['pol'] = "";
     }
     $filter_array[] = $criteria_array;
     
-   
-//     if (empty($_POST['ime']) || empty($_POST['prezime'])){
-//        $ime_err = (empty($_POST['ime']) ? 'Required!' : '');
-//        $prezime_err = (empty($_POST['prezime']) ? 'Required!' : '');
-//        $datum_err = (empty($_POST['bday'])  ? 'Required!' :  '');
-        
-
-// dodeljivanje null vrednosti
-//    $globalArray = array (
-//                            'ime' => $_POST['ime'],
-//                            'prezime' => $_POST['prezime'],
-//                            'dan_rodjenja' => $dan,
-//                            'mesec_rodjenja' => $mesec,
-//                            'godina_rodjenja' => $godina
-//                            );
-    $_SESSION['data_array'] = $data_array;
-                                
+    $_SESSION['filter_data_array']=$filter_array;
+    
+    
+    
+     // ako kliknemo na next ili na previous
+    if (isset($_GET['page'])){
+        if($_GET['page']==1){
+            if($_SESSION['full_filter_list_page']>=0){
+                $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+                                                    }
+                            }
+        elseif($_GET['page']==-1){
+            if($_SESSION['full_filter_list_page']>0){
+                $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+                                                  }
+                                }
+                            }
+//                             
+                            
     $variable=new data_management();
-    $employees_list =$variable->get_employees_list_filter_full($filter_array);
+    $employees_list =$variable->get_employees_list_filter_full('zaposleni',$filter_array,$_SESSION['full_filter_list_page'],$_SESSION['limit']);
+ 
 }
-// ako je sve uneto kako treba
+// load page on the beginning
 else{
-    $ime_zaposleni ="";
-    $prezime_zaposleni="";
-    $srednje_ime_zaposleni="";
-    $jmbg_zaposleni="";
-    $godina_rodjenja="";
-    $mesec_rodjenja="";
-    $dan_rodjenja="";
-    $crta="-";
-    $datum_rodjenja_zaposleni="";
-    $pol="";
 
-    $_SESSION['data_array'] =array('ime'=>$ime_zaposleni, 
-                               'prezime'=>$prezime_zaposleni,
-                               'srednje_ime'=>$srednje_ime_zaposleni,
-                               'jmbg'=>$jmbg_zaposleni,
-                               'datum_rodjenja'=>$datum_rodjenja_zaposleni,
-                               'pol'=>$pol);
+ 
 
+//    $filter_array =array();
+                        
+     
+         
+    // ako kliknemo na next ili na previous
+    if (isset($_GET['page'])){
+        if($_GET['page']==1){
+            if($_SESSION['full_filter_list_page']>=0){
+                $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+                                                    }
+                            }
+        elseif($_GET['page']==-1){
+            if($_SESSION['full_filter_list_page']>0){
+                $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+                                                  }
+                                }
+                            }
+                                                     
     $variable=new data_management();
-    $employees_list =$variable->get_employees_list($_SESSION['employees_list_page'], 10);
+    $employees_list =$variable->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);
 }
 
-if (isset($_SESSION['data_array']) && !empty($_SESSION['data_array'])){
-    extract($_SESSION['data_array']);
-}
-else{
-    // kada se prvi put otvara strana
-    $ime = '';
-    $prezime = '';
-    $dan_rodjenja = '';
-    $mesec_rodjenja = '';
-    $godina_rodjenja = '';
-}
 
 include_once 'full_search.html';
 
-include_once 'small_search.html';
+//include_once 'small_search.html';
+
 
 echo "</div>";
 

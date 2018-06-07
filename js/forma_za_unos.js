@@ -62,6 +62,13 @@
 
     }
     
+    function getFullFilterListPage(pageValue){
+        
+         // proslediti i page_size
+        history.pushState({}, "", "full_search.php?page=" + pageValue);
+
+    }
+    
     function Unos(){
         window.location.href = "forma_za_unos.php";
         }
@@ -73,6 +80,5 @@
     function Full_search(){
         window.location.href = "full_search.php";
     }
-    function Clear_session(){
-         
-    }
+    
+    
