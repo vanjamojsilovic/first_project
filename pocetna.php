@@ -5,6 +5,7 @@ session_start();
 $_SESSION['employees_list_page'] = 0;
 $_SESSION['employees_filter_list_page'] = 0;
 $_SESSION['data_array']=array();
+<<<<<<< HEAD
  $_SESSION['data_array']['ime'] = '';
  $_SESSION['data_array']['prezime'] = "";
  $_SESSION['data_array']['srednje_ime'] = "";
@@ -16,6 +17,10 @@ $_SESSION['full_filter_list_page'] = 0;
 $_SESSION['filter_data_array']=array();
 $_SESSION['full_employees_list_page']=0;
 $_SESSION['limit']=10;
+=======
+$_SESSION['full_filter_list_page'] = 0;
+$_SESSION['filter_data_array']=array();
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
 
 include_once 'website_layout.html';
 

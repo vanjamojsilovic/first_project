@@ -20,9 +20,13 @@
                Name:
            </td>
            <td> 
+<<<<<<< HEAD
                <?php 
                     echo '<input type="text" name="ime" value="'.$_SESSION['data_array']['ime'].'" >';?> 
                
+=======
+               <?php echo '<input type="text" name="ime" value="' .$_SESSION['data_array']['ime']. '" >' ;?> 
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
            </td>
            <td>
            </td>
@@ -32,7 +36,11 @@
                Surename: 
            </td>
            <td>
+<<<<<<< HEAD
                <?php echo '<input type="text" name="prezime" value="'.$_SESSION['data_array']['prezime'].'"  >';?>
+=======
+               <?php echo '<input type="text" name="prezime" value="' .$_SESSION['data_array']['prezime']. '"  >' ?>
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
            </td>
            <td>
            </td>
@@ -42,7 +50,11 @@
                Parent's name: 
            </td>
            <td>
+<<<<<<< HEAD
                <?php echo '<input type="text" name="srednje_ime" value="'.$_SESSION['data_array']['srednje_ime'].'"  >';?>
+=======
+               <input type="text" name="srednje_ime">
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
            </td>
            <td>            
            </td>
@@ -52,8 +64,12 @@
                JMBG: 
            </td>
            <td>
+<<<<<<< HEAD
                 <?php echo '<input type="text" name="jmbg" border="3px" value="'.$_SESSION['data_array']['jmbg'].'"  >'; ?>
            </td>
+=======
+               <input type="text" name="jmbg" border="3px"></td>
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
            <td>            
            </td>
        </tr>
@@ -62,7 +78,11 @@
               Date of bitrh - FROM:
            </td>
            <td>
+<<<<<<< HEAD
               <?php echo '<input name="bDateFrom" placeholder="" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="'.$_SESSION['data_array']['datum_rodjenja_od'].'"  >'; ?>
+=======
+              <input name="bDateFrom" placeholder="" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" >
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
 
            </td>
            <td>               
@@ -73,7 +93,11 @@
                Date of bitrh - TO:
            </td>
            <td>
+<<<<<<< HEAD
               <?php echo '<input name="bDateTo" placeholder="" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="'.$_SESSION['data_array']['datum_rodjenja_do'].'"  >' ;?>
+=======
+              <input name="bDateTo" placeholder="" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" >
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
 
            </td>
            <td>               
@@ -84,17 +108,26 @@
                Gender:
            </td>
            <td>
+<<<<<<< HEAD
                <?php echo '<input type="radio" name="pol" value="m">'; ?>
                Male<br>
                <?php echo '<input type="radio" name="pol" value="z">'; ?>
                Female<br>
+=======
+               <input type="radio" name="pol" value="muski" checked> Male<br>
+               <input type="radio" name="pol" value="zenski">Female<br>
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
            </td>
            <td>            
            </td>
        </tr>
        <tr>
            <td>
+<<<<<<< HEAD
                <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo','pol'], '');loadPage('blanco.php')">Reset</button>
+=======
+               <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo'], '');loadPage('full_search.php')">Reset</button>
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
            </td>
            <td>
                             
@@ -135,6 +168,7 @@
         echo "</table>";
         
         if(array_key_exists ( 'offset' , $employees_list )){
+<<<<<<< HEAD
             $row_count_list=false;
             
             if ($_SESSION['full_filter_list_page'] > 0){
@@ -167,6 +201,16 @@
            
             
             }
+=======
+            if ($_SESSION['full_filter_list_page'] > 0){
+                echo '<a href="" onClick="getFullFilterListPage(-1)">Previous</a>';
+            }
+            echo"&emsp;&emsp;&emsp;&emsp;";
+            
+            if($employees_list['offset']*$employees_list['row_count'] + $i <> $employees_list['total']){
+                echo '<a href="" onClick="getFullFilterListPage(1)">Next</a>';
+            }
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
         }
         
     ?>

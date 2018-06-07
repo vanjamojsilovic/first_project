@@ -181,6 +181,7 @@ class data_management
     }
     
     function get_employees_list_filter_full($table_name,$search_data,$sql_offset = 0,$row_count = 20){
+<<<<<<< HEAD
         
         $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name. " WHERE ";
         
@@ -212,6 +213,24 @@ class data_management
             
         }
         var_dump($sql);
+=======
+        
+        $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name. " WHERE ";
+       
+        foreach ($search_data as $criteria) {
+            if(array_key_exists('fType', $search_data)){
+                    if ($criteria['fType'] == 'text'){
+                        $sql = $sql . $criteria['fName'] . " LIKE '" . $criteria['fValue'] . "%' AND ";
+                    }
+                    elseif ($criteria['fType'] == 'date') {
+                        $sql = $sql . $criteria['fName']  . $criteria['fSign'] . " '" . $criteria['fValue'] . "' AND ";
+                    }
+                }
+        }
+        $sql = substr($sql, 0, strlen($sql) - 4);
+        $sql_count="( ".$sql." )";
+        $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
         $this->db_connect();
         $result = $this->db_connection->query($sql);
         

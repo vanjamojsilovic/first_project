@@ -64,7 +64,11 @@
     
     function getFullFilterListPage(pageValue){
         
+<<<<<<< HEAD
          // proslediti i page_size
+=======
+         
+>>>>>>> efac4fa29280c526a8bad079754a2fd90b7495b6
         history.pushState({}, "", "full_search.php?page=" + pageValue);
 
     }
