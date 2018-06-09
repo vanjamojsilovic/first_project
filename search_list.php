@@ -24,12 +24,12 @@ if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'
     $_SESSION['data_array']=$data_array;
     
     $employees_data = new data_management();
-    $employees_list = $employees_data->search_data('zaposleni',$_SESSION['data_array'],$_SESSION['employees_filter_list_page'],10);
+    $employees_list = $employees_data->search_data('zaposleni',$_SESSION['data_array'],$_SESSION['employees_filter_list_page'],$_SESSION['limit']);
     
     
 }
 else{
-    // pagination
+    // ako kliknemo na next ili na previous
     if (isset($_GET['page'])){
         if($_GET['page']==1){
             if($_SESSION['employees_filter_list_page']>=0){
@@ -45,11 +45,10 @@ else{
 
     $employees_data = new data_management();
 
-    $employees_list = $employees_data->search_data('zaposleni',$_SESSION['data_array'],$_SESSION['employees_filter_list_page'], 10);
+    $employees_list = $employees_data->search_data('zaposleni',$_SESSION['data_array'],$_SESSION['employees_filter_list_page'], $_SESSION['limit']);
     
 }
 include_once 'search_list.html';
 
-//echo "<div class='column right'>";
 include_once 'right_side.html';
 

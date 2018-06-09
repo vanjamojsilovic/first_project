@@ -62,7 +62,7 @@
               <input type="submit"  value="Search list" >
             </td>
             <td>
-              <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '')">Clear</button>
+              <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '');loadPage('blanco_select_table.php')">Clear</button>
             </td>
         </tr>
     </table>
@@ -90,7 +90,7 @@
                     echo '</td><td>';
                 }
             }
-            echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a><br><br>'
+            echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a>&emsp;&emsp;'
             .'<a href="#"><img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
             ."</td></tr>";
             $i=$i+1;
@@ -100,13 +100,37 @@
         echo "</table>";
         
         if(array_key_exists ( 'offset' , $employees_list )){
+            $row_count_list=false;
             if ($_SESSION['employees_list_page'] > 0){
+                $row_count_list=true;
                 echo '<a href="" onClick="getListPage(-1)">Previous</a>';
             }
             echo"&emsp;&emsp;&emsp;&emsp;";
             
             if($employees_list['offset']*$employees_list['row_count'] + $i <> $employees_list['total']){
+                $row_count_list=true;
                 echo '<a href="" onClick="getListPage(1)">Next</a>';
+            }
+            echo"&emsp;&emsp;";
+            if($row_count_list){
+            echo '<select name="select_limit"  >'; 
+          
+               
+                $i=1;
+                while($i<=10){
+                    if($_SESSION["limit"]==$i*5){
+                        
+                        echo '<option selected="selected" value="'.($i*5).'">'.($i*5).'</option>';
+                        
+                    }
+                    else{
+                        echo '<option value="'.($i*5).'">'.($i*5).'</option>';
+                    }
+                    $i=$i+1;
+                }
+            echo '</select>';
+           
+            
             }
         }
         

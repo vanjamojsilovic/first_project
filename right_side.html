@@ -9,6 +9,19 @@
   <div class="column right">
    
       <h2>Right Side</h2>
+      <form name='right_side_form' action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' >
+<!--          <?php echo '<select name="select_limit" onchange="this.form.submit()" value="'.$_SESSION['limit'].'" >'; ?>
+           <?php 
+                echo '<option value=""></option>';
+                $i=1;
+                while($i<21){
+                echo '<option value="'.$i.'">'.$i.'</option>';
+                $i=$i+1;
+                }
+            ?>
+        </select>-->
+      </form>
+     
     
     </div>
 </body>
