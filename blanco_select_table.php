@@ -9,6 +9,7 @@ session_start();
  $_SESSION['data_array']['datum_rodjenja_do'] = "";
  
  $_SESSION['filter_data_array']=array();
- $_SESSION['limit']=10;
+ $_SESSION['employees_list_page']=0;
+// $_SESSION['limit']=10;
  
  header("Location: select_table.php");

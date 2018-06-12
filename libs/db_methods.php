@@ -181,13 +181,14 @@ class data_management
     }
     
     function get_employees_list_filter_full($table_name,$search_data,$sql_offset = 0,$row_count = 20){
-        
+        var_dump($row_count);
         $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name. " WHERE ";
         
         if(empty($search_data)){
             $sql = substr($sql, 0, strlen($sql) - 6);
             $sql_count="( ".$sql." )";
             $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
+            var_dump($sql);
         }
         else{
             foreach ($search_data as $criteria) {
@@ -209,7 +210,7 @@ class data_management
             $sql = substr($sql, 0, strlen($sql) - 4);
             $sql_count="( ".$sql." )";
             $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
-            
+            var_dump($sql);
         }
         
         $this->db_connect();

@@ -2,7 +2,7 @@
 
 session_start();
 
-//$_SESSION['data_array']=array();
+
 include_once 'website_layout.html';
 
 require('libs/db_methods.php');
@@ -26,26 +26,19 @@ if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'
     }
     
     $_SESSION['data_array']=$data_array;
-    //pagination
-    if (isset($_GET['page'])){
-        if($_GET['page']==1){
-            if($_SESSION['employees_list_page']>=0){
-                $_SESSION['employees_list_page'] = $_SESSION['employees_list_page'] + $_GET['page'];
-                                                    }
-                            }
-        elseif($_GET['page']==-1){
-            if($_SESSION['employees_list_page']>0){
-                $_SESSION['employees_list_page'] = $_SESSION['employees_list_page'] + $_GET['page'];
-                                                  }
-                                }
-    }
+    
     $employees_data = new data_management();
     $employees_list = $employees_data->search_data('zaposleni',$data_array,$_SESSION['employees_list_page'],$_SESSION['limit']);
     
     
 }
 else{
-    // pagination
+    
+    // next,  previous
+    if (isset($_GET['size'])){
+        $_SESSION['limit']=$_GET['size'];
+        }
+    
     if (isset($_GET['page'])){
         if($_GET['page']==1){
             if($_SESSION['employees_list_page']>=0){

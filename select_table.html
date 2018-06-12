@@ -69,7 +69,7 @@
    
     </form>
     </div> 
-    <div class="select_table">
+    <div class="no_border">
     <?php
         
         echo "<table>";
@@ -113,11 +113,11 @@
             }
             echo"&emsp;&emsp;";
             if($row_count_list){
-            echo '<select name="select_limit"  >'; 
+            echo '<select id="select_limit"  onchange="Change_limit_select()">'; 
           
                
                 $i=1;
-                while($i<=10){
+                while($i<=5){
                     if($_SESSION["limit"]==$i*5){
                         
                         echo '<option selected="selected" value="'.($i*5).'">'.($i*5).'</option>';

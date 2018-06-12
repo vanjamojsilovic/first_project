@@ -30,6 +30,10 @@ if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'
 }
 else{
     // ako kliknemo na next ili na previous
+    if (isset($_GET['size'])){
+        $_SESSION['limit']=$_GET['size'];
+        }
+    
     if (isset($_GET['page'])){
         if($_GET['page']==1){
             if($_SESSION['employees_filter_list_page']>=0){

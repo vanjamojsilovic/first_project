@@ -104,7 +104,8 @@
            </td>
        </tr>     
     </table>
-     </div>
+    </div>
+    <div class="no_border">
         <?php
         
         echo "<table>";
@@ -149,7 +150,7 @@
             }
             echo"&emsp;&emsp;";
             if($row_count_list){
-            echo '<select id="select_limit">'; 
+            echo '<select id="select_limit" onchange="Change_limit_full()">'; 
           
                
                 $i=1;
@@ -171,6 +172,6 @@
         }
         
     ?>
- 
+    </div>
 </body>
 </html>    
