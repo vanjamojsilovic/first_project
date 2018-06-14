@@ -102,4 +102,13 @@
         window.location.reload();
     }
     
+    function Delete_row(selected_id){       
+        if (confirm("Are you absolutely sure you want to delete?")) {            
+            history.pushState({}, "", "select_table.php?delete=" + selected_id);
+             document.getElementById("form_filter").submit();
+        } 
+                   
+        
+        
+    }
     

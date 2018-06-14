@@ -6,20 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-<!--    <script type="text/javascript" src="js/forma_za_unos.js"></script>
-    <script type='text/javascript'>
-        function Unos(){
-            window.location.href = "forma_za_unos.php";
-        }
-        
-        function Select_table(){
-            window.location.href = "select_table.php";   
-        }
-    </script>-->
-         
-
-
- 
   <div class="column middle">
     <h2>In The Middle</h2>
     
@@ -72,7 +58,7 @@
     <div class="no_border">
     <?php
         
-        echo "<table>";
+        echo "<table id='tableId'>";
         
         $i=0;
         while($i < count($employees_list['names'])){
@@ -91,7 +77,8 @@
                 }
             }
             echo '<a href="#"><img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a>&emsp;&emsp;'
-            .'<a href="#"><img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
+            .'<a href="" onclick="Delete_row('.$employees_list["names"][$i]["id_zaposleni"].')">'
+            .'<img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
             ."</td></tr>";
             $i=$i+1;
         } 
@@ -138,10 +125,5 @@
     </div>
     
 </div>
-  
-      
-          
-
-
 </body>
 </html>

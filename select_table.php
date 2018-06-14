@@ -33,6 +33,10 @@ if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'
     
 }
 else{
+    if (isset($_GET['delete'])){         
+        $employees_data = new data_management();
+        $employees_list = $employees_data->Delete_row_method($_GET['delete']);
+    }
     
     // next,  previous
     if (isset($_GET['size'])){

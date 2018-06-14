@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     if (isset($_GET['size'])){
         $_SESSION['limit']=$_GET['size'];
     }
-        var_dump($_GET);
+        
     if (isset($_GET['page'])){
         if($_GET['page']==1){
             if($_SESSION['full_filter_list_page']>=0){
@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             }
         }
     }
-                            var_dump($_SESSION['limit']);
+                            
     $variable=new data_management();
     $employees_list =$variable->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);
 }
