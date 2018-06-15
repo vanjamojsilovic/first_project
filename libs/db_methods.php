@@ -244,4 +244,18 @@ class data_management
         $this->db_connection->query($sql);
         $this->db_disconnect();
     }
+    
+    function Update_select($selected_id){
+        $sql="SELECT * FROM zaposleni WHERE id_zaposleni=".$selected_id;
+        $this->db_connect();
+        $result = $this->db_connection->query($sql);
+        $this->db_disconnect();
+        $row=array();
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $row = array_map('utf8_encode', $row);
+        }
+        return $row;
+    }
+    
 }

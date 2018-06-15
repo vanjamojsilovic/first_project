@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include_once 'website_layout.html';
  
 require('libs/db_methods.php');
@@ -10,21 +12,19 @@ $datum_err = $ime_err  = $prezime_err= '';
 //sprecava dase bilo sta dogadja dok ne pritisnemo submit
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    
-
-
+    // check whether it's empty
     $dan= (!empty($_POST['bday'])? '' :0);
-   $mesec= (!empty($_POST['bday'])?'':0);
-   $godina= (!empty($_POST['bday'])?'':0);
+    $mesec= (!empty($_POST['bday'])?'':0);
+    $godina= (!empty($_POST['bday'])?'':0);
     
    
-     if (empty($_POST['ime']) || empty($_POST['prezime'])){
+    if (empty($_POST['ime']) || empty($_POST['prezime'])){
         $ime_err = (empty($_POST['ime']) ? 'Required!' : '');
         $prezime_err = (empty($_POST['prezime']) ? 'Required!' : '');
         $datum_err = (empty($_POST['bday'])  ? 'Required!' :  '');
         
 
-// dodeljivanje null vrednosti
+        // dodeljivanje null vrednosti
         $globalArray = array (
                                 'ime' => $_POST['ime'],
                                 'prezime' => $_POST['prezime'],
@@ -35,8 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $GLOBALS['form_values'] = $globalArray;
     }
     // ako je sve uneto kako treba
-    else
-    { 
+    else{ 
      
         $servername = "localhost";
         $username = "root";
@@ -53,10 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $crta="-";
         $datum_rodjenja_zaposleni="";
         $pol="";
-
-       
-
-
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
           $ime_zaposleni =test_input($_POST["ime"]);
@@ -100,6 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 
+
 // cuvanje prethodno unetih vrednosti cak i kad nisu sve unete
 if (isset($GLOBALS['form_values']) && !empty($GLOBALS['form_values'])){
     extract($GLOBALS['form_values']);
@@ -107,15 +103,25 @@ if (isset($GLOBALS['form_values']) && !empty($GLOBALS['form_values'])){
 }
 else{
     // kada se prvi put otvara strana
+    
     $ime = '';
     $prezime = '';
     $dan_rodjenja = '';
     $mesec_rodjenja = '';
     $godina_rodjenja = '';
+    
+    $employee_row=array();
+    if (isset($_GET['update'])){         
+        $employees_data = new data_management();        
+        $employee_row = $employees_data->Update_select($_GET['update']);
+        $ime = $employee_row['ime'];
+        $prezime = '';
+    }
+    
 }
 echo '<div class="column middle">';
 include_once 'forma_za_unos.html';
-//include_once 'small_search.html';
+
 echo '</div>';
 
 include_once 'right_side.html';
