@@ -65,6 +65,5 @@ else{
 
 include_once 'select_table.html';
 
-//echo "<div class='column right'>";
+
 include_once 'right_side.html';
-//echo'</div>';

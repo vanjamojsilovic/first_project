@@ -142,28 +142,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 }
     // load page on the beginning
     else{
+        if (isset($_GET['delete'])){         
+            $employees_data = new data_management();
+            $employees_list = $employees_data->Delete_row_method($_GET['delete']);
+        }
 
-    // next,  previous
-    if (isset($_GET['size'])){
-        $_SESSION['limit']=$_GET['size'];
-    }
-        
-    if (isset($_GET['page'])){
-        if($_GET['page']==1){
-            if($_SESSION['full_filter_list_page']>=0){
-                $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+        // next,  previous
+        if (isset($_GET['size'])){
+            $_SESSION['limit']=$_GET['size'];
+        }
+
+        if (isset($_GET['page'])){
+            if($_GET['page']==1){
+                if($_SESSION['full_filter_list_page']>=0){
+                    $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+                }
+            }
+            elseif($_GET['page']==-1){
+                if($_SESSION['full_filter_list_page']>0){
+                    $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
+                }
             }
         }
-        elseif($_GET['page']==-1){
-            if($_SESSION['full_filter_list_page']>0){
-                $_SESSION['full_filter_list_page'] = $_SESSION['full_filter_list_page'] + $_GET['page'];
-            }
-        }
-    }
                             
-    $variable=new data_management();
-    $employees_list =$variable->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);
-}
+        $variable=new data_management();
+        $employees_list =$variable->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);
+    }
 
 
 include_once 'full_search.html';

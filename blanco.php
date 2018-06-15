@@ -10,6 +10,6 @@ session_start();
  
  $_SESSION['filter_data_array']=array();
  $_SESSION['full_filter_list_page']=0;
-// $_SESSION['limit']=10;
+
  
  header("Location: full_search.php");

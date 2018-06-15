@@ -106,9 +106,21 @@
         if (confirm("Are you absolutely sure you want to delete?")) {            
             history.pushState({}, "", "select_table.php?delete=" + selected_id);
              document.getElementById("form_filter").submit();
-        } 
-                   
-        
-        
+        }
     }
+    function Delete_row_search(selected_id){       
+        if (confirm("Are you absolutely sure you want to delete?")) {            
+            history.pushState({}, "", "search_list.php?delete=" + selected_id);
+             document.getElementById("form_filter").submit();
+        } 
+    }              
+    function Delete_row_full(selected_id){       
+        if (confirm("Are you absolutely sure you want to delete?")) {            
+            history.pushState({}, "", "full_search.php?delete=" + selected_id);
+            document.getElementById("forma_unos").submit();
+        }
+         
+    }  
+        
+    
     
