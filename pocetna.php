@@ -27,6 +27,9 @@ $_SESSION['filter_data_array']=array();
 $_SESSION['full_employees_list_page']=0;
 $_SESSION['limit']=10;
 
+$_SESSION['update_selected_id']="";
+
+
 include_once 'website_layout.html';
 
 include_once 'pocetna.html';

@@ -122,7 +122,7 @@
     } 
     
     function Update_select(selected_id){
-        history.pushState({}, "", "forma_za_unos.php?update=" + selected_id);       
+        history.pushState({}, "", "update_form.php?update=" + selected_id);       
     }
     
         

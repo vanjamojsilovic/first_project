@@ -68,13 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                            'pol'=>$pol);
         
         $variable=new data_management();
-        $insert_result=$variable->insert_data('zaposleni', $insert_data);       
-
-        if ($insert_result === TRUE) {
+        $update_result=$variable->Update_post('zaposleni', $insert_data,$_SESSION['update_selected_id']);       
+        var_dump($update_result);
+        if ($update_result === TRUE) {
             header('Location: ponovo.php');
 
         } else {
-            echo "Error: " . $sql . "<br>" ;
+            echo "ERROR! <br>" ;
         }     
         // posle unosenja vrednosti u bazu, dodeljujemo prazne stringove
         // da bi smo imali novi unos - reset    
@@ -114,14 +114,15 @@ else{
         $pol=$employee_row['pol'];
         $gender_male=Checked_male($pol);
         $gender_female=Checked_female($pol);
+        $_SESSION['update_selected_id']=$_GET['update'];
+        
+        
     }
     
 }
 echo '<div class="column middle">';
-include_once 'forma_za_unos.html';
+include_once 'update_form.html';
 
 echo '</div>';
 
 include_once 'right_side.html';
-
-

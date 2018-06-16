@@ -15,7 +15,7 @@
  
  
  
- <form id="forma_unos" action="forma_za_unos.php" method="post">
+ <form id="forma_unos" action="update_form.php" method="post">
      <center>
      <h2>Insert data</h2>
      
@@ -94,13 +94,21 @@ Gender:</td><td>
      <?php echo '<input type="radio" name="pol" value="muski" '.$gender_male.'>Male<br>'?>
     <?php echo '<input type="radio" name="pol" value="zenski" '.$gender_female.'>Female<br>'?>
 
-</td><td></td></tr><tr><td><input type="submit"  value="Insert" >
- 
-         
-            
-        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
-             
-         </td><td></td></tr>   
+    </td>
+    <td>
+
+    </td>
+</tr>
+<tr>
+    <td>
+        <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
+    </td>
+    <td>                     
+    </td>
+    <td>
+        <input type="submit"  value="Update" >
+    </td>
+</tr>   
      
  </table></div>
  
