@@ -21,46 +21,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         // dodeljivanje null vrednosti
         $globalArray = array (
                                 'ime' => $_POST['ime'],
-                                'prezime' => $_POST['prezime'],
-                                'dan_rodjenja' => $dan,
-                                'mesec_rodjenja' => $mesec,
-                                'godina_rodjenja' => $godina
+                                'prezime' => $_POST['prezime'],                                
                                 );
         $GLOBALS['form_values'] = $globalArray;
     }
     // ako je sve uneto kako treba
-    else{ 
-     
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "agencija";
-
+    else{
         $ime_zaposleni ="";
         $prezime_zaposleni="";
         $srednje_ime_zaposleni="";
-        $jmbg_zaposleni="";
-        $godina_rodjenja="";
-        $mesec_rodjenja="";
-        $dan_rodjenja="";
-        $crta="-";
+        $jmbg_zaposleni="";       
         $datum_rodjenja_zaposleni="";
         $pol="";
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-          $ime_zaposleni =test_input($_POST["ime"]);
-          $prezime_zaposleni= test_input($_POST["prezime"]);
-          $srednje_ime_zaposleni= test_input($_POST["srednje_ime"]);
-          $jmbg_zaposleni= test_input($_POST["jmbg"]);
-//         
-          $datum_rodjenja_zaposleni=$_POST["bday"];
-          if($_POST["pol"]=="muski")
-              {$pol="m";}
-              else
-              {$pol="z";};
+            $ime_zaposleni =test_input($_POST["ime"]);
+            $prezime_zaposleni= test_input($_POST["prezime"]);
+            $srednje_ime_zaposleni= test_input($_POST["srednje_ime"]);
+            $jmbg_zaposleni= test_input($_POST["jmbg"]);       
+            $datum_rodjenja_zaposleni=$_POST["bday"];
+            
+            if(isset($_POST["pol"])){
+                $pol=$_POST["pol"];                      
+            }             
          }
-
-        $insert_data=array('ime'=>$ime_zaposleni, 
+        
+        $_SESSION['update_data']=array('ime'=>$ime_zaposleni, 
                            'prezime'=>$prezime_zaposleni,
                            'srednje_ime'=>$srednje_ime_zaposleni,
                            'jmbg'=>$jmbg_zaposleni,
@@ -68,13 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                            'pol'=>$pol);
         
         $variable=new data_management();
-        $update_result=$variable->Update_post('zaposleni', $insert_data,$_SESSION['update_selected_id']);       
+        $update_result=$variable->Update_post('zaposleni',$_SESSION['update_data'],$_SESSION['update_selected_id']);       
         var_dump($update_result);
-        if ($update_result === TRUE) {
+        if ($update_result === TRUE) {//ovde je problem, zasto je null?
             header('Location: ponovo.php');
-
-        } else {
-            echo "ERROR! <br>" ;
+            echo "Successfully!<br>" ;
+        } 
+        else {
+            echo "ERROR!<br>" ;
         }     
         // posle unosenja vrednosti u bazu, dodeljujemo prazne stringove
         // da bi smo imali novi unos - reset    
@@ -97,27 +84,27 @@ else{
     $srednje_ime='';
     $jmbg='';
     $datum_rodjenja='';
-    $pol='';
-    $gender_male='';
-    $gender_female='';
+    
     
     
     $employee_row=array();
     if (isset($_GET['update'])){         
         $employees_data = new data_management();        
         $employee_row = $employees_data->Update_select($_GET['update']);
+        $_SESSION['update_data']= $employees_data->Update_select($_GET['update']);
+        
         $ime = $employee_row['ime'];
         $prezime = $employee_row['prezime'];
         $srednje_ime=$employee_row['srednje_ime'];
         $jmbg=$employee_row['jmbg'];
         $datum_rodjenja=$employee_row['datum_rodjenja'];
-        $pol=$employee_row['pol'];
-        $gender_male=Checked_male($pol);
-        $gender_female=Checked_female($pol);
-        $_SESSION['update_selected_id']=$_GET['update'];
+        $_SESSION['pol']=$employee_row['pol'];
         
-        
+        $_SESSION['update_selected_id']=$_GET['update'];              
     }
+    
+    $_SESSION['gender_male']=Checked_male($_SESSION['update_data']['pol']);
+    $_SESSION['gender_female']=Checked_female($_SESSION['update_data']['pol']);  
     
 }
 echo '<div class="column middle">';

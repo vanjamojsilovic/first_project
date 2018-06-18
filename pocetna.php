@@ -28,6 +28,14 @@ $_SESSION['full_employees_list_page']=0;
 $_SESSION['limit']=10;
 
 $_SESSION['update_selected_id']="";
+$_SESSION['update_data']=array('ime'=>'', 
+                               'prezime'=>'',
+                               'srednje_ime'=>'',
+                               'jmbg'=>'',
+                               'datum_rodjenja'=>'',
+                               'pol'=>'');
+$_SESSION['gender_male']='';
+$_SESSION['gender_female']='';
 
 
 include_once 'website_layout.html';

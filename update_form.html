@@ -7,13 +7,9 @@
     
     var ime_e='<?php echo $ime_err; ?>';
     var prezime_e='<?php echo $prezime_err; ?>';
-    var datum_e='<?php echo $datum_err; ?>';
+    var datum_e='<?php echo $datum_err; ?>';    
     
-    
- </script>
-
- 
- 
+ </script> 
  
  <form id="forma_unos" action="update_form.php" method="post">
      <center>
@@ -27,20 +23,22 @@
      <col width="40%">
      <col width="20%"> 
      <tr>
+     <td>       
+        Name:
+     </td>
+     <td> 
+        <?php echo '<input type="text" name="ime" value="'.$_SESSION['update_data']['ime']. '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
+     </td>
      <td>
-
-       
-Name:</td><td> 
-<?php echo '<input type="text" name="ime" value="' . $ime . '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
-     </td><td><label id="ime_label"><p class="red_class">
-    <script type="text/javascript">
-     document.write(ime_e);
-     if(ime_e.length>0){
-         document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor="red";
-     }
-     else{
-        document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor=""; 
-     }
+         <label id="ime_label"><p class="red_class">
+        <script type="text/javascript">
+        document.write(ime_e);
+        if(ime_e.length>0){
+            document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor="red";
+        }
+        else{
+            document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor=""; 
+        }
    
     </script></p>
      </label>
@@ -49,7 +47,7 @@ Name:</td><td>
      </tr><tr><td>
 
 Surename: 
-</td><td><?php echo '<input type="text" name="prezime" value="' . $prezime . '" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Обавезан податак!\')" >' ?>
+</td><td><?php echo '<input type="text" name="prezime" value="'.$_SESSION['update_data']['prezime'].'" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Обавезан податак!\')" >' ?>
 </td><td><label id="prezime_label"><p class="red_class">
  <script type="text/javascript">
       document.write(prezime_e);
@@ -64,51 +62,54 @@ Surename:
 Parent's name: 
 </td>
 <td>
-    <?php echo '<input type="text" name="srednje_ime" value="'.$srednje_ime.'">'?>
+    <?php echo '<input type="text" name="srednje_ime" value="'.$_SESSION['update_data']['srednje_ime'].'">'?>
     </td><td></td></tr><tr><td>
 JMBG: 
 </td>
 <td>
-    <?php echo '<input type="text" name="jmbg" border="3px" value="'.$jmbg.'">'?>
+    <?php echo '<input type="text" name="jmbg" border="3px" value="'.$_SESSION['update_data']['jmbg'].'">'?>
 </td><td></td></tr><tr><td>
-Date of bitrh:</td><td>
-
-    <?php echo '<input type="date" name="bday" value="'.$datum_rodjenja.'" onchange="SetLabels(\'forma_unos\', [\'bday\'], \'datum_label\', \'\', \'Required!\')">'?>
-     
-   </td><td><label id="datum_label" style="color:red" >
-                   <p class="red_class">
-    <script type="text/javascript">
-     document.write(datum_e);
-     if(datum_e.length>0){
-
-         document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="red";
-     }
-     else{
-        document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="";
-    }
-    </script></p>
-     </label>
-    </td></tr><tr><td>
-
-Gender:</td><td>
-     <?php echo '<input type="radio" name="pol" value="muski" '.$gender_male.'>Male<br>'?>
-    <?php echo '<input type="radio" name="pol" value="zenski" '.$gender_female.'>Female<br>'?>
-
-    </td>
-    <td>
-
-    </td>
-</tr>
-<tr>
-    <td>
-        <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
-    </td>
-    <td>                     
-    </td>
-    <td>
-        <input type="submit"  value="Update" >
-    </td>
-</tr>   
+Date of bitrh:
+        </td>
+        <td>
+            <?php echo '<input type="date" name="bday" value="'.$_SESSION['update_data']['datum_rodjenja'].'" onchange="SetLabels(\'forma_unos\', [\'bday\'], \'datum_label\', \'\', \'Required!\')">'?>     
+        </td>
+        <td>
+            <label id="datum_label" style="color:red" >
+            <p class="red_class">
+            <script type="text/javascript">
+            document.write(datum_e);
+            if(datum_e.length>0){
+                document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="red";
+            }
+            else{
+               document.getElementById('forma_unos').elements.namedItem('bday').style.backgroundColor="";
+            }
+             </script></p>
+              </label>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Gender:
+        </td>
+        <td>
+            <?php echo '<input type="radio" name="pol" value="m" '.$_SESSION['gender_male'].'>Male<br>'?>
+            <?php echo '<input type="radio" name="pol" value="z" '.$_SESSION['gender_female'].'>Female<br>'?>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
+        </td>
+        <td>                     
+        </td>
+        <td>
+            <input type="submit"  value="Update" >
+        </td>
+    </tr>   
      
  </table></div>
  

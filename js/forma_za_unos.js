@@ -119,7 +119,7 @@
             history.pushState({}, "", "full_search.php?delete=" + selected_id);
             document.getElementById("forma_unos").submit();
         }
-    } 
+    }
     
     function Update_select(selected_id){
         history.pushState({}, "", "update_form.php?update=" + selected_id);       
