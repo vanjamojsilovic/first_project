@@ -9,10 +9,8 @@
   <div class="column middle">
     <h2>In The Middle</h2>
     
-    <br>
+    <br>   
     
-    
-    <div class="">
     <form id="form_filter" action="search_list.php" method="post">
         
         <table> 
@@ -51,40 +49,89 @@
                 <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '');loadPage('blanco_select_table.php')">Clear</button>
             </td>
         </tr>
+        
     </table>
-   
+        
+        <?php 
+        echo $_SESSION['div_display'];
+        echo '<div id="ShowHideSearch" style='.$_SESSION['div_display'].'>' ?>       
+            <table> 
+            <tr>
+                <td>
+                    <?php 
+                        if(array_key_exists('jmbg', $_SESSION['data_array'])){
+                                echo '<input type="text" name="jmbg" placeholder="jmbg" value="'.$_SESSION['data_array']['jmbg'].'">';
+                        }
+                        else{
+                        echo '<input type="text" name="jmbg" placeholder="jmbg">';
+                        }
+                    ?>   
+                </td>
+                <td>
+                   <?php 
+                        if(array_key_exists('bDateFrom', $_SESSION['data_array'])){
+                            echo '<input name="bDateFrom" placeholder="" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="'.$_SESSION['data_array']['datum_rodjenja_od'].'"  >';
+                        }
+                        else{
+                            echo '<input name="bDateFrom" placeholder="Date of bitrh - FROM:" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')">';
+                        }
+                  ?>
+                </td>
+                <td>
+                   <?php 
+                        if(array_key_exists('bDateTo', $_SESSION['data_array'])){
+                            echo '<input name="bDateTo" placeholder="" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')" value="'.$_SESSION['data_array']['datum_rodjenja_do'].'"  >';
+                        }
+                        else{
+                            echo '<input name="bDateTo" placeholder="Date of bitrh - TO:" type="text" onfocus="(this.type=\'date\')" onblur="(this.type=\'text\')">';
+                        }
+                    ?>
+                </td>
+                <td>
+                    <?php echo 'Male<input type="radio" name="pol" value="m">'; ?>            
+                </td>
+                <td>
+                    <?php echo 'Female<input type="radio" name="pol" value="z">'; ?>
+                </td>
+            </tr>            
+        </table>            
+        </div>    
+        <button type="button" onclick="ShowHideSelect()">More/Less</button>
     </form>
-    </div> 
+    
     <div class="no_border">
     <?php
         
         echo "<table id='tableId'>";
         
         $i=0;
-        while($i < count($employees_list['names'])){
-            echo "<tr id='zaposleni_" . $employees_list["names"][$i]["id_zaposleni"] . "'>";
-             if(array_key_exists ( 'offset' , $employees_list )){
-                echo "<td>" . ($employees_list['offset']*$employees_list['row_count'] + $i + 1) . "</td>";
-            }
-            else{
-                echo "<td>" . ($i + 1) . "</td>";
-            }
-            echo "<td>";
-            foreach($employees_list['names'][$i] as $x => $x_value){
-                if ($x <> "id_zaposleni"){
-                    echo $x_value;
-                    echo '</td><td>';
+        if(!empty($employees_list)){
+            while($i < count($employees_list['names'])){
+                echo "<tr id='zaposleni_" . $employees_list["names"][$i]["id_zaposleni"] . "'>";
+                 if(array_key_exists ( 'offset' , $employees_list )){
+                    echo "<td>" . ($employees_list['offset']*$employees_list['row_count'] + $i + 1) . "</td>";
                 }
+                else{
+                    echo "<td>" . ($i + 1) . "</td>";
+                }
+                echo "<td>";
+                foreach($employees_list['names'][$i] as $x => $x_value){
+                    if ($x <> "id_zaposleni"){
+                        echo $x_value;
+                        echo '</td><td>';
+                    }
+                }
+                echo '<a href="" onclick="Update_select('.$employees_list["names"][$i]["id_zaposleni"].')">'
+                .'<img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a>&emsp;&emsp;'
+                .'<a href="" onclick="Delete_row('.$employees_list["names"][$i]["id_zaposleni"].')">'
+                .'<img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
+                ."</td></tr>";
+                $i=$i+1;
             }
-            echo '<a href="" onclick="Update_select('.$employees_list["names"][$i]["id_zaposleni"].')">'
-            .'<img src="images/if_pensil_50835.png" alt="edit_picture" class="image"></a>&emsp;&emsp;'
-            .'<a href="" onclick="Delete_row('.$employees_list["names"][$i]["id_zaposleni"].')">'
-            .'<img src="images/if_edit-delete_23231.png" alt="delete_picture" class="image"></a>'
-            ."</td></tr>";
-            $i=$i+1;
+
         } 
         
-        echo "</td></tr>";
+        
         echo "</table>";
         
         if(array_key_exists ( 'offset' , $employees_list )){

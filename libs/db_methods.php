@@ -166,39 +166,43 @@ class data_management
     }
     
     function search_data($table_name, $search_data, $sql_offset = 0, $row_count = 20){
-    
-        $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name." WHERE ";
-        foreach ($search_data as $key => $value) {
-           $sql =$sql.$key." LIKE '".$value."%' AND ";
-        }
-        $sql = substr($sql, 0, strlen($sql) - 4);
-        $sql_count="( ".$sql." )";
-        $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
-       
-        $this->db_connect();
-        $result = $this->db_connection->query($sql);
-        
-        $names = [];
-
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $row = array_map('utf8_encode', $row);
-
-                $names[] = $row; 
-
+        if(!empty($search_data)){
+            $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name." WHERE ";
+            foreach ($search_data as $key => $value) {
+               $sql =$sql.$key." LIKE '".$value."%' AND ";
             }
+            $sql = substr($sql, 0, strlen($sql) - 4);
+            $sql_count="( ".$sql." )";
+            $sql =$sql." LIMIT " . ($sql_offset*$row_count) . ", " . $row_count;
+
+            $this->db_connect();
+            $result = $this->db_connection->query($sql);
+
+            $names = [];
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $row = array_map('utf8_encode', $row);
+
+                    $names[] = $row; 
+
+                }
+            }
+
+
+            $this->db_disconnect();
+            $employee_list = array(
+                                    "names" => $names,
+                                    "offset" => $sql_offset,
+                                    "row_count" => $row_count,
+                                    "total" => $this->table_count($sql_count)
+                                );
+
+            return $employee_list;
         }
-        
-        
-        $this->db_disconnect();
-        $employee_list = array(
-                                "names" => $names,
-                                "offset" => $sql_offset,
-                                "row_count" => $row_count,
-                                "total" => $this->table_count($sql_count)
-                            );
-        
-        return $employee_list;
+        else{
+            return array();
+        }
     }
     
     function get_employees_list_filter_full($table_name,$search_data,$sql_offset = 0,$row_count = 20){
@@ -282,10 +286,12 @@ class data_management
     function Update_post($table_name,$array_values,$selected_id){
         
         $sql="UPDATE ".$table_name." SET ime='".$array_values['ime']."', prezime='".$array_values['prezime']."', srednje_ime='".$array_values['srednje_ime']."', jmbg='".$array_values['jmbg']."', `datum_rodjenja`='".$array_values['datum_rodjenja']."', pol='".$array_values['pol']."' WHERE id_zaposleni='".$selected_id."'";
-       
+        var_dump($sql);
         $this->db_connect();
-        $this->db_connection->query($sql);
+        $result =$this->db_connection->query($sql);
         $this->db_disconnect();
+        
+        return $result;
     }
     
 }

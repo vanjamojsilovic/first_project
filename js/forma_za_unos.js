@@ -125,6 +125,18 @@
         history.pushState({}, "", "update_form.php?update=" + selected_id);       
     }
     
+    function ShowHideSelect(){
+        var x = document.getElementById("ShowHideSearch");
+
+        if (x.style.display==="none") {
+            x.style.display = "block";
+            history.pushState({}, "", "search_list.php?display=" + "block");
+        } 
+        else {
+            x.style.display = "none";
+            history.pushState({}, "", "search_list.php?display=" + "none");
+        }      
         
+    }   
     
     
