@@ -167,6 +167,7 @@ class data_management
     
     function search_data($table_name, $search_data, $sql_offset = 0, $row_count = 20){
         if(!empty($search_data)){
+            
             $sql = "SELECT id_zaposleni, ime, prezime, srednje_ime FROM ".$table_name." WHERE ";
             foreach ($search_data as $key => $value) {
                $sql =$sql.$key." LIKE '".$value."%' AND ";
@@ -201,6 +202,7 @@ class data_management
             return $employee_list;
         }
         else{
+           
             return array();
         }
     }

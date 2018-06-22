@@ -5,12 +5,13 @@ session_start();
 
 include_once 'website_layout.html';
 
-require('libs/db_methods.php');
+require('libs/db_methods.php');    
 
+    // change limit in sql
     if(isset($_POST['select_limit'])){
         $_SESSION['limit']=$_POST['select_limit'];
     }
-// search
+// search, if anything is set
 if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'])){
     $data_array=array();
     if(!empty($_POST['ime']) && isset($_POST['ime'])){
@@ -33,9 +34,15 @@ if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'
     
 }
 else{
+    //delete
     if (isset($_GET['delete'])){         
         $employees_data = new data_management();
         $employees_list = $employees_data->Delete_row_method($_GET['delete']);
+    }
+    
+    //show hide form
+    if (isset($_GET['display'])){
+        $_SESSION['div_display']=$_GET['display'];       
     }
     
     // next,  previous
@@ -57,7 +64,6 @@ else{
                             }
 
     $employees_data = new data_management();
-
     $employees_list = $employees_data->get_employees_list($_SESSION['employees_list_page'], $_SESSION['limit']);
     
 }

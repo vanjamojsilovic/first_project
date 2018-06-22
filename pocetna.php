@@ -37,7 +37,7 @@ $_SESSION['update_data']=array('ime'=>'',
 $_SESSION['gender_male']='';
 $_SESSION['gender_female']='';
 
-$_SESSION['div_display']='"display:none"';
+$_SESSION['div_display']='"none"';
 
 
 include_once 'website_layout.html';

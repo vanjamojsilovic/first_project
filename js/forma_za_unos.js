@@ -130,13 +130,27 @@
 
         if (x.style.display==="none") {
             x.style.display = "block";
+            history.pushState({}, "", "select_table.php?display=" + "block");
+        } 
+        else {
+            x.style.display = "none";
+            history.pushState({}, "", "select_table.php?display=" + "none");
+        }      
+        window.location.reload();
+    }
+    
+    function ShowHideSearch(){
+        var x = document.getElementById("ShowHideSearch");
+
+        if (x.style.display==="none") {
+            x.style.display = "block";
             history.pushState({}, "", "search_list.php?display=" + "block");
         } 
         else {
             x.style.display = "none";
             history.pushState({}, "", "search_list.php?display=" + "none");
         }      
-        
+        window.location.reload();
     }   
     
     
