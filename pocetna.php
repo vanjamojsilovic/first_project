@@ -39,6 +39,9 @@ $_SESSION['gender_female']='';
 
 $_SESSION['div_display']='"none"';
 
+$_SESSION['full_search_male_checked']="";
+$_SESSION['full_search_female_checked']="";
+
 
 include_once 'website_layout.html';
 

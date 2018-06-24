@@ -98,7 +98,7 @@
     function Change_limit_search(){
         var e = document.getElementById("select_limit");
         var selected_page_size = e.options[e.selectedIndex].value;       
-        history.pushState({}, "", "search_list.php?size=" + selected_page_size);
+        history.pushState({}, "", "search_list.php?page=0"+"&size=" + selected_page_size);
         window.location.reload();
     }
     
@@ -153,4 +153,4 @@
         window.location.reload();
     }   
     
-    
+//   window.location.reload(); 

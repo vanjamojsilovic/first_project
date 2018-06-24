@@ -180,7 +180,7 @@ class data_management
             $result = $this->db_connection->query($sql);
 
             $names = [];
-
+           
             if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
                     $row = array_map('utf8_encode', $row);
@@ -265,6 +265,7 @@ class data_management
         
         return $employee_list;
     }
+    
     function Delete_row_method($selected_id){
         $sql="DELETE FROM zaposleni WHERE id_zaposleni=".$selected_id;
         $this->db_connect();

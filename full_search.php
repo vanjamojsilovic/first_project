@@ -4,7 +4,7 @@ include_once 'website_layout.html';
 
 require('libs/db_methods.php');
 
-// cuvanje prethodno unetih vrednosti cak i kad nisu sve unete
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){     
         $data_array=array();
@@ -118,6 +118,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                     );
             $_SESSION['full_data_array']['pol'] = $_POST['pol'];
+            if($_POST['pol']=='m'){
+                $_SESSION['full_search_male_checked']="checked";
+            }
+            if($_POST['pol']=='z'){
+                $_SESSION['full_search_female_checked']="checked";
+            }
         }
         else{
             $criteria_array = array(
@@ -168,8 +174,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $variable=new data_management();
         $employees_list =$variable->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);
     }
-
-
+var_dump($_SESSION['full_search_male_checked']);
+var_dump($_SESSION['full_search_female_checked']);
 include_once 'full_search.html';
 
 

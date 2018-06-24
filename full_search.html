@@ -84,9 +84,9 @@
                Gender:
            </td>
            <td>
-               <?php echo '<input type="radio" name="pol" value="m">'; ?>
+               <?php echo '<input type="radio" name="pol" value="m" '.$_SESSION['full_search_male_checked'].'>'; ?>
                Male<br>
-               <?php echo '<input type="radio" name="pol" value="z">'; ?>
+               <?php echo '<input type="radio" name="pol" value="z" '.$_SESSION['full_search_female_checked'].'>'; ?>
                Female<br>
            </td>
            <td>            
@@ -94,7 +94,7 @@
        </tr>
        <tr>
            <td>
-               <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo','pol'], '');loadPage('blanco.php')">Reset</button>
+               <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bDateFrom', 'bDateTo'], '');loadPage('blanco.php')">Reset</button>
            </td>
            <td>
                             

@@ -8,11 +8,15 @@ include_once 'website_layout.html';
 require('libs/db_methods.php');    
 
     // change limit in sql
-    if(isset($_POST['select_limit'])){
+if(isset($_POST['select_limit'])){
         $_SESSION['limit']=$_POST['select_limit'];
     }
 // search, if anything is set
-if(isset($_POST['ime']) || isset($_POST['prezime'])|| isset($_POST['srednje_ime'])){
+if(
+        (!empty($_POST['ime']) && isset($_POST['ime'])) ||
+        (!empty($_POST['prezime']) && isset($_POST['prezime'])) ||
+        (!empty($_POST['srednje_ime']) && isset($_POST['srednje_ime']))
+){
     $data_array=array();
     if(!empty($_POST['ime']) && isset($_POST['ime'])){
         $data_array['ime']=$_POST['ime'];

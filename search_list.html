@@ -12,7 +12,7 @@
     
     
      
-    <form id="form_filter" action="search_list.php" method="post">       
+    <form id="form_filter" action="search_list.php" method="post">      
         <table> 
             <tr>
                 <td>
@@ -50,6 +50,7 @@
                 </td>
             </tr>            
     </table>
+
     <?php        
         echo '<div id="ShowHideSearch" style=display:'.$_SESSION['div_display'].'>' ?>
         <table> 
@@ -85,19 +86,19 @@
                     ?>
                 </td>
                 <td>
-                    <?php echo 'Male<input type="radio" name="pol" value="m">'; ?>            
+                    <?php echo 'Male<input type="radio" name="pol" value="m" '.$_SESSION['full_search_male_checked'].'>'; ?>            
                 </td>
                 <td>
-                    <?php echo 'Female<input type="radio" name="pol" value="z">'; ?>
+                    <?php echo 'Female<input type="radio" name="pol" value="z" '.$_SESSION['full_search_female_checked'].'>'; ?>
                 </td>
             </tr>            
         </table>
-                        
-        </div>  
-    <button type="button" onclick="ShowHideSearch()">More/Less</button>
-    </form>
-   
-    <div class="no_border">
+                           
+        </div>
+        <button type="button" onclick="ShowHideSearch()">More/Less</button>
+    </form> 
+
+<div class="no_border">
     <?php
         
         echo "<table>";

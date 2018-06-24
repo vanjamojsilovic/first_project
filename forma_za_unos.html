@@ -27,24 +27,25 @@
      <col width="40%">
      <col width="20%"> 
      <tr>
-     <td>
-
-       
-Name:</td><td> 
-<?php echo '<input type="text" name="ime" value="' . $ime . '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
-     </td><td><label id="ime_label"><p class="red_class">
-    <script type="text/javascript">
-     document.write(ime_e);
-     if(ime_e.length>0){
-         document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor="red";
-     }
-     else{
-        document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor=""; 
-     }
-   
-    </script></p>
-     </label>
-</td>
+        <td>
+            Name:
+        </td>
+        <td> 
+            <?php echo '<input type="text" name="ime" value="' . $ime . '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
+        </td>
+        <td>
+            <label id="ime_label"><p class="red_class">
+                <script type="text/javascript">
+                    document.write(ime_e);
+                    if(ime_e.length>0){
+                        document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor="red";
+                    }
+                    else{
+                       document.getElementById("forma_unos").elements.namedItem("ime").style.backgroundColor=""; 
+                    }   
+                </script></p>
+            </label>
+        </td>
      
      </tr><tr><td>
 
@@ -94,15 +95,19 @@ Gender:</td><td>
      <?php echo '<input type="radio" name="pol" value="muski" '.$gender_male.'>Male<br>'?>
     <?php echo '<input type="radio" name="pol" value="zenski" '.$gender_female.'>Female<br>'?>
 
-</td><td></td></tr><tr><td><input type="submit"  value="Insert" >
- 
-         
+</td><td></td></tr><tr>
+        <td>
+            <button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
+        </td>
+        <td>
             
-        </td><td><button type="button" onclick="ResetFields('forma_unos', ['ime', 'prezime', 'srednje_ime', 'jmbg', 'bday'], '');ResetLabels('forma_unos', ['ime_label', 'prezime_label', 'datum_label'], '');">Reset</button>
-             
-         </td><td></td></tr>   
-     
- </table></div>
+        </td>
+        <td>
+            <input type="submit"  value="Insert" >
+        </td>
+     </tr>    
+    </table>
+</div>
  
   
 </body>
