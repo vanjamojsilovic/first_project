@@ -157,11 +157,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         $filter_array[] = $criteria_array;
 
-//        $_SESSION['filter_data_array']=$filter_array;
+        $_SESSION['filter_data_array']=$filter_array;
 //-----------------------------
     //more less
     if (isset($_GET['display'])){
-        $_SESSION['div_display']=$_GET['display'];    
+        $_SESSION['div_display']=$_GET['display']; 
+        if($_GET['display']=="block"){
+            $_SESSION['button_display']='Show less';
+        }
+        if($_GET['display']=="none"){
+            $_SESSION['button_display']='Show more';
+        }
+        
     }
     
     //next previous
@@ -181,10 +188,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         } 
     }
    
-    var_dump($_SESSION['data_array']);
+    
 //    $employees_data = new data_management();
 //    $employees_list = $employees_data->search_data('zaposleni',$_SESSION['data_array'],$_SESSION['employees_filter_list_page'],$_SESSION['limit']);
 //-----------------------------------------------  
+
     $variable=new data_management();
     $employees_list =$variable->get_employees_list_filter_full('zaposleni',$filter_array,$_SESSION['full_filter_list_page'],$_SESSION['limit']);   
 }
@@ -196,7 +204,16 @@ else{
         
     //show hide form
     elseif (isset($_GET['display'])){
-        $_SESSION['div_display']=$_GET['display'];       
+        $_SESSION['div_display']=$_GET['display']; 
+        if($_GET['display']=="block"){
+            $_SESSION['button_display']='Show less';
+        }
+        if($_GET['display']=="none"){
+            $_SESSION['button_display']='Show more';
+        }
+        $employees_data = new data_management();
+        $employees_list = $employees_data->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);   
+        
         
     }
     
@@ -213,15 +230,19 @@ else{
             if($_SESSION['employees_filter_list_page']>0){
                 $_SESSION['employees_filter_list_page'] = $_SESSION['employees_filter_list_page'] + $_GET['page'];
             }
-        }   
+        }
+        
         $employees_data = new data_management();
-        $employees_list = $employees_data->get_employees_list($_SESSION['employees_list_page'], $_SESSION['limit']);   
+        $employees_list = $employees_data->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);   
+        
+        
     }
     
-    $employees_data = new data_management();
-    $employees_list = $employees_data->get_employees_list($_SESSION['employees_list_page'], $_SESSION['limit']);
+//    $employees_data = new data_management();
+//    $employees_list = $employees_data->get_employees_list($_SESSION['employees_list_page'], $_SESSION['limit']);
     
 }
+
 include_once 'search_list.html';
 
 include_once 'right_side.html';

@@ -37,7 +37,9 @@ $_SESSION['update_data']=array('ime'=>'',
 $_SESSION['gender_male']='';
 $_SESSION['gender_female']='';
 
-$_SESSION['div_display']='"none"';
+$_SESSION['div_display']='none';
+$_SESSION['button_display']='Show more';
+
 
 $_SESSION['full_search_male_checked']="";
 $_SESSION['full_search_female_checked']="";

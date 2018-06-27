@@ -289,9 +289,10 @@ class data_management
     function Update_post($table_name,$array_values,$selected_id){
         
         $sql="UPDATE ".$table_name." SET ime='".$array_values['ime']."', prezime='".$array_values['prezime']."', srednje_ime='".$array_values['srednje_ime']."', jmbg='".$array_values['jmbg']."', `datum_rodjenja`='".$array_values['datum_rodjenja']."', pol='".$array_values['pol']."' WHERE id_zaposleni='".$selected_id."'";
-        var_dump($sql);
+      
         $this->db_connect();
         $result =$this->db_connection->query($sql);
+  
         $this->db_disconnect();
         
         return $result;

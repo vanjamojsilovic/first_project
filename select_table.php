@@ -46,7 +46,9 @@ else{
     
     //show hide form
     if (isset($_GET['display'])){
-        $_SESSION['div_display']=$_GET['display'];       
+        $_SESSION['div_display']=$_GET['display']; 
+        
+   
     }
     
     // next,  previous

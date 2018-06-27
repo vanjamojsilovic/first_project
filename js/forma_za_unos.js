@@ -145,6 +145,7 @@
         if (x.style.display==="none") {
             x.style.display = "block";
             history.pushState({}, "", "search_list.php?display=" + "block");
+            document.getElementById("ShowHideButton").value= "aaaaa";
         } 
         else {
             x.style.display = "none";
