@@ -1,37 +1,64 @@
-
-
-
-/* Create three unequal columns that floats next to each other */
+/*multiple columns of text - like in newspapers*/
 .column {
     float: left;
-    padding: 10px;
-    
+    padding: 10px;    
 }
 
+.column.left {
+   
+    width: 25%;
+    text-align: left;
+}
 
-/*select_table.php*/
-div.select_table table, tr, td, th {
+.column.right {
     
-    border: 1px solid black;
+    width: 25%;
     text-align: center;
-    
+}
+
+.column.middle {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+
+/*navigation menu*/
+.topnav {
+    overflow: hidden;
+    background-color: #202090;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+body {
+  margin: 0;
 }
 
 div.no_border tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-div.no_border table, tr, td, th {
-    
+div.no_border table, tr, td, th {    
    border-color: white;
-   text-align: center;
-    
-}
-
-
-div.select_table table {
-border-collapse: collapse;
-width: 100%;
+   text-align: center;    
 }
 
 div.no_border table {
@@ -39,41 +66,11 @@ border-collapse: collapse;
 width: 100%;
 }
 
-
 .image:hover {
     opacity: 0.5;
 }
 
-
-/* Left and right column */
-.column.left {
-    width: 25%;
-    text-align: left;
-}
-
-.column.right {
-    width: 25%;
-    text-align: center;
-}
-
-/* Middle column */
-.column.middle {
-    width: 50%;
-    text-align: center;
-}
-
-
-
-/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
-    .column.left, .column.middle, .column.right {
-        width: 100%;
-    }
-} 
-
-
-/*forma_za_unos.html*/
-  div.insert_data table{
+div.insert_data table{
     table-layout: auto;
     width: 100%; 
     border-collapse: collapse;
@@ -106,87 +103,20 @@ div.insert_data button{
 }
 
 div.insert_data button:hover{
-    color:green;
-   
+    color:green;   
 }
 
 div.insert_data input[type=text]{
     border: 2px solid black;
-    border-radius: 4px;
-    
+    border-radius: 4px;    
 }
+
 div.insert_data input[type=submit]{
     height: 30px;
     width: 150px;
+}
 
 p.red_class {
-    color:red;
-    
-    
+    color:red;    
 }
-div.header_class {
-    width: 100%;
-/*    border: 3px solid brown;
-    border-radius: 5px;*/
-    text-align: center;
-}
-
-div.header_class p{
- font-size: 30px;
- 
-}
-
-
-} 
-/*forma_za_unos.php end*/
-
-
-/* Website Layout*/
-
-* {
-    box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-/* Style the header */
-.header {
-    background-color: #f1f1f1;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Style the top navigation bar */
-.topnav {
-    overflow: hidden;
-    background-color: #202090;
-}
-
-/* Style the topnav links */
-.topnav a {
-    float: left;
-    display: block;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-/* Change color on hover */
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-div.no_border table, tr, td {
-    border-color: white ;
-}
-
-
-
-
-
-
-
 

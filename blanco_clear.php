@@ -13,8 +13,8 @@ $_SESSION['employees_list_page']=0;
 $_SESSION['full_search_male_checked']="";
 $_SESSION['full_search_female_checked']="";
 
-$_SESSION['div_display']='none';
-$_SESSION['button_display']='Show more';
+//$_SESSION['div_display']='none';
+//$_SESSION['button_display']='Show more';
 
 
 header("Location:search_list.php");

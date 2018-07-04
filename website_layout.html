@@ -1,12 +1,12 @@
 <html>
 <head>
-    
+    <script type="text/javascript" src="js/functions.js"></script>
     <link rel="stylesheet" type="text/css" href="css/styles.css">  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-     <script type="text/javascript" src="js/forma_za_unos.js"></script>  
+      
 
  
   <div class="header">
@@ -15,16 +15,16 @@
 </div>
 
 <div class="topnav">
-  <a href="#" onclick="Vrati();return false;">Home</a>
-  <a href="#" onclick="loadPage('blanco_select_table.php');return false;">Search</a>
-  <a href="#" onclick="loadPage('forma_za_unos.php')">Add New</a>
+  <a href="" onclick="Vrati();return false;">Home</a>
+  
+  
   
 </div>
  
   <div class="column left">
     <h2>Left Side</h2>
-    <button onclick="loadPage('forma_za_unos.php')">Insert data</button><br><br>
-    <button onclick="loadPage('blanco_select_table.php');ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '')">Employees</button>
+    <button onclick="InsertOrUpdate('Insert')">Insert New</button><br><br>
+    <button onclick="loadPage('blanco_select_table.php');ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime','jmbg','datum_rodjenja_od','datum_rodjenja_do'], '')">Employees</button>
   </div>
 
 </body>

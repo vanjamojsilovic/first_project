@@ -157,6 +157,7 @@ class data_management
         $sql = substr($sql, 0, strlen($sql) - 2);
         
         $sql=$sql.")";
+       
         $this->db_connect();
         $result = $this->db_connection->query($sql);
        
@@ -269,8 +270,11 @@ class data_management
     function Delete_row_method($selected_id){
         $sql="DELETE FROM zaposleni WHERE id_zaposleni=".$selected_id;
         $this->db_connect();
-        $this->db_connection->query($sql);
+        $result=$this->db_connection->query($sql);
         $this->db_disconnect();
+        var_dump($sql);
+        return $result;
+        
     }
     
     function Update_select($selected_id){

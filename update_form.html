@@ -27,7 +27,7 @@
         Name:
      </td>
      <td> 
-        <?php echo '<input type="text" name="ime" value="'.$_SESSION['update_data']['ime']. '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'податак!\')">' ;?> 
+        <?php echo '<input type="text" name="ime" value="'.$_SESSION['update_data']['ime']. '" onchange="SetLabels(\'forma_unos\', [\'ime\'], \'ime_label\', \'\', \'Required!\')">' ;?> 
      </td>
      <td>
          <label id="ime_label"><p class="red_class">
@@ -47,7 +47,7 @@
      </tr><tr><td>
 
 Surename: 
-</td><td><?php echo '<input type="text" name="prezime" value="'.$_SESSION['update_data']['prezime'].'" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Обавезан податак!\')" >' ?>
+</td><td><?php echo '<input type="text" name="prezime" value="'.$_SESSION['update_data']['prezime'].'" onchange="SetLabels(\'forma_unos\', [\'prezime\'], \'prezime_label\', \'\', \'Required!\')" >' ?>
 </td><td><label id="prezime_label"><p class="red_class">
  <script type="text/javascript">
       document.write(prezime_e);
@@ -67,7 +67,7 @@ Parent's name:
 JMBG: 
 </td>
 <td>
-    <?php echo '<input type="text" name="jmbg" border="3px" value="'.$_SESSION['update_data']['jmbg'].'">'?>
+    <?php echo '<input type="text" name="jmbg" border="3px" maxlength="13" value="'.$_SESSION['update_data']['jmbg'].'">'?>
 </td><td></td></tr><tr><td>
 Date of bitrh:
         </td>
@@ -107,7 +107,7 @@ Date of bitrh:
         <td>                     
         </td>
         <td>
-            <input type="submit"  value="Update" >
+           <?php echo'<input type="submit"  value="'.$_SESSION['insert_or_update'].'" >'; ?>
         </td>
     </tr>   
      
