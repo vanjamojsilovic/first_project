@@ -3,53 +3,50 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="js/functions.js"></script>
 </head>
 <body>
   <div class="column middle">
-    <h2>In The Middle</h2>
-    
-    <br>
-    
-    
-     
-    <form id="form_filter" action="search_list.php" method="post">      
-        <table> 
-            <tr>
-                <td>
-                    <?php if (array_key_exists('ime', $_SESSION['data_array'])){
-                        echo '<input type="text" name="ime" placeholder="First name" value="'.$_SESSION['data_array']['ime'].'">';
-                        }
-                        else {
-                        echo '<input type="text" name="ime" placeholder="First name" >';
-                        }
-                        ?>
-                </td>
-                <td>
-                   <?php if (array_key_exists('prezime', $_SESSION['data_array'])){
-                        echo '<input type="text" name="prezime" placeholder="Last name" value="'.$_SESSION['data_array']['prezime'].'">';
-                        }
-                        else {
-                        echo '<input type="text" name="prezime" placeholder="Last name" >';
-                        }
-                        ?>
-                </td>
-                <td>
-                   <?php if (array_key_exists('srednje_ime', $_SESSION['data_array'])){
-                        echo '<input type="text" name="srednje_ime" placeholder="Middle name" value="'.$_SESSION['data_array']['srednje_ime'].'">';
-                        }
-                        else {
-                        echo '<input type="text" name="srednje_ime" placeholder="Middle name" >';
-                        }
-                        ?> 
-                </td>
-                <td>
-                  <input type="submit"  value="Search list" >
-                </td>
-                <td>
-                  <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime'], '');loadPage('blanco_select_table.php')">Clear</button>
-                </td>
-            </tr>            
-    </table>
+    <h2>In The Middle</h2>    
+        <br>     
+        <form id="form_filter" action="search_list.php" method="post">      
+            <table> 
+                <tr>
+                    <td>
+                        <?php if (array_key_exists('ime', $_SESSION['data_array'])){
+                            echo '<input type="text" name="ime" placeholder="First name" value="'.$_SESSION['data_array']['ime'].'">';
+                            }
+                            else {
+                            echo '<input type="text" name="ime" placeholder="First name" >';
+                            }
+                            ?>
+                    </td>
+                    <td>
+                       <?php if (array_key_exists('prezime', $_SESSION['data_array'])){
+                            echo '<input type="text" name="prezime" placeholder="Last name" value="'.$_SESSION['data_array']['prezime'].'">';
+                            }
+                            else {
+                            echo '<input type="text" name="prezime" placeholder="Last name" >';
+                            }
+                            ?>
+                    </td>
+                    <td>
+                       <?php if (array_key_exists('srednje_ime', $_SESSION['data_array'])){
+                            echo '<input type="text" name="srednje_ime" placeholder="Middle name" value="'.$_SESSION['data_array']['srednje_ime'].'">';
+                            }
+                            else {
+                            echo '<input type="text" name="srednje_ime" placeholder="Middle name" >';
+                            }
+                            ?> 
+                    </td>
+                    <td>
+                      <input type="submit"  value="Search list" >
+                    </td>
+                    <td>
+                      <button type="button" onclick="ResetFields('form_filter', ['ime', 'prezime', 'srednje_ime','jmbg'], '');loadPage('blanco_clear.php')">Clear</button>
+                    </td>
+                </tr>            
+            </table>
 
     <?php        
         echo '<div id="ShowHideSearch" style=display:'.$_SESSION['div_display'].'>' ?>
@@ -58,10 +55,10 @@
                 <td>
                     <?php 
                         if(array_key_exists('jmbg', $_SESSION['data_array'])){
-                                echo '<input type="text" name="jmbg" placeholder="jmbg" value="'.$_SESSION['data_array']['jmbg'].'">';
+                                echo '<input type="text" name="jmbg" maxlength="13" placeholder="jmbg" value="'.$_SESSION['data_array']['jmbg'].'">';
                         }
                         else{
-                        echo '<input type="text" name="jmbg" placeholder="jmbg">';
+                        echo '<input type="text" name="jmbg" maxlength="13" placeholder="jmbg" >';
                         }
                     ?>   
                 </td>
@@ -99,8 +96,7 @@
     </form> 
 
 <div class="no_border">
-    <?php
-        
+    <?php        
         echo "<table>";
         
         $i=0;
@@ -130,7 +126,7 @@
         
         echo "</table>";
         
-        if(array_key_exists ( 'offset' , $employees_list )){
+        if(array_key_exists ( 'offset' ,$employees_list)){
             $row_count_list=false;
             if ($_SESSION['employees_filter_list_page'] > 0){
                 $row_count_list=true;

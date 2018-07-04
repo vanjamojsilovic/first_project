@@ -1,39 +1,14 @@
 <?php
 
 session_start();
-
-include_once 'website_layout.html';
-
 require('libs/db_methods.php');
-// search
-//if(
-//        (!empty($_POST['ime']) && isset($_POST['ime'])) ||
-//        (!empty($_POST['prezime']) && isset($_POST['prezime'])) ||
-//        (!empty($_POST['srednje_ime']) && isset($_POST['srednje_ime'])) ||
-//        (!empty($_POST['jmbg']) && isset($_POST['jmbg']))
-// ){
-//    
-//    $data_array=array();
-//    if(!empty($_POST['ime']) && isset($_POST['ime'])){
-//        $data_array['ime']=$_POST['ime'];
-//    }
-//    
-//    if(!empty($_POST['prezime']) && isset($_POST['prezime'])){
-//        $data_array['prezime']=$_POST['prezime'];
-//    }
-//    
-//    if(!empty($_POST['srednje_ime']) && isset($_POST['srednje_ime'])){
-//        $data_array['srednje_ime']=$_POST['srednje_ime'];
-//    }
-//    if(!empty($_POST['jmbg']) && isset($_POST['jmbg'])){
-//        $data_array['jmbg']=$_POST['jmbg'];
-//    }
-  
-//--------------------------
+include_once 'website_layout.html';  
+
 if ($_SERVER["REQUEST_METHOD"] == "POST"){     
         $data_array=array();
         $filter_array = array();
-        $_SESSION['full_filter_list_page']=0;
+        
+        $_SESSION['employees_filter_list_page']=0;
 
         if(!empty($_POST['ime']) && isset($_POST['ime'])){
             //only one row
@@ -88,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                $criteria_array = array(
                                        "fType" => 'text', 
                                        "fName" => 'jmbg', 
-                                       "fValue" => $_POST['srednje_ime']
+                                       "fValue" => $_POST['jmbg']
                                        );
                $_SESSION['data_array']['jmbg'] = $_POST['jmbg'];
            }
@@ -158,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $filter_array[] = $criteria_array;
 
         $_SESSION['filter_data_array']=$filter_array;
-//-----------------------------
+
     //more less
     if (isset($_GET['display'])){
         $_SESSION['div_display']=$_GET['display']; 
@@ -167,8 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         if($_GET['display']=="none"){
             $_SESSION['button_display']='Show more';
-        }
-        
+        }        
     }
     
     //next previous
@@ -188,18 +162,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         } 
     }
    
-    
-//    $employees_data = new data_management();
-//    $employees_list = $employees_data->search_data('zaposleni',$_SESSION['data_array'],$_SESSION['employees_filter_list_page'],$_SESSION['limit']);
-//-----------------------------------------------  
-
     $variable=new data_management();
-    $employees_list =$variable->get_employees_list_filter_full('zaposleni',$filter_array,$_SESSION['full_filter_list_page'],$_SESSION['limit']);   
+    $employees_list =$variable->get_employees_list_filter_full('zaposleni',$filter_array,$_SESSION['employees_filter_list_page'],$_SESSION['limit']);   
 }
 else{
     if (isset($_GET['delete'])){         
         $employees_data = new data_management();
-        $employees_list = $employees_data->Delete_row_method($_GET['delete']);
+        $delete_result = $employees_data->Delete_row_method($_GET['delete']);
+        if ($delete_result === TRUE) {
+                header('Location: ponovo.php');
+                echo "Successfully!<br>" ;
+            } 
+            else {
+                echo "ERROR!<br>" ;
+            }   
     }
         
     //show hide form
@@ -211,6 +187,7 @@ else{
         if($_GET['display']=="none"){
             $_SESSION['button_display']='Show more';
         }
+       
         $employees_data = new data_management();
         $employees_list = $employees_data->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);   
         
@@ -220,10 +197,11 @@ else{
     //  next  previous
     elseif (isset($_GET['size']) || isset($_GET['page'])){
         $_SESSION['limit']=$_GET['size'];    
-    
+       
         if($_GET['page']==1){
             if($_SESSION['employees_filter_list_page']>=0){
                 $_SESSION['employees_filter_list_page'] = $_SESSION['employees_filter_list_page'] + $_GET['page'];
+                
             }
         }
         elseif($_GET['page']==-1){
@@ -233,17 +211,17 @@ else{
         }
         
         $employees_data = new data_management();
-        $employees_list = $employees_data->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['full_filter_list_page'],$_SESSION['limit']);   
-        
-        
+        $employees_list = $employees_data->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['employees_filter_list_page'],$_SESSION['limit']);       
     }
-    
-//    $employees_data = new data_management();
-//    $employees_list = $employees_data->get_employees_list($_SESSION['employees_list_page'], $_SESSION['limit']);
-    
+    else{
+        
+        $employees_data = new data_management();
+        $employees_list = $employees_data->get_employees_list_filter_full('zaposleni',$_SESSION['filter_data_array'],$_SESSION['employees_filter_list_page'],$_SESSION['limit']);
+    }
 }
 
 include_once 'search_list.html';
 
-include_once 'right_side.html';
+
+
 
