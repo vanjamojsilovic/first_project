@@ -1,41 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
-    
-    $(document).ready(function(){
-        $("#btn_del").click(function(){
-            $("#p_5").hide();
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;        
+    }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            $("#btn_del").click(function(){
+                $("#tr_5").hide();
+            });
+            $("#btn_get")
+                    .click(function(){
+                        $.get("service.php?pageSize=10&pageNum=0", function(data,status){
+                            var array_test=JSON.parse(data);
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id+"'></td>"
+                                +"<td id='td_lname"+array_test[i].id+"'></td></tr>";                            
+                                $("#for_loop").append(tmp);
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
+                            }            
+                        });       
+                    });
+
         });
-        $("#btn_get")
-                .click(function(){
-                    $.get("service.php?pageSize=7&pageNum=2", function(data, status){
-                        var array_test=JSON.parse(data);// zasto ne radi  
-                        console.log(array_test);
-                        console.log(array_test.length);
 
-                        for (i = 0; i < array_test.length; i++) {
-                            var tmp="<p id='p_"+array_test[i].id+"'></p>";
-                             console.log(tmp);
-                            $("#for_loop").append(tmp);
-                            $("#p_"+array_test[i].id).text(array_test[i].firstName+" "+array_test[i].lastName);  
-                        }            
-                    });       
-                });
-                
-    });
-
-</script>
+    </script>
 </head>
 <body>
-
-<button  id="btn_get">GET request</button>
-<button id="btn_del">Delete 5th</button>
-
-<div id="for_loop">
-    
-</div>
-
+<center>
+    <button  id="btn_get">GET request</button>
+    <button id="btn_del">Delete 5th</button>
+    <br>
+    <br>
+    <table id="for_loop" cellpadding="10">
+        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+               First Name
+            </td>
+            <td>
+               Last Name
+            </td>
+        </tr>
+    </table>
+</center>
 </body>
 </html>
