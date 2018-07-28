@@ -16,8 +16,16 @@
             });
             $("#btn_get")
                     .click(function(){
-                        $.get("service.php?pageSize=10&pageNum=0", function(data,status){
+                        $.get("epmloyees_list.php?pageSize=10&pageNum=1", function(data, status){
+                            $("#for_loop_1").hide();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >First Name</td>"
+                                    +"<td >Last Name</td></tr>";
+                            $("#for_loop").append(header);
+                            
                             var array_test=JSON.parse(data);
+                            
                             for (i = 0; i < array_test.length; i++) {
                                 var tmp="<tr id='tr_"+array_test[i].id+"'>"
                                 +"<td id='td_id"+array_test[i].id+"'></td>"
@@ -30,19 +38,54 @@
                             }            
                         });       
                     });
-
+            $("#btn_address")
+                    .click(function(){
+                        $.get("epmloyees_addresses.php?pageSize=10&pageNum=1", function(data, status){
+                            $("#for_loop").hide();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >Type</td>"
+                                    +"<td >Area</td>"
+                                    +"<td >City</td>"
+                                    +"<td >Address</td>"
+                                    +"<td >Note</td></tr>";
+                            $("#for_loop").append(header);
+                            
+                            var array_test=JSON.parse(data);
+                            
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_type"+array_test[i].id+"'></td>"
+                                +"<td id='td_area"+array_test[i].id+"'></td>"
+                                +"<td id='td_city"+array_test[i].id+"'></td>"
+                                +"<td id='td_address"+array_test[i].id+"'></td>"
+                                +"<td id='td_note"+array_test[i].id+"'></td></tr>";    
+                        
+                                $("#for_loop_1").append(tmp);
+                                
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_type"+array_test[i].id).text(array_test[i].type);
+                                $("#td_area"+array_test[i].id).text(array_test[i].area);
+                                $("#td_city"+array_test[i].id).text(array_test[i].city);
+                                $("#td_address"+array_test[i].id).text(array_test[i].address);
+                                $("#td_note"+array_test[i].id).text(array_test[i].note);
+                            }            
+                        });       
+                    });
         });
 
     </script>
 </head>
 <body>
 <center>
-    <button  id="btn_get">GET request</button>
+    <button  id="btn_get">GET employees</button>
     <button id="btn_del">Delete 5th</button>
+    <button id="btn_address">GET addresses</button>
     <br>
     <br>
     <table id="for_loop" cellpadding="10">
-        <tr>
+<!--        <tr>
             <td>
                 ID
             </td>
@@ -52,7 +95,20 @@
             <td>
                Last Name
             </td>
-        </tr>
+        </tr>-->
+    </table>    
+    <table id="for_loop_1" cellpadding="10">
+<!--        <tr>
+            <td>
+                ID
+            </td>
+            <td>
+               First Name
+            </td>
+            <td>
+               Last Name
+            </td>
+        </tr>-->
     </table>
 </center>
 </body>
