@@ -17,12 +17,15 @@
             $("#btn_get")
                     .click(function(){
                         $.get("epmloyees_list.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#for_loop_1").hide();
+                            $("#tbl_adresses").hide();                            
+                            $("#tbl_emploees").show();
+                            $("#tbl_educations").hide();
+                            $("#tbl_phones").hide();
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
                                     +"<td >Last Name</td></tr>";
-                            $("#for_loop").append(header);
+                            $("#tbl_emploees").append(header);
                             
                             var array_test=JSON.parse(data);
                             
@@ -31,7 +34,7 @@
                                 +"<td id='td_id"+array_test[i].id+"'></td>"
                                 +"<td id='td_fname"+array_test[i].id+"'></td>"
                                 +"<td id='td_lname"+array_test[i].id+"'></td></tr>";                            
-                                $("#for_loop").append(tmp);
+                                $("#tbl_emploees").append(tmp);
                                 $("#td_id"+array_test[i].id).text(array_test[i].id);
                                 $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
                                 $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
@@ -41,7 +44,10 @@
             $("#btn_address")
                     .click(function(){
                         $.get("epmloyees_addresses.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#for_loop").hide();
+                            $("#tbl_emploees").hide();
+                            $("#tbl_adresses").show();
+                            $("#tbl_educations").hide();
+                            $("#tbl_phones").hide();
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
@@ -49,7 +55,7 @@
                                     +"<td >City</td>"
                                     +"<td >Address</td>"
                                     +"<td >Note</td></tr>";
-                            $("#for_loop").append(header);
+                            $("#tbl_adresses").append(header);
                             
                             var array_test=JSON.parse(data);
                             
@@ -62,8 +68,8 @@
                                 +"<td id='td_address"+array_test[i].id+"'></td>"
                                 +"<td id='td_note"+array_test[i].id+"'></td></tr>";    
                         
-                                $("#for_loop_1").append(tmp);
-                                
+                                $("#tbl_adresses").append(tmp);
+                               
                                 $("#td_id"+array_test[i].id).text(array_test[i].id);
                                 $("#td_type"+array_test[i].id).text(array_test[i].type);
                                 $("#td_area"+array_test[i].id).text(array_test[i].area);
@@ -73,6 +79,70 @@
                             }            
                         });       
                     });
+            $("#btn_educations")
+                    .click(function(){
+                        $.get("employees_educations.php?pageSize=10&pageNum=1", function(data, status){
+                            $("#tbl_emploees").hide();
+                            $("#tbl_adresses").hide();
+                            $("#tbl_phones").hide();
+                            $("#tbl_educations").show();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >Type</td>"
+                                    +"<td >Institution</td>"
+                                    +"<td >Vocation</td>";
+                            $("#tbl_educations").append(header);
+                            
+                            var array_test=JSON.parse(data);
+                            console.log(array_test);
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_type"+array_test[i].id+"'></td>"
+                                +"<td id='td_institution"+array_test[i].id+"'></td>"
+                                +"<td id='td_vocation"+array_test[i].id+"'></td></tr>";    
+                        
+                                $("#tbl_educations").append(tmp);
+                                 
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_type"+array_test[i].id).text(array_test[i].type);
+                                $("#td_institution"+array_test[i].id).text(array_test[i].institution);
+                                $("#td_vocation"+array_test[i].id).text(array_test[i].vocation);
+                                
+                            }            
+                        });       
+                    });
+            $("#btn_phones")
+                    .click(function(){
+                        $.get("employees_educations.php?pageSize=10&pageNum=1", function(data, status){
+                            $("#tbl_emploees").hide();
+                            $("#tbl_adresses").hide();
+                            $("#tbl_educations").hide();
+                            $("#tbl_phones").show();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >Type</td>"
+                                    +"<td >Phone Number</td>";
+                            $("#tbl_phones").append(header);
+                            
+                            var array_test=JSON.parse(data);
+                            console.log(array_test);
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_type"+array_test[i].id+"'></td>"
+                                +"<td id='td_number"+array_test[i].id+"'></td></tr>";    
+                        
+                                $("#tbl_phones").append(tmp);
+                                 
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_type"+array_test[i].id).text(array_test[i].type);
+                                $("#td_number"+array_test[i].id).text(array_test[i].number);
+                                
+                                
+                            }            
+                        });       
+                    });        
         });
 
     </script>
@@ -84,31 +154,17 @@
     <button id="btn_address">GET addresses</button>
     <br>
     <br>
-    <table id="for_loop" cellpadding="10">
-<!--        <tr>
-            <td>
-                ID
-            </td>
-            <td>
-               First Name
-            </td>
-            <td>
-               Last Name
-            </td>
-        </tr>-->
+    <button id="btn_educations">GET educations</button>
+    <button id="btn_phones">GET phones</button>
+    <br>
+    <br>
+    <table id="tbl_emploees" cellpadding="10">
     </table>    
-    <table id="for_loop_1" cellpadding="10">
-<!--        <tr>
-            <td>
-                ID
-            </td>
-            <td>
-               First Name
-            </td>
-            <td>
-               Last Name
-            </td>
-        </tr>-->
+    <table id="tbl_adresses" cellpadding="10">
+    </table>
+    <table id="tbl_educations" cellpadding="10">
+    </table>
+    <table id="tbl_phones" cellpadding="10">
     </table>
 </center>
 </body>

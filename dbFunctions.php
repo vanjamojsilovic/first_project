@@ -101,6 +101,40 @@ class dbFunctions
         $sql = "SELECT id_adresa AS id, vrsta AS type, opstina AS area, mesto AS city, CONCAT(ulica, ' ', broj) AS address, napomena AS note, status 
                 FROM zaposleni_adresa 
                 LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
+        
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+       
+        if (mysqli_num_rows($sqlResult) > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)) {
+                $row = array_map('utf8_encode', $row);
+                $result[] = $row; 
+            }
+        }
+
+        return $result;
+    }
+    function educations($pageNum = 1, $pageSize = 10){
+
+        $result = [];
+        $sql = "SELECT id_obrazovanje AS id, vrsta AS type, (SELECT naziv  FROM ustanova WHERE ustanova.id_ustanova=zaposleni_obrazovanje.ustanova_id) AS institution, (SELECT naziv FROM zvanje WHERE zvanje.id_zvanje=zaposleni_obrazovanje.zvanje_id) AS vocation FROM agencija.zaposleni_obrazovanje "
+               ." LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
+
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        if (mysqli_num_rows($sqlResult) > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)) {
+                $row = array_map('utf8_encode', $row);
+                $result[] = $row; 
+            }
+        }
+
+        return $result;
+    }
+    function phones($pageNum = 1, $pageSize = 10){
+
+        $result = [];
+        $sql = "SELECT id_obrazovanje AS id, vrsta AS type, (SELECT naziv  FROM ustanova WHERE ustanova.id_ustanova=zaposleni_obrazovanje.ustanova_id) AS institution, (SELECT naziv FROM zvanje WHERE zvanje.id_zvanje=zaposleni_obrazovanje.zvanje_id) AS vocation FROM agencija.zaposleni_obrazovanje "
+               ." LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
 
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
