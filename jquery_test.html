@@ -17,15 +17,18 @@
             $("#btn_get")
                     .click(function(){
                         $.get("epmloyees_list.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_adresses").hide();                            
-                            $("#tbl_emploees").show();
-                            $("#tbl_educations").hide();
-                            $("#tbl_phones").hide();
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
                                     +"<td >Last Name</td></tr>";
-                            $("#tbl_emploees").append(header);
+                            $("#tbl_employees").append(header);
                             
                             var array_test=JSON.parse(data);
                             
@@ -34,7 +37,7 @@
                                 +"<td id='td_id"+array_test[i].id+"'></td>"
                                 +"<td id='td_fname"+array_test[i].id+"'></td>"
                                 +"<td id='td_lname"+array_test[i].id+"'></td></tr>";                            
-                                $("#tbl_emploees").append(tmp);
+                                $("#tbl_employees").append(tmp);
                                 $("#td_id"+array_test[i].id).text(array_test[i].id);
                                 $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
                                 $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
@@ -44,10 +47,13 @@
             $("#btn_address")
                     .click(function(){
                         $.get("epmloyees_addresses.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_emploees").hide();
-                            $("#tbl_adresses").show();
-                            $("#tbl_educations").hide();
-                            $("#tbl_phones").hide();
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
@@ -82,15 +88,19 @@
             $("#btn_educations")
                     .click(function(){
                         $.get("employees_educations.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_emploees").hide();
-                            $("#tbl_adresses").hide();
-                            $("#tbl_phones").hide();
-                            $("#tbl_educations").show();
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
                                     +"<td >Institution</td>"
-                                    +"<td >Vocation</td>";
+                                    +"<td >Vocation</td>"
+                                    +"</tr>";
                             $("#tbl_educations").append(header);
                             
                             var array_test=JSON.parse(data);
@@ -100,7 +110,8 @@
                                 +"<td id='td_id"+array_test[i].id+"'></td>"
                                 +"<td id='td_type"+array_test[i].id+"'></td>"
                                 +"<td id='td_institution"+array_test[i].id+"'></td>"
-                                +"<td id='td_vocation"+array_test[i].id+"'></td></tr>";    
+                                +"<td id='td_vocation"+array_test[i].id+"'></td>"
+                                +"</tr>";    
                         
                                 $("#tbl_educations").append(tmp);
                                  
@@ -114,11 +125,14 @@
                     });
             $("#btn_phones")
                     .click(function(){
-                        $.get("employees_educations.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_emploees").hide();
-                            $("#tbl_adresses").hide();
-                            $("#tbl_educations").hide();
-                            $("#tbl_phones").show();
+                        $.get("employees_phones.php?pageSize=10&pageNum=1", function(data, status){
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
@@ -142,7 +156,121 @@
                                 
                             }            
                         });       
-                    });        
+                    }); 
+            $("#btn_empl_with_adr")
+                    .click(function(){
+                        $.get("empl_with_adr.php?pageSize=20&pageNum=1", function(data, status){
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >First Name</td>"
+                                    +"<td >Last Name</td>"
+                                    +"<td >Area</td>"
+                                    +"<td >City</td>"
+                                    +"<td >Address</td></tr>";
+                            $("#tbl_empl_with_adr").append(header);
+                            
+                            var array_test=JSON.parse(data);
+                            
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id+"'></td>"                               
+                                +"<td id='td_lname"+array_test[i].id+"'></td>"
+                                +"<td id='td_area"+array_test[i].id+"'></td>"
+                                +"<td id='td_city"+array_test[i].id+"'></td>"
+                                +"<td id='td_address"+array_test[i].id+"'></td>"
+                                +"</tr>";                            
+                                $("#tbl_empl_with_adr").append(tmp);
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
+                                $("#td_area"+array_test[i].id).text(array_test[i].area);
+                                $("#td_city"+array_test[i].id).text(array_test[i].city);
+                                $("#td_address"+array_test[i].id).text(array_test[i].address);                              
+                                
+                            }            
+                        });       
+                    }); 
+            $("#btn_empl_with_phones")
+                    .click(function(){
+                        $.get("empl_with_phones.php?pageSize=20&pageNum=1", function(data, status){
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >First Name</td>"
+                                    +"<td >Last Name</td>"
+                                    +"<td >Phone Number</td>"
+                                    +"</tr>";
+                            $("#tbl_empl_with_phones").append(header);
+                            
+                            var array_test=JSON.parse(data);
+                            
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id+"'></td>"                               
+                                +"<td id='td_lname"+array_test[i].id+"'></td>"
+                                +"<td id='td_number"+array_test[i].id+"'></td>"
+                                +"</tr>";                            
+                                $("#tbl_empl_with_phones").append(tmp);
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
+                                $("#td_number"+array_test[i].id).text(array_test[i].number);                               
+                            }            
+                        });       
+                    });
+            $("#btn_empl_with_edu")
+                    .click(function(){
+                        $.get("empl_with_edu.php?pageSize=20&pageNum=1", function(data, status){
+                            $("#tbl_employees").empty();
+                            $("#tbl_adresses").empty();                          
+                            $("#tbl_educations").empty();
+                            $("#tbl_phones").empty();
+                            $("#tbl_empl_with_adr").empty();
+                            $("#tbl_empl_with_phones").empty();
+                            $("#tbl_empl_with_edu").empty();
+                            var header = "<tr>"
+                                    +"<td >ID</td>"
+                                    +"<td >First Name</td>"
+                                    +"<td >Last Name</td>"
+                                    +"<td >Institution</td>"
+                                    +"<td >Vocation</td>"
+                                    +"</tr>";
+                            $("#tbl_empl_with_edu").append(header);
+                            
+                            var array_test=JSON.parse(data);
+                            
+                            for (i = 0; i < array_test.length; i++) {
+                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
+                                +"<td id='td_id"+array_test[i].id+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id+"'></td>"                               
+                                +"<td id='td_lname"+array_test[i].id+"'></td>"
+                                +"<td id='td_institution"+array_test[i].id+"'></td>"
+                                +"<td id='td_vocation"+array_test[i].id+"'></td>"
+                                +"</tr>";                            
+                                $("#tbl_empl_with_edu").append(tmp);
+                                $("#td_id"+array_test[i].id).text(array_test[i].id);
+                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
+                                $("#td_institution"+array_test[i].id).text(array_test[i].institution);
+                                $("#td_vocation"+array_test[i].id).text(array_test[i].vocation);                              
+                            }            
+                        });       
+                    });          
         });
 
     </script>
@@ -158,13 +286,24 @@
     <button id="btn_phones">GET phones</button>
     <br>
     <br>
-    <table id="tbl_emploees" cellpadding="10">
+    <button id="btn_empl_with_adr">GET employees with adress</button>
+    <button id="btn_empl_with_phones">GET employees with phone</button>
+    <button id="btn_empl_with_edu">GET employees with education</button>
+    <br>
+    <br>
+    <table id="tbl_employees" cellpadding="10">
     </table>    
     <table id="tbl_adresses" cellpadding="10">
     </table>
     <table id="tbl_educations" cellpadding="10">
     </table>
     <table id="tbl_phones" cellpadding="10">
+    </table>
+    <table id="tbl_empl_with_adr" cellpadding="10">
+    </table>
+    <table id="tbl_empl_with_phones" cellpadding="10">
+    </table>
+    <table id="tbl_empl_with_edu" cellpadding="10">
     </table>
 </center>
 </body>

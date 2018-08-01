@@ -116,7 +116,10 @@ class dbFunctions
     function educations($pageNum = 1, $pageSize = 10){
 
         $result = [];
-        $sql = "SELECT id_obrazovanje AS id, vrsta AS type, (SELECT naziv  FROM ustanova WHERE ustanova.id_ustanova=zaposleni_obrazovanje.ustanova_id) AS institution, (SELECT naziv FROM zvanje WHERE zvanje.id_zvanje=zaposleni_obrazovanje.zvanje_id) AS vocation FROM agencija.zaposleni_obrazovanje "
+        $sql = "SELECT id_obrazovanje AS id, vrsta AS type, "
+               ."(SELECT naziv  FROM ustanova WHERE ustanova.id_ustanova=zaposleni_obrazovanje.ustanova_id) AS institution, "
+               ."(SELECT naziv FROM zvanje WHERE zvanje.id_zvanje=zaposleni_obrazovanje.zvanje_id) AS vocation "
+               ."FROM agencija.zaposleni_obrazovanje "
                ." LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
 
         $sqlResult = mysqli_query($this->db_conn, $sql);
@@ -133,8 +136,80 @@ class dbFunctions
     function phones($pageNum = 1, $pageSize = 10){
 
         $result = [];
-        $sql = "SELECT id_obrazovanje AS id, vrsta AS type, (SELECT naziv  FROM ustanova WHERE ustanova.id_ustanova=zaposleni_obrazovanje.ustanova_id) AS institution, (SELECT naziv FROM zvanje WHERE zvanje.id_zvanje=zaposleni_obrazovanje.zvanje_id) AS vocation FROM agencija.zaposleni_obrazovanje "
+        $sql = "SELECT id_telefon AS id, tip AS type, "
+                ."IF(area IS NOT NULL, CONCAT(area, SUBSTRING(pozivni,2), broj), CONCAT(pozivni, broj)) AS number "
+                ." FROM agencija.zaposleni_telefon "
                ." LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
+
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        if (mysqli_num_rows($sqlResult) > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)) {
+                $row = array_map('utf8_encode', $row);
+                $result[] = $row; 
+            }
+        }
+
+        return $result;
+    }
+    
+    function empl_with_adr($pageNum = 1, $pageSize = 10){
+
+        $result = [];
+        $sql = "SELECT zaposleni.id_zaposleni AS id, zaposleni.ime AS firstName, zaposleni.prezime AS lastName, "
+                ."zaposleni_adresa.opstina AS area, zaposleni_adresa.mesto AS city, zaposleni_adresa.ulica AS address "
+                ."FROM zaposleni INNER JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
+                ."ORDER BY id " 
+                ."LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
+
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        if (mysqli_num_rows($sqlResult) > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)) {
+                $row = array_map('utf8_encode', $row);
+                $result[] = $row; 
+            }
+        }
+
+        return $result;
+    }
+    
+    function empl_with_phones($pageNum = 1, $pageSize = 10){
+
+        $result = [];
+        $sql = "SELECT zaposleni.id_zaposleni AS id, zaposleni.ime AS firstName, zaposleni.prezime AS lastName, "
+                ."IF(zaposleni_telefon.area IS NOT NULL, CONCAT(zaposleni_telefon.area, SUBSTRING(zaposleni_telefon.pozivni,2), zaposleni_telefon.broj), CONCAT(zaposleni_telefon.pozivni, broj)) AS number  "
+                ."FROM zaposleni LEFT JOIN zaposleni_telefon ON zaposleni.id_zaposleni=zaposleni_telefon.id_zaposleni "
+                ."UNION "
+                ."SELECT zaposleni.id_zaposleni AS id, zaposleni.ime AS firstName, zaposleni.prezime AS lastName, "
+                ."IF(zaposleni_telefon.area IS NOT NULL, CONCAT(zaposleni_telefon.area, SUBSTRING(zaposleni_telefon.pozivni,2), zaposleni_telefon.broj), CONCAT(zaposleni_telefon.pozivni, broj)) AS number  "
+                ."FROM zaposleni RIGHT JOIN zaposleni_telefon ON zaposleni.id_zaposleni=zaposleni_telefon.id_zaposleni "
+                ."ORDER BY id " 
+                ."LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
+
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        if (mysqli_num_rows($sqlResult) > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)) {
+                $row = array_map('utf8_encode', $row);
+                if($row['number']!=''){
+                    $result[] = $row;
+                }
+            }
+        }
+
+        return $result;
+    }
+    
+    function empl_with_edu($pageNum = 1, $pageSize = 10){
+
+        $result = [];
+        $sql = "SELECT zaposleni.id_zaposleni AS id, zaposleni.ime AS firstName, zaposleni.prezime AS lastName, "
+               ."(SELECT ustanova.naziv  FROM ustanova WHERE ustanova.id_ustanova=zaposleni_obrazovanje.ustanova_id) AS institution, "
+               ."(SELECT zvanje.naziv FROM zvanje WHERE zvanje.id_zvanje=zaposleni_obrazovanje.zvanje_id) AS vocation "
+               ."FROM zaposleni INNER JOIN zaposleni_obrazovanje ON zaposleni.id_zaposleni=zaposleni_obrazovanje.id_zaposleni "
+               ."ORDER BY id " 
+               ."LIMIT " . ($pageNum - 1)*$pageSize . ", " . $pageSize;
 
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
