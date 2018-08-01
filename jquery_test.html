@@ -9,7 +9,22 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-
+        function empty_table(ta){
+            var i=0;
+            while(i<ta.length){
+                $(ta[i]).empty();
+                i++;
+            }
+        }
+        var table_array=new Array(
+            "#tbl_employees",
+            "#tbl_adresses",
+            "#tbl_educations",
+            "#tbl_phones",
+            "#tbl_empl_with_adr",
+            "#tbl_empl_with_phones",
+            "#tbl_empl_with_edu"
+        );
         $(document).ready(function(){
             $("#btn_del").click(function(){
                 $("#tr_5").hide();
@@ -17,13 +32,7 @@
             $("#btn_get")
                     .click(function(){
                         $.get("epmloyees_list.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                            empty_table(table_array);                           
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
@@ -47,13 +56,7 @@
             $("#btn_address")
                     .click(function(){
                         $.get("epmloyees_addresses.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                            empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
@@ -88,13 +91,7 @@
             $("#btn_educations")
                     .click(function(){
                         $.get("employees_educations.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                           empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
@@ -126,13 +123,7 @@
             $("#btn_phones")
                     .click(function(){
                         $.get("employees_phones.php?pageSize=10&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                            empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >Type</td>"
@@ -160,13 +151,7 @@
             $("#btn_empl_with_adr")
                     .click(function(){
                         $.get("empl_with_adr.php?pageSize=20&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                           empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
@@ -179,21 +164,21 @@
                             var array_test=JSON.parse(data);
                             
                             for (i = 0; i < array_test.length; i++) {
-                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
-                                +"<td id='td_id"+array_test[i].id+"'></td>"
-                                +"<td id='td_fname"+array_test[i].id+"'></td>"                               
-                                +"<td id='td_lname"+array_test[i].id+"'></td>"
-                                +"<td id='td_area"+array_test[i].id+"'></td>"
-                                +"<td id='td_city"+array_test[i].id+"'></td>"
-                                +"<td id='td_address"+array_test[i].id+"'></td>"
+                                var tmp="<tr id='tr_"+array_test[i].id_adresa+"'>"
+                                +"<td id='td_id"+array_test[i].id_adresa+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id_adresa+"'></td>"                               
+                                +"<td id='td_lname"+array_test[i].id_adresa+"'></td>"
+                                +"<td id='td_area"+array_test[i].id_adresa+"'></td>"
+                                +"<td id='td_city"+array_test[i].id_adresa+"'></td>"
+                                +"<td id='td_address"+array_test[i].id_adresa+"'></td>"
                                 +"</tr>";                            
                                 $("#tbl_empl_with_adr").append(tmp);
-                                $("#td_id"+array_test[i].id).text(array_test[i].id);
-                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
-                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
-                                $("#td_area"+array_test[i].id).text(array_test[i].area);
-                                $("#td_city"+array_test[i].id).text(array_test[i].city);
-                                $("#td_address"+array_test[i].id).text(array_test[i].address);                              
+                                $("#td_id"+array_test[i].id_adresa).text(array_test[i].id_zaposleni);
+                                $("#td_fname"+array_test[i].id_adresa).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id_adresa).text(array_test[i].lastName);
+                                $("#td_area"+array_test[i].id_adresa).text(array_test[i].area);
+                                $("#td_city"+array_test[i].id_adresa).text(array_test[i].city);
+                                $("#td_address"+array_test[i].id_adresa).text(array_test[i].address);                              
                                 
                             }            
                         });       
@@ -201,13 +186,7 @@
             $("#btn_empl_with_phones")
                     .click(function(){
                         $.get("empl_with_phones.php?pageSize=20&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                           empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
@@ -219,30 +198,24 @@
                             var array_test=JSON.parse(data);
                             
                             for (i = 0; i < array_test.length; i++) {
-                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
-                                +"<td id='td_id"+array_test[i].id+"'></td>"
-                                +"<td id='td_fname"+array_test[i].id+"'></td>"                               
-                                +"<td id='td_lname"+array_test[i].id+"'></td>"
-                                +"<td id='td_number"+array_test[i].id+"'></td>"
+                                var tmp="<tr id='tr_"+array_test[i].id_telefon+"'>"
+                                +"<td id='td_id"+array_test[i].id_telefon+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id_telefon+"'></td>"                               
+                                +"<td id='td_lname"+array_test[i].id_telefon+"'></td>"
+                                +"<td id='td_number"+array_test[i].id_telefon+"'></td>"
                                 +"</tr>";                            
                                 $("#tbl_empl_with_phones").append(tmp);
-                                $("#td_id"+array_test[i].id).text(array_test[i].id);
-                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
-                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
-                                $("#td_number"+array_test[i].id).text(array_test[i].number);                               
+                                $("#td_id"+array_test[i].id_telefon).text(array_test[i].id_zaposleni);
+                                $("#td_fname"+array_test[i].id_telefon).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id_telefon).text(array_test[i].lastName);
+                                $("#td_number"+array_test[i].id_telefon).text(array_test[i].number);                               
                             }            
                         });       
                     });
             $("#btn_empl_with_edu")
                     .click(function(){
                         $.get("empl_with_edu.php?pageSize=20&pageNum=1", function(data, status){
-                            $("#tbl_employees").empty();
-                            $("#tbl_adresses").empty();                          
-                            $("#tbl_educations").empty();
-                            $("#tbl_phones").empty();
-                            $("#tbl_empl_with_adr").empty();
-                            $("#tbl_empl_with_phones").empty();
-                            $("#tbl_empl_with_edu").empty();
+                            empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
@@ -255,19 +228,19 @@
                             var array_test=JSON.parse(data);
                             
                             for (i = 0; i < array_test.length; i++) {
-                                var tmp="<tr id='tr_"+array_test[i].id+"'>"
-                                +"<td id='td_id"+array_test[i].id+"'></td>"
-                                +"<td id='td_fname"+array_test[i].id+"'></td>"                               
-                                +"<td id='td_lname"+array_test[i].id+"'></td>"
-                                +"<td id='td_institution"+array_test[i].id+"'></td>"
-                                +"<td id='td_vocation"+array_test[i].id+"'></td>"
+                                var tmp="<tr id='tr_"+array_test[i].id_obrazovanje+"'>"
+                                +"<td id='td_id"+array_test[i].id_obrazovanje+"'></td>"
+                                +"<td id='td_fname"+array_test[i].id_obrazovanje+"'></td>"                               
+                                +"<td id='td_lname"+array_test[i].id_obrazovanje+"'></td>"
+                                +"<td id='td_institution"+array_test[i].id_obrazovanje+"'></td>"
+                                +"<td id='td_vocation"+array_test[i].id_obrazovanje+"'></td>"
                                 +"</tr>";                            
                                 $("#tbl_empl_with_edu").append(tmp);
-                                $("#td_id"+array_test[i].id).text(array_test[i].id);
-                                $("#td_fname"+array_test[i].id).text(array_test[i].firstName);
-                                $("#td_lname"+array_test[i].id).text(array_test[i].lastName);
-                                $("#td_institution"+array_test[i].id).text(array_test[i].institution);
-                                $("#td_vocation"+array_test[i].id).text(array_test[i].vocation);                              
+                                $("#td_id"+array_test[i].id_obrazovanje).text(array_test[i].id_zaposleni);
+                                $("#td_fname"+array_test[i].id_obrazovanje).text(array_test[i].firstName);
+                                $("#td_lname"+array_test[i].id_obrazovanje).text(array_test[i].lastName);
+                                $("#td_institution"+array_test[i].id_obrazovanje).text(array_test[i].institution);
+                                $("#td_vocation"+array_test[i].id_obrazovanje).text(array_test[i].vocation);                              
                             }            
                         });       
                     });          
