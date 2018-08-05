@@ -1,0 +1,122 @@
+/*multiple columns of text - like in newspapers*/
+.column {
+    float: left;
+    padding: 10px;    
+}
+
+.column.left {
+   
+    width: 25%;
+    text-align: left;
+}
+
+.column.right {
+    
+    width: 25%;
+    text-align: center;
+}
+
+.column.middle {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.header {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+}
+
+/*navigation menu*/
+.topnav {
+    overflow: hidden;
+    background-color: #202090;
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+body {
+  margin: 0;
+}
+
+div.no_border tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+div.no_border table, tr, td, th {    
+   border-color: white;
+   text-align: center;    
+}
+
+div.no_border table {
+border-collapse: collapse;
+width: 100%;
+}
+
+.image:hover {
+    opacity: 0.5;
+}
+
+div.insert_data table{
+    table-layout: auto;
+    width: 100%; 
+    border-collapse: collapse;
+    vertical-align: middle;
+    border-color: white;  
+}
+
+/*forma_za_unos.html*/
+div.insert_data td{
+    
+    text-align: left;
+    border-color: white; 
+       
+}
+
+
+
+
+div.insert_data tr{
+    height:  50px;
+}
+
+ 
+
+
+
+div.insert_data button{
+    height: 30px;
+    width: 150px;
+}
+
+div.insert_data button:hover{
+    color:green;   
+}
+
+div.insert_data input[type=text]{
+    border: 2px solid black;
+    border-radius: 4px;    
+}
+
+div.insert_data input[type=submit]{
+    height: 30px;
+    width: 150px;
+}
+
+p.red_class {
+    color:red;    
+}
+

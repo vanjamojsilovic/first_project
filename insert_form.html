@@ -1,0 +1,121 @@
+<html><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<script type="text/javascript" src="js/functions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>    
+<body>
+    <script>
+        $(document).ready(function(){
+            $("#btn_submit").click(function(){
+                
+                $.post("insert_service.php",
+                    {
+                        $("#insert_form").serialize()
+                    })
+                });
+            });
+       
+    </script>
+    <div class="header">
+        <h1>Header</h1> 
+    </div>
+    <div class="topnav">
+        <a href="" >Home</a>
+    </div> 
+    <div class="column left">
+        <h2>Left Side</h2>
+        <button >Insert New</button><br><br>
+        <button >Employees</button>
+    </div>
+    <div class="column middle">
+    
+        <center>
+            <h2>Insert data</h2>
+        </center>
+        <form id="insert_form" name="insert_form" action="insert_service.php" method="post">
+            <div class="insert_data">
+                <table>
+                    <col width="40%">
+                    <col width="40%">
+                    <col width="20%"> 
+                    <tr>
+                        <td>       
+                            Name:
+                        </td>
+                        <td> 
+                            <input type="text" id="first_name" name="first_name"> 
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Last name: 
+                        </td>
+                        <td>
+                            <input type="text" id="last_name" name="last_name">
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Parent's name: 
+                        </td>
+                        <td>
+                            <input type="text" name="srednje_ime" value="">
+                        </td>
+                        <td>                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            JMBG: 
+                        </td>
+                        <td>
+                            <input type="text" name="jmbg"  maxlength="13">
+                        </td>
+                        <td>                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Date of bitrh:
+                        </td>
+                        <td>
+                            <input type="date" name="bday" value="" > 
+                        </td>
+                        <td>
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Gender:
+                        </td>
+                        <td>
+                            <input type="radio" name="pol" value="m">Male<br>
+                            <input type="radio" name="pol" value="z" >Female<br>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" >Reset</button>
+                        </td>
+                        <td>                     
+                        </td>
+                        <td>
+                            <input type="submit" id="btn_submit" value="Submit">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>    
+    </div>
+    
+</body>
+</html>    

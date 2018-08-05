@@ -18,6 +18,10 @@ if (isset($_GET['pageSize']) && isset($_GET['pageNum'])){
 
 $response = json_encode($employees);
 
+header("HTTP/1.1 200 OK");
 echo $response;
+
+
+
 
 
