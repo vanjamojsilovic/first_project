@@ -223,9 +223,12 @@ class dbFunctions
         return $result;
     }
     
-    function insert_employee($first_name, $last_name){
+    function insert_employee($first_name, $last_name, $parents_name, $jmbg, $date_of_birth, $gender){
         
-        $sql = "INSERT INTO zaposleni (ime, prezime) VALUES ('".$first_name."','".$last_name."')";
+        $sql = "INSERT INTO zaposleni (ime, prezime, srednje_ime, jmbg, datum_rodjenja, pol)"
+                ." VALUES ('".$first_name."','".$last_name."','".$parents_name
+                ."','".$jmbg."','".$date_of_birth."','".$gender."')";
+        var_dump($sql);
         $sqlResult = mysqli_query($this->db_conn, $sql);        
 
         return $sqlResult;

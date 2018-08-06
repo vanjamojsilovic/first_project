@@ -11,8 +11,11 @@
                 $.post("insert_service.php",
                     {
                         $("#insert_form").serialize()
-                    })
-                });
+                    },
+                    function(data, status){
+                        alert("Data: " + data + "\nStatus: " + status);
+                    }
+                );
             });
        
     </script>
@@ -65,7 +68,7 @@
                             Parent's name: 
                         </td>
                         <td>
-                            <input type="text" name="srednje_ime" value="">
+                            <input type="text" id="parents_name" name="parents_name">
                         </td>
                         <td>                        
                         </td>
@@ -75,7 +78,7 @@
                             JMBG: 
                         </td>
                         <td>
-                            <input type="text" name="jmbg"  maxlength="13">
+                            <input type="text" id="jmbg" name="jmbg"  maxlength="13">
                         </td>
                         <td>                        
                         </td>
@@ -85,7 +88,7 @@
                             Date of bitrh:
                         </td>
                         <td>
-                            <input type="date" name="bday" value="" > 
+                            <input type="date" id="date_of_birth" name="date_of_birth" value=""> 
                         </td>
                         <td>
                            
@@ -96,15 +99,15 @@
                             Gender:
                         </td>
                         <td>
-                            <input type="radio" name="pol" value="m">Male<br>
-                            <input type="radio" name="pol" value="z" >Female<br>
+                            <input type="radio" id="gender" name="gender" value="m">Male<br>
+                            <input type="radio" id="gender" name="gender" value="z" >Female<br>
                         </td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <button type="button" >Reset</button>
+                            <button type="button">Reset</button>
                         </td>
                         <td>                     
                         </td>
