@@ -1,0 +1,121 @@
+<html><meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<script type="text/javascript" src="js/functions.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>    
+<body>
+    <script>        
+        $(document).ready(function(){
+                $("#btn_submit")
+                    .click(function(){                
+                        $.post("insert_service_login.php",                            
+                            $("#insert_form").serialize(),
+                            function(data, status){
+                                alert("Data: " + data + "\nStatus: " + status);
+                            }
+                        );
+                    });
+        });
+    </script>
+    <div class="header">
+        <h1>Header</h1> 
+    </div>
+    <div class="topnav">
+        <a href="" >Home</a>
+    </div> 
+    <div class="column left">
+        <h2>Left Side</h2>
+        <button >Insert New</button><br><br>
+        <button >Employees</button>
+    </div>
+    <div class="column middle">
+    
+        <center>
+            <h2>Insert data</h2>
+        </center>
+        <form id="insert_form" name="insert_form" action="" method="post">
+            <div class="insert_data">
+                <table>
+                    <col width="40%">
+                    <col width="40%">
+                    <col width="20%"> 
+                    <tr>
+                        <td>       
+                            Name:
+                        </td>
+                        <td> 
+                            <input type="text" id="first_name" name="first_name"> 
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Last name: 
+                        </td>
+                        <td>
+                            <input type="text" id="last_name" name="last_name">
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Email: 
+                        </td>
+                        <td>
+                            <input type="text" id="email" name="email">
+                        </td>
+                        <td>                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           Password:
+                        </td>
+                        <td>
+                            <input type="text" id="password" name="password" >
+                        </td>
+                        <td>                        
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>                            
+                        
+                        </td>
+                        <td>
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                        
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button">Reset</button>
+                        </td>
+                        <td>                     
+                        </td>
+                        <td>
+                            <button type="button"  id="btn_submit">Submit</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </form>    
+    </div>
+    
+</body>
+</html>    

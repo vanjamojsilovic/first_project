@@ -221,6 +221,7 @@ class dbFunctions
         }
 
         return $result;
+        
     }
     
     function insert_employee($first_name, $last_name, $parents_name, $jmbg, $date_of_birth, $gender){
@@ -228,10 +229,52 @@ class dbFunctions
         $sql = "INSERT INTO zaposleni (ime, prezime, srednje_ime, jmbg, datum_rodjenja, pol)"
                 ." VALUES ('".$first_name."','".$last_name."','".$parents_name
                 ."','".$jmbg."','".$date_of_birth."','".$gender."')";
-        var_dump($sql);
-        $sqlResult = mysqli_query($this->db_conn, $sql);        
+       
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        echo mysqli_insert_id($this->db_conn);
+        echo "  ";
 
         return $sqlResult;
         
     }
+    
+    function insert_employee_login($first_name, $last_name, $email, $password){
+        
+        $sql = "INSERT INTO users (first_name, last_name, email)"
+                ." VALUES ('".$first_name."','".$last_name."','".$email."')";
+       
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        
+        echo mysqli_insert_id($this->db_conn);
+        echo "   ";
+
+        return $sqlResult;
+        
+    }
+    
+    function login($email, $password){
+        
+        $sql = "";
+       
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        echo mysqli_insert_id($this->db_conn);
+        echo "   ";
+
+        return $sqlResult;
+        
+    }
+    
+    function saltCreator($saltLen) {
+    $buffer = '';
+    for ($i = 0; $i < $saltLen; $i++) {
+        $rndNum = mt_rand(48, 122);
+        while ($rndNum >= 58 AND $rndNum <= 64 OR $rndNum >= 91 AND $rndNum <= 96){
+            $rndNum = mt_rand(48, 122);
+        }  
+        $buffer .= chr($rndNum);
+    };
+
+    return $buffer;
+}
 }
