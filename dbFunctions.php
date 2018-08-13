@@ -240,15 +240,22 @@ class dbFunctions
     
     function insert_employee_login($first_name, $last_name, $email, $password){
         
+        
         $sql = "INSERT INTO users (first_name, last_name, email)"
-                ." VALUES ('".$first_name."','".$last_name."','".$email."')";
-       
+                ." VALUES ('".$first_name."','".$last_name."','".$email."')";                
+  
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
+        $id_users=mysqli_insert_id($this->db_conn);
         
-        echo mysqli_insert_id($this->db_conn);
-        echo "   ";
-
+        
+        $salt_md5="$1$".$this->saltCreator(9);
+        
+        $pwd_MD5 = crypt($password, $salt_md5);
+        $sql_password="INSERT INTO password(id_users,salt,password)"
+            ." VALUES (".$id_users.",'".$salt_md5."','".$pwd_MD5."')";
+        $sqlResult = mysqli_query($this->db_conn, $sql_password);
+        
         return $sqlResult;
         
     }
