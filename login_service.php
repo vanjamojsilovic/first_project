@@ -14,11 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
     if ($sql_response === TRUE){
                 header("HTTP/1.1 200 OK");
-                $response="Succesfully!";
+                $response="Correct!";
+                
     } 
     else {
-        $response="Error!";
-    }   
+        $response="Try again!";
+        
+    }
+    echo $response;
+               
 }
 
-echo $response;

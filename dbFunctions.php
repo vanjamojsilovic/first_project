@@ -238,6 +238,18 @@ class dbFunctions
         
     }
     
+    function saltCreator($saltLen) {
+        $buffer = '';
+        for ($i = 0; $i < $saltLen; $i++) {
+            $rndNum = mt_rand(48, 122);
+            while ($rndNum >= 58 AND $rndNum <= 64 OR $rndNum >= 91 AND $rndNum <= 96){
+                $rndNum = mt_rand(48, 122);
+            }  
+            $buffer .= chr($rndNum);
+        };
+        return $buffer;
+    }
+    
     function insert_employee_login($first_name, $last_name, $email, $password){
         
         
@@ -262,26 +274,33 @@ class dbFunctions
     
     function login($email, $password){
         
-        $sql = "";
+        $sql_users = "SELECT * FROM users WHERE email='".$email."'";
        
-        $sqlResult = mysqli_query($this->db_conn, $sql);
-        echo mysqli_insert_id($this->db_conn);
-        echo "   ";
-
-        return $sqlResult;
+        $sqlResult_users = mysqli_query($this->db_conn, $sql_users);
+        if(mysqli_num_rows($sqlResult_users)>0){
+            $row_users = mysqli_fetch_assoc($sqlResult_users);
+            $id_users=$row_users['id_users'];
+            
+            $sql_salt="SELECT * FROM password WHERE id_users=".$id_users;
+            $sqlResult_password = mysqli_query($this->db_conn, $sql_salt);
+            $row_password = mysqli_fetch_assoc($sqlResult_password);
+            $pwd_MD5 = crypt($password, $row_password['salt']);
+            if($pwd_MD5==$row_password['password']){
+               return TRUE;
+        }
+        else{
+            echo "Incorrect password!";
+            return FALSE;
+        }
+        }
+        else{
+            echo "Incorrect email!";
+            return FALSE;
+        }
+        
+        
         
     }
     
-    function saltCreator($saltLen) {
-    $buffer = '';
-    for ($i = 0; $i < $saltLen; $i++) {
-        $rndNum = mt_rand(48, 122);
-        while ($rndNum >= 58 AND $rndNum <= 64 OR $rndNum >= 91 AND $rndNum <= 96){
-            $rndNum = mt_rand(48, 122);
-        }  
-        $buffer .= chr($rndNum);
-    };
-
-    return $buffer;
-}
+    
 }
