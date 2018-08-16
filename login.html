@@ -6,15 +6,20 @@
 <body>
     <script>        
         $(document).ready(function(){
-                $("#btn_submit")
-                    .click(function(){                
+                $("#btn_submit").click(function(){                
                         $.post("login_service.php",                            
                             $("#insert_form").serialize(),
                             function(data, status){
                                 alert("Data: " + data + "\nStatus: " + status);
                             }
                         );
-                    });
+                });
+                $("#insert_new").click(function(){                
+                        window.location.href = "insert_login.html";
+                }); 
+                $("#btn_reset").click(function(){                
+                    $('#insert_form').trigger("reset");
+                });
         });
     </script>
     <div class="header">
@@ -25,8 +30,8 @@
     </div> 
     <div class="column left">
         <h2>Left Side</h2>
-        <button >Insert New</button><br><br>
-        <button >Employees</button>
+        <button id="insert_new" name="insert_new">Insert New</button><br><br>
+        
     </div>
     <div class="column middle">
     
@@ -104,7 +109,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button type="button">Reset</button>
+                            <button type="button" id="btn_reset" name="btn_reset">Reset</button>
                         </td>
                         <td>                     
                         </td>

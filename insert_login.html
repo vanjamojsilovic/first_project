@@ -6,15 +6,22 @@
 <body>
     <script>        
         $(document).ready(function(){
-                $("#btn_submit")
-                    .click(function(){                
+                $("#btn_submit").click(function(){                
                         $.post("insert_service_login.php",                            
                             $("#insert_form").serialize(),
                             function(data, status){
                                 alert("Data: " + data + "\nStatus: " + status);
                             }
                         );
-                    });
+                });
+                $("#log_in").click(function(){                
+                    window.location.href = "login.html";
+                });
+                $("#btn_reset").click(function(){                
+                    $('#insert_form').trigger("reset");
+                });
+                
+                   
         });
     </script>
     <div class="header">
@@ -25,8 +32,8 @@
     </div> 
     <div class="column left">
         <h2>Left Side</h2>
-        <button >Insert New</button><br><br>
-        <button >Employees</button>
+       
+        <button id="log_in" name="log_in">Log in</button>
     </div>
     <div class="column middle">
     
@@ -83,10 +90,10 @@
                     </tr>
                     <tr>
                         <td>
-                            
+                           Confirm password: 
                         </td>
                         <td>                            
-                        
+                            <input type="text" id="confirm" name="confirm" >
                         </td>
                         <td>
                            
@@ -104,12 +111,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <button type="button">Reset</button>
+                            <button type="button" id="btn_reset" name="btn_reset">Reset</button>
                         </td>
                         <td>                     
                         </td>
                         <td>
-                            <button type="button"  id="btn_submit">Submit</button>
+                            <button type="button"  id="btn_submit" name="btn_submit">Submit</button>
                         </td>
                     </tr>
                 </table>
