@@ -289,17 +289,17 @@ class dbFunctions
             $sqlResult_password = mysqli_query($this->db_conn, $sql_salt);
             $row_password = mysqli_fetch_assoc($sqlResult_password);
             $pwd_MD5 = crypt($password, $row_password['salt']);
+            
             if($pwd_MD5==$row_password['password']){
-               return TRUE;
+               return 1000;
+            }
+            else{
+                
+                return 1001;
+            }
         }
         else{
-            echo "Incorrect password!";
-            return FALSE;
-        }
-        }
-        else{
-            echo "Incorrect email!";
-            return FALSE;
+            return 1002;
         }
         
         

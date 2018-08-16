@@ -7,12 +7,23 @@
     <script>        
         $(document).ready(function(){
                 $("#btn_submit").click(function(){                
-                        $.post("login_service.php",                            
-                            $("#insert_form").serialize(),
-                            function(data, status){
-                                alert("Data: " + data + "\nStatus: " + status);
+                        $.ajax( {
+                            type: "POST",
+                            url: "login_service.php",
+                            data: $("#insert_form").serialize(),                           
+                            success: function (data){
+//                                alert("Data: " + data + "\nStatus: " + status);
+                                window.location.href = "insert_login.html";
+                            },
+                            error: function(request, status, error) {
+                                console.log(error);
+//                                u labelu ubaciti tekst
+                                var obj = JSON.parse(request.responseText);
+                                // proveri msg code 1001, 1002 i upisi u odg labelu
+                                alert(obj.message);
+
                             }
-                        );
+                        })
                 });
                 $("#insert_new").click(function(){                
                         window.location.href = "insert_login.html";
