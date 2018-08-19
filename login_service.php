@@ -15,15 +15,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     switch ($sql_response) {
     case 1000:
         header("HTTP/1.1 200 OK");
-        $response=array('message'=>'Correct!','successful'=>TRUE,'message_code'=>1000);
+        $response=array('successful'=>TRUE,'message_code'=>1000, 'message'=>'Correct login!');
         break;
     case 1001:
         header("HTTP/1.1 401");
-        $response=array('message'=>'Incorrect password! Try again!','successful'=>FALSE );
+        $response=array('successful'=>FALSE,'message_code'=>1001,'message'=>'Incorrect password! Try again!');
         break;
     case 1002:
         header("HTTP/1.1 401");
-        $response=array('message'=>'User doesn\'t exsist! Please check the email!','successful'=>FALSE );
+        $response=array('successful'=>FALSE,'message_code'=>1002, 'message'=>'User doesn\'t exsist! Please check the email!');
         break;
     }
     

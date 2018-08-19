@@ -281,6 +281,7 @@ class dbFunctions
         $sql_users = "SELECT * FROM users WHERE email='".$email."'";
        
         $sqlResult_users = mysqli_query($this->db_conn, $sql_users);
+        
         if(mysqli_num_rows($sqlResult_users)>0){
             $row_users = mysqli_fetch_assoc($sqlResult_users);
             $id_users=$row_users['id_users'];
@@ -291,14 +292,16 @@ class dbFunctions
             $pwd_MD5 = crypt($password, $row_password['salt']);
             
             if($pwd_MD5==$row_password['password']){
-               return 1000;
+                //correct login
+                return 1000;
             }
             else{
-                
+                //wrong password
                 return 1001;
             }
         }
         else{
+            //wrong email
             return 1002;
         }
         
