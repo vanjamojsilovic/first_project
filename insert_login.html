@@ -6,19 +6,35 @@
 <body>
     <script>        
         $(document).ready(function(){
-                $("#btn_submit").click(function(){                
-                        $.post("insert_service_login.php",                            
-                            $("#insert_form").serialize(),
-                            function(data, status){
-                                alert("Data: " + data + "\nStatus: " + status);
+            $("#lbl_conf_password").hide();
+            $("#btn_submit").click(function(){                
+                        $("#lbl_conf_password").hide();                        
+                        $.ajax( {
+                            type: "POST",
+                            url: "insert_service_login.php",
+                            data: $("#insert_form").serialize(),                           
+                            success: function (data,status,request){
+                                var obj = JSON.parse(data);
+                                alert(obj.message);
+                            },
+                            error: function(request, status, error){
+                                var obj = JSON.parse(request.responseText);
+                                switch (obj.message_code) {
+                                    case 1001:
+                                        $("#lbl_conf_password").show();
+                                        $("#lbl_conf_password").text(obj.message);
+                                        break;                     
+                                }
                             }
-                        );
-                });
+                        });
+                });         
+                
                 $("#log_in").click(function(){                
                     window.location.href = "login.html";
                 });
                 $("#btn_reset").click(function(){                
                     $('#insert_form').trigger("reset");
+                    $("#lbl_conf_password").hide();
                 });
                 
                    
@@ -43,15 +59,15 @@
         <form id="insert_form" name="insert_form" action="" method="post">
             <div class="insert_data">
                 <table>
-                    <col width="40%">
-                    <col width="40%">
-                    <col width="20%"> 
+                    <col width="25%">
+                    <col width="25%">
+                    <col width="50%"> 
                     <tr>
                         <td>       
                             Name:
                         </td>
                         <td> 
-                            <input type="text" id="first_name" name="first_name"> 
+                            <input type="text" id="first_name" name="first_name" required> 
                         </td>
                         <td>
                             
@@ -62,7 +78,7 @@
                             Last name: 
                         </td>
                         <td>
-                            <input type="text" id="last_name" name="last_name">
+                            <input type="text" id="last_name" name="last_name" required>
                         </td>
                         <td>
                             
@@ -73,7 +89,7 @@
                             Email: 
                         </td>
                         <td>
-                            <input type="text" id="email" name="email">
+                            <input type="text" id="email" name="email" required>
                         </td>
                         <td>
                             
@@ -84,7 +100,7 @@
                            Password:
                         </td>
                         <td>
-                            <input type="text" id="password" name="password" >
+                            <input type="password" id="password" name="password" required>
                         </td>
                         <td>
                             
@@ -95,10 +111,10 @@
                            Confirm password: 
                         </td>
                         <td>                            
-                            <input type="text" id="confirm" name="confirm" >
+                            <input type="password" id="confirm" name="confirm" >
                         </td>
                         <td>
-                           
+                            <label id="lbl_conf_password" style="padding-left: 10px"> </label>                           
                         </td>
                     </tr>
                     <tr>

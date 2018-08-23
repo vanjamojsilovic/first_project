@@ -7,11 +7,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     
     $email = sanatize_input($_POST['email']);
     $password = sanatize_input($_POST['password']);
-        
+    
+    
     $db_data = new dbFunctions();
 
     $sql_response = $db_data->login($email, $password);  
-    
+
     switch ($sql_response) {
     case 1000:
         header("HTTP/1.1 200 OK");
@@ -26,8 +27,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $response=array('successful'=>FALSE,'message_code'=>1002, 'message'=>'User doesn\'t exsist! Please check the email!');
         break;
     }
-    
+
     echo json_encode($response);
+   
+    
                
 }
 

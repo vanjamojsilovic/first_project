@@ -250,9 +250,7 @@ class dbFunctions
         return $buffer;
     }
     
-    function insert_employee_login($first_name, $last_name, $email, $password, $confirm){
-        
-        $sqlResult="Re-enter a password!";
+    function insert_employee_login($first_name, $last_name, $email, $password, $confirm){       
         
         if($password===$confirm){
             $sql = "INSERT INTO users (first_name, last_name, email)"
@@ -269,10 +267,12 @@ class dbFunctions
             $sql_password="INSERT INTO password(id_users,salt,password)"
                 ." VALUES (".$id_users.",'".$salt_md5."','".$pwd_MD5."')";
             $sqlResult = mysqli_query($this->db_conn, $sql_password);
+            
+            return 1000;
         }
-        
-        
-        return $sqlResult;
+        else{
+            return 1001;        
+        }     
         
     }
     
