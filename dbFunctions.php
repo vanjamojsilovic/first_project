@@ -250,6 +250,18 @@ class dbFunctions
         return $buffer;
     }
     
+    function password_creator($length) {
+        $buffer = '';
+        for ($i = 0; $i < $length; $i++) {
+            $rndNum = mt_rand(48, 122);
+            while ($rndNum >= 58 AND $rndNum <= 64 OR $rndNum >= 91 AND $rndNum <= 96){
+                $rndNum = mt_rand(48, 122);
+            }  
+            $buffer .= chr($rndNum);
+        };
+        return $buffer;
+    }
+    
     function insert_employee_login($first_name, $last_name, $email, $password, $confirm){       
         
         if($password===$confirm){
@@ -303,11 +315,33 @@ class dbFunctions
         else{
             //wrong email
             return 1002;
-        }
-        
-        
-        
+        }       
     }
     
+    function update_password($id_users, $password){
+
+        $salt_md5="$1$".$this->saltCreator(9);
+        $pwd_MD5 = crypt($password, $salt_md5);
+        $sql_update_pwd="UPDATE password SET salt='".$salt_md5."',password='".$pwd_MD5
+                ."' WHERE id_users=".$id_users;
+        $result = mysqli_query($this->db_conn, $sql_update_pwd);
+        return $result;
+    }
     
+    function check_email($email){
+        $sql = "SELECT id_users FROM users WHERE email='".$email."'";   
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        $array=array('found'=>'?','id'=>'?');
+        
+        if($sqlResult->num_rows > 0){
+            $array['found']=TRUE;
+            $row=$sqlResult->fetch_assoc();
+            $array['id']=$row['id_users'];
+        }
+        else{
+            $array['found']=FALSE;
+            $array['id']='?';
+        }
+        return $array;
+    }
 }

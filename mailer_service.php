@@ -31,14 +31,27 @@ $mail = new PHPMailer();
         $mail->AddAddress($users_email, 'Vanja Mojsilovic');
 //    $mail->addCC('profesor.vanja.mojsilovic@gmail.com', 'Profesor Vanja Mojsilovic');
         
-        $new_password="new_password";
+        $db_data = new dbFunctions();        
+              
+       
+        $response="";
+       
+                $emailBody = "Hello!"
+                    . "<br>"             
+                    . "Your new password is:"
+                    . "<br>"
+                    . $new_password
+                    . "<br>"
+                    . "You can now log-in!";
+                $mail->MsgHTML($emailBody);
 
-        $emailBody = "Hello!"
-                . "<br>"             
-                . "Your new password is:"
-                . "<br>"
-                . $new_password;
-        $mail->MsgHTML($emailBody);
-
-        $result = $mail->Send();  
-    }
+                $result = $mail->Send();
+                if($result){
+                    header("HTTP/1.1 200 OK");
+                    $response=array('successful'=>TRUE,'message_code'=>1000, 'message'=>'Email sent!');
+                }
+                
+               
+            }
+        echo $response;
+    

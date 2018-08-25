@@ -1,7 +1,7 @@
 <?php
 require 'dbFunctions.php';
 require 'utilFunctions.php';
-$response="Not a post method!";
+$response="";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){     
     
