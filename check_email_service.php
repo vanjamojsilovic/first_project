@@ -57,19 +57,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             else{
                 header("HTTP/1.1 401");
                 $sent='Email is not sent!';
-                $response=array('found'=>$found,'id'=>$sql_response_check['id'],'changed'=>$changed,'sent'=>$sent);
+                $code=1003;
+                $response=array('code'=>$code, 'found'=>$found,'id'=>$sql_response_check['id'],'changed'=>$changed,'sent'=>$sent);
             }
         }
         else{
            header("HTTP/1.1 401");
            $changed='Password is not changed!';
-           $response=array('found'=>$found,'id'=>$sql_response_check['id'],'changed'=>$changed,'sent'=>$sent);
+           $code=1002;
+           $response=array('code'=>$code, 'found'=>$found,'id'=>$sql_response_check['id'],'changed'=>$changed,'sent'=>$sent);
         }
     }
     else{
         header("HTTP/1.1 401");
         $found='Username is not found!';
-        $response=array('found'=>$found,'id'=>$sql_response_check['id'],'changed'=>$changed,'sent'=>$sent);
+        $code=1001;
+        $response=array('code'=>$code, 'found'=>$found,'id'=>$sql_response_check['id'],'changed'=>$changed,'sent'=>$sent);
     }
     echo json_encode($response);
 }

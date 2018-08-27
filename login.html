@@ -6,57 +6,66 @@
 <body>
     <script>        
         $(document).ready(function(){
-            $("#lbl_email").hide();
-            $("#lbl_password").hide();
-            localStorage.setItem("entered_email","");
+            $("#lbl_email").text("");
+            $("#lbl_password").text("");
+            
+            $("#lbl_message").text(localStorage.getItem("message"));
             $("#btn_submit").click(function(){
+                    localStorage.setItem("message","");
                     if($("#email").val()!=""){
-                        $("#lbl_email").hide();
-                        $("#lbl_password").hide();
+                        $("#lbl_email").text("");
+                        $("#lbl_password").text("");
                         $.ajax( {
                             type: "POST",
                             url: "login_service.php",
                             data: $("#insert_form").serialize(),                           
                             success: function (data){
+                                localStorage.setItem("correct","Login successful!");
                                 window.location.href = "insert_login.html";
                             },
                             error: function(request, status, error){
-
-
                                 var obj = JSON.parse(request.responseText);
 
                                 switch (obj.message_code) {
                                     case 1001:
-                                        $("#lbl_password").show();
+                                        
                                         $("#lbl_password").text(obj.message);
                                         break;
                                     case 1002:
-                                       $("#lbl_email").show();
+                                      
                                        $("#lbl_email").text(obj.message);
                                         break;                                    
                                 }
                             }
                         });
                     }
-                    else{
-                        alert("Please, enter your email!");
+                    else{                        
+                        $("#lbl_email").text("Please, enter your email!");                        
+                        
                     }
                 });
             
             $("#btn_reset").click(function(){                
                 $('#insert_form').trigger("reset");
-                $("#lbl_email").hide();
-                $("#lbl_password").hide();
+                $("#lbl_email").text("");
+                $("#lbl_password").text("");
+                localStorage.setItem("message","");
+                $("#lbl_message").text(localStorage.getItem("message"));
+                localStorage.setItem("entered_email","");
             });  
             
             $("#email").blur(function(){
                 
                 localStorage.setItem("entered_email",$("#email").val());
+                localStorage.setItem("message","");
+                $("#lbl_message").text(localStorage.getItem("message"));
                
             });   
                 
             $("#btn_forgot").click(function(){              
-                window.location.href = "forgot_password.html";                  
+                window.location.href = "forgot_password.html";
+                localStorage.setItem("message","");
+                $("#lbl_message").text(localStorage.getItem("message"));
             });
                 
         });
@@ -90,7 +99,7 @@
                             Email:
                         </td>
                         <td> 
-                            <input type="text" id="email" name="email" value="" required> 
+                            <input type="text" id="email" name="email" value=""> 
                         </td>
                         <td>
                             <label id="lbl_email" style="padding-left: 10px"></label>
@@ -112,7 +121,7 @@
                              
                         </td>
                         <td>
-                            
+                            <label id="lbl_message" style="padding-left: 10px"> </label>
                         </td>
                         <td>                        
                         </td>

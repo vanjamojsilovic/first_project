@@ -6,37 +6,49 @@
 <body>
     <script>        
         $(document).ready(function(){
-            $("#lbl_conf_password").hide();
-            $("#btn_submit").click(function(){                
-                        $("#lbl_conf_password").hide();                        
-                        $.ajax( {
-                            type: "POST",
-                            url: "insert_service_login.php",
-                            data: $("#insert_form").serialize(),                           
-                            success: function (data,status,request){
-                                var obj = JSON.parse(data);
-                                alert(obj.message);
-                            },
-                            error: function(request, status, error){
-                                var obj = JSON.parse(request.responseText);
-                                switch (obj.message_code) {
-                                    case 1001:
-                                        $("#lbl_conf_password").show();
-                                        $("#lbl_conf_password").text(obj.message);
-                                        break;                     
-                                }
+            localStorage.setItem("entered_email","");
+            $("#lbl_conf_password").text("");
+            $("#lbl_correct").text(localStorage.getItem("correct"));
+            $("#btn_submit").click(function(){
+                
+                if($("#email").val()!=""){
+                    $("#lbl_conf_password").text("");                        
+                    $.ajax( {
+                        type: "POST",
+                        url: "insert_service_login.php",
+                        data: $("#insert_form").serialize(),                           
+                        success: function (data,status,request){
+                            var obj = JSON.parse(data);
+                            alert(obj.message);
+                        },
+                        error: function(request, status, error){
+                            var obj = JSON.parse(request.responseText);
+                            switch (obj.message_code) {
+                                case 1001:                                        
+                                    $("#lbl_conf_password").text(obj.message);
+                                    break;                     
                             }
-                        });
-                });         
+                        }
+                    });
+                }
+                else{
+                    $("#lbl_email").text("Please, enter your email!"); 
+                }
+            });         
                 
-                $("#log_in").click(function(){                
-                    window.location.href = "login.html";
-                });
-                $("#btn_reset").click(function(){                
-                    $('#insert_form').trigger("reset");
-                    $("#lbl_conf_password").hide();
-                });
-                
+            $("#log_in").click(function(){
+                $("#lbl_conf_password").text("");
+                window.location.href = "login.html";
+                localStorage.setItem("correct","");
+                $("#lbl_correct").text(localStorage.getItem("correct"));
+            });
+            $("#btn_reset").click(function(){                
+                $('#insert_form').trigger("reset");
+                $("#lbl_conf_password").text(""); 
+                localStorage.setItem("correct","");
+                $("#lbl_correct").text("");
+            });
+
                    
         });
     </script>
@@ -67,7 +79,7 @@
                             Name:
                         </td>
                         <td> 
-                            <input type="text" id="first_name" name="first_name" required> 
+                            <input type="text" id="first_name" name="first_name"> 
                         </td>
                         <td>
                             
@@ -78,7 +90,7 @@
                             Last name: 
                         </td>
                         <td>
-                            <input type="text" id="last_name" name="last_name" required>
+                            <input type="text" id="last_name" name="last_name">
                         </td>
                         <td>
                             
@@ -89,10 +101,10 @@
                             Email: 
                         </td>
                         <td>
-                            <input type="text" id="email" name="email" required>
+                            <input type="text" id="email" name="email">
                         </td>
                         <td>
-                            
+                            <label id="lbl_email" style="padding-left: 10px"> </label>  
                         </td>
                     </tr>
                     <tr>
@@ -111,7 +123,7 @@
                            Confirm password: 
                         </td>
                         <td>                            
-                            <input type="password" id="confirm" name="confirm" >
+                            <input type="password" id="confirm" name="confirm">
                         </td>
                         <td>
                             <label id="lbl_conf_password" style="padding-left: 10px"> </label>                           
@@ -122,7 +134,7 @@
                             
                         </td>
                         <td>
-                        
+                            <label id="lbl_correct" style="padding-left: 10px"> </label> 
                         </td>
                         <td>
                         </td>
