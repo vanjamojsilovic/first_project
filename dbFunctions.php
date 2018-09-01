@@ -110,9 +110,9 @@ class dbFunctions
                 $result[] = $row; 
             }
         }
-
         return $result;
     }
+    
     function educations($pageNum = 1, $pageSize = 10){
 
         $result = [];
@@ -173,6 +173,9 @@ class dbFunctions
 
         return $result;
     }
+    
+     
+    
     
     function empl_with_phones($pageNum = 1, $pageSize = 10){
 
@@ -343,5 +346,139 @@ class dbFunctions
             $array['id']='?';
         }
         return $array;
+    }
+    
+    function send_pdf(){
+        $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime "
+                ."FROM zaposleni";
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        $result=array();
+        if($sqlResult->num_rows > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)) {
+                $row = array_map('utf8_encode', $row);                
+                $result_row=array("id_zaposleni"=>"", "name"=>"", "address"=>"","phone"=>"","vocation"=>"");
+                $result_row['id_zaposleni']=$row['id_zaposleni'];
+                $result_row['name']=$row['ime'];
+                
+                $address_array=array();
+                $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_adresa.ulica "
+                ." FROM zaposleni LEFT JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
+                ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
+                $sqlResult_adr = mysqli_query($this->db_conn, $sql_address);
+                if($sqlResult_adr->num_rows > 0){
+                    while($row_adr = mysqli_fetch_assoc($sqlResult_adr)){
+                        $address_array[]=$row_adr['ulica'];
+                    }
+                }
+                $result_row['address']=$address_array;
+                
+                $phone_array=array();
+                $sql_phone="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_telefon.broj "
+                ." FROM zaposleni LEFT JOIN zaposleni_telefon ON zaposleni.id_zaposleni=zaposleni_telefon.id_zaposleni "
+                ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
+                $sqlResult_adr = mysqli_query($this->db_conn, $sql_phone);
+                if($sqlResult_adr->num_rows > 0){
+                    while($row_phone = mysqli_fetch_assoc($sqlResult_adr)){
+                        $phone_array[]=$row_phone['broj'];
+                    }
+                }
+                $result_row['phone']=$phone_array;
+                
+                $vocation_array=array();
+                $sql_vocation=" SELECT zaposleni.id_zaposleni, zaposleni.ime, zvanje.naziv "
+                ." FROM zaposleni LEFT JOIN zaposleni_obrazovanje ON zaposleni.id_zaposleni=zaposleni_obrazovanje.id_zaposleni "
+                ." LEFT JOIN zvanje ON zaposleni_obrazovanje.zvanje_id=id_zvanje "
+                ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
+                $sqlResult_voc = mysqli_query($this->db_conn, $sql_vocation);
+                if($sqlResult_voc->num_rows > 0){
+                    while($row_voc = mysqli_fetch_assoc($sqlResult_voc)){
+                        $vocation_array[]=$row_voc['naziv'];
+                    }
+                }
+                $result_row['vocation']=$vocation_array;
+                
+                $result[] =$result_row;            
+            }
+        }
+        
+        return $result;
+    }
+    
+    function send_csv($pageNum = 1, $pageSize = 10){
+
+        $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime "
+                ."FROM zaposleni";
+        $sqlResult = mysqli_query($this->db_conn, $sql);
+        
+        $result=array();
+        if($sqlResult->num_rows > 0){
+            while($row = mysqli_fetch_assoc($sqlResult)){
+                $row = array_map('utf8_encode', $row);                
+                $result_row=array("id_zaposleni"=>"", "name"=>"", "address"=>"","phone"=>"","vocation"=>"");
+                
+                $address_array=array();
+                $phone_array=array();
+                $vocation_array=array();
+                
+                $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_adresa.ulica "
+                ." FROM zaposleni LEFT JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
+                ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
+                $sqlResult_adr = mysqli_query($this->db_conn, $sql_address);
+                if($sqlResult_adr->num_rows > 0){
+                    while($row_adr = mysqli_fetch_assoc($sqlResult_adr)){
+                        $address_array[]=$row_adr['ulica'];
+                    }
+                }
+                
+                
+                $sql_phone="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_telefon.broj "
+                ." FROM zaposleni LEFT JOIN zaposleni_telefon ON zaposleni.id_zaposleni=zaposleni_telefon.id_zaposleni "
+                ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
+                $sqlResult_adr = mysqli_query($this->db_conn, $sql_phone);
+                if($sqlResult_adr->num_rows > 0){
+                    while($row_phone = mysqli_fetch_assoc($sqlResult_adr)){
+                        $phone_array[]=$row_phone['broj'];
+                    }
+                }
+                
+                
+                $sql_vocation=" SELECT zaposleni.id_zaposleni, zaposleni.ime, zvanje.naziv "
+                ." FROM zaposleni LEFT JOIN zaposleni_obrazovanje ON zaposleni.id_zaposleni=zaposleni_obrazovanje.id_zaposleni "
+                ." LEFT JOIN zvanje ON zaposleni_obrazovanje.zvanje_id=id_zvanje "
+                ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
+                $sqlResult_voc = mysqli_query($this->db_conn, $sql_vocation);
+                if($sqlResult_voc->num_rows > 0){
+                    while($row_voc = mysqli_fetch_assoc($sqlResult_voc)){
+                        $vocation_array[]=$row_voc['naziv'];
+                    }
+                }
+                
+                $max_len=max(sizeof($address_array),sizeof($phone_array),sizeof($vocation_array));
+                if($max_len>0){
+                    for ($x = 0; $x <$max_len; $x++) { 
+                        $result_row['id_zaposleni']=$row['id_zaposleni'];
+                        $result_row['name']=$row['ime'];
+                        if(!empty($address_array[$x])){
+                            $result_row['address']=$address_array[$x];
+                        }
+                        if(!empty($phone_array[$x])){
+                            $result_row['phone']=$phone_array[$x];
+                        }
+                        if(!empty($vocation_array[$x])){
+                            $result_row['vocation']=$vocation_array[$x];                       
+                        }
+                        $result[] =$result_row;
+                    }
+                }  
+                else{
+                    $result_row['id_zaposleni']=$row['id_zaposleni'];
+                    $result_row['name']=$row['ime'];
+                    $result[] =$result_row;
+                }
+            }
+        }
+        
+        return $result;
     }
 }

@@ -3,24 +3,25 @@ require "PHPMailer.php";
 $GLOBALS['disable_ssl_for_gmail'] = TRUE;
 require 'dbFunctions.php';
 require 'utilFunctions.php';
+require 'config.php';
 
 
 $mail = new PHPMailer();
 
-$mail->IsSMTP();
+    $mail->IsSMTP();
 //        $mail->SMTPDebug = 3;
 //        $mail->Debugoutput = 'html';
-$mail->SMTPAuth   = true;
-$mail->SMTPSecure = 'ssl';
-$mail->Host       = 'smtp.gmail.com';
-$mail->Username   = 'vanjatest38@gmail.com';
-$mail->Password   = 'mki876tg';
-$mail->Port       = '465';
-$mail->SMTPDebug = 0;    
-
-$mail->SetFrom('vanjatest38@gmail.com', 'admin');     
-
-$mail->Subject = 'Your New Password'; 
+    $mail->SMTPAuth   = $SMTPAuth;
+    $mail->SMTPSecure = $SMTPSecure;
+    $mail->Host       = $Host;
+    $mail->Username   = $Username;
+    $mail->Password   = $Password;
+    $mail->Port       = $Port;
+    $mail->SMTPDebug = $SMTPDebug;    
+    
+    $mail->SetFrom($Email, $Name); 
+     
+$mail->Subject = $Subject; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){    
       $found="?";

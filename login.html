@@ -62,7 +62,8 @@
                
             });   
                 
-            $("#btn_forgot").click(function(){              
+            $("#btn_forgot").click(function(){
+                localStorage.setItem("entered_email",$("#email").val());
                 window.location.href = "forgot_password.html";
                 localStorage.setItem("message","");
                 $("#lbl_message").text(localStorage.getItem("message"));

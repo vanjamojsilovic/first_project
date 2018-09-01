@@ -29,8 +29,7 @@
             $("#btn_del").click(function(){
                 $("#tr_5").hide();
             });
-            $("#btn_get")
-                    .click(function(){
+            $("#btn_get").click(function(){
                         $.get("epmloyees_list.php?pageSize=10&pageNum=1", function(data, status){
                             empty_table(table_array);                           
                             var header = "<tr>"
@@ -53,8 +52,7 @@
                             }            
                         });       
                     });
-            $("#btn_address")
-                    .click(function(){
+            $("#btn_address").click(function(){
                         $.get("epmloyees_addresses.php?pageSize=10&pageNum=1", function(data, status){
                             empty_table(table_array); 
                             var header = "<tr>"
@@ -88,8 +86,7 @@
                             }            
                         });       
                     });
-            $("#btn_educations")
-                    .click(function(){
+            $("#btn_educations").click(function(){
                         $.get("employees_educations.php?pageSize=10&pageNum=1", function(data, status){
                            empty_table(table_array); 
                             var header = "<tr>"
@@ -120,8 +117,7 @@
                             }            
                         });       
                     });
-            $("#btn_phones")
-                    .click(function(){
+            $("#btn_phones").click(function(){
                         $.get("employees_phones.php?pageSize=10&pageNum=1", function(data, status){
                             empty_table(table_array); 
                             var header = "<tr>"
@@ -148,10 +144,9 @@
                             }            
                         });       
                     }); 
-            $("#btn_empl_with_adr")
-                    .click(function(){
+            $("#btn_empl_with_adr").click(function(){
                         $.get("empl_with_adr.php?pageSize=20&pageNum=1", function(data, status){
-                           empty_table(table_array); 
+                            empty_table(table_array); 
                             var header = "<tr>"
                                     +"<td >ID</td>"
                                     +"<td >First Name</td>"
@@ -162,7 +157,7 @@
                             $("#tbl_empl_with_adr").append(header);
                             
                             var array_test=JSON.parse(data);
-                            
+                            console.log(array_test);
                             for (i = 0; i < array_test.length; i++) {
                                 var tmp="<tr id='tr_"+array_test[i].id_adresa+"'>"
                                 +"<td id='td_id"+array_test[i].id_adresa+"'></td>"
@@ -183,8 +178,7 @@
                             }            
                         });       
                     }); 
-            $("#btn_empl_with_phones")
-                    .click(function(){
+            $("#btn_empl_with_phones").click(function(){
                         $.get("empl_with_phones.php?pageSize=20&pageNum=1", function(data, status){
                            empty_table(table_array); 
                             var header = "<tr>"
@@ -212,8 +206,7 @@
                             }            
                         });       
                     });
-            $("#btn_empl_with_edu")
-                    .click(function(){
+            $("#btn_empl_with_edu").click(function(){
                         $.get("empl_with_edu.php?pageSize=20&pageNum=1", function(data, status){
                             empty_table(table_array); 
                             var header = "<tr>"
@@ -243,7 +236,90 @@
                                 $("#td_vocation"+array_test[i].id_obrazovanje).text(array_test[i].vocation);                              
                             }            
                         });       
-                    });          
+                    });
+            $("#btn_send_pdf").click(function(){ 
+                $.get("send_pdf.php?pageSize=20&pageNum=1", function(data, status){                   
+                    empty_table(table_array); 
+                    var header = "<tr>"
+                        +"<td >ID</td>"
+                        +"<td >Name</td>"
+                        +"<td >Vocation</td>"
+                        +"<td >Address</td>"
+                        +"<td >Phone</td>"
+                        +"</tr>";
+                    $("#tbl_empl_with_adr").append(header);
+
+                    var array_test=JSON.parse(data);
+                    console.log(array_test);
+                    for (i = 0; i < array_test.length; i++) {
+                        var tmp="<tr id='tr_"+array_test[i].id_zaposleni+"'>"
+                        +"<td id='td_id"+array_test[i].id_zaposleni+"'></td>"
+                        +"<td id='td_fname"+array_test[i].id_zaposleni+"'></td>" 
+                        +"<td id='td_vocation"+array_test[i].id_zaposleni+"'></td>"
+                        +"<td id='td_address"+array_test[i].id_zaposleni+"'></td>"
+                        +"<td id='td_phone"+array_test[i].id_zaposleni+"'></td>"
+                        +"</tr>";                            
+                        $("#tbl_empl_with_adr").append(tmp);
+                        $("#td_id"+array_test[i].id_zaposleni).text(array_test[i].id_zaposleni);
+                        $("#td_fname"+array_test[i].id_zaposleni).text(array_test[i].name);
+                        var vocations='';
+                        if(array_test[i].vocation.length>0){
+                            for (j = 0; j < array_test[i].vocation.length; j++) { 
+                                vocations=vocations + array_test[i].vocation[j] + "<br>";
+                            }                            
+                        }
+                        else{
+                            vocations="jjjj";
+                        }
+                        $("#td_vocation"+array_test[i].id_zaposleni).html(vocations);
+                        
+                        var addresses='';
+                        for (l = 0; l < array_test[i].address.length; l++) { 
+                            addresses=addresses + array_test[i].address[l] + "<br>";
+                        }
+                        $("#td_address"+array_test[i].id_zaposleni).html(addresses);
+                        
+                        var phones='';
+                        for (k = 0; k < array_test[i].phone.length; k++) { 
+                            phones=phones + array_test[i].phone[k] + "<br>";
+                        }
+                        $("#td_phone"+array_test[i].id_zaposleni).html(phones);
+                            
+                    }            
+                });
+            });
+            
+            $("#btn_send_csv").click(function(){ 
+               $.get("send_csv.php?pageSize=200&pageNum=1", function(data, status){                   
+                    empty_table(table_array); 
+                    var header = "<tr>"
+                        +"<td >ID</td>"
+                        +"<td >Name</td>"
+                        +"<td >Vocation</td>"
+                        +"<td >Address</td>"
+                        +"<td >Phone</td>"
+                        +"</tr>";
+                    $("#tbl_empl_with_adr").append(header);
+
+                    var array_test=JSON.parse(data);
+                    console.log(array_test);
+                    for (i = 0; i < array_test.length; i++) {
+                        var tmp="<tr id='tr_"+i+"'>"
+                        +"<td id='td_id"+i+"'></td>"
+                        +"<td id='td_name"+i+"'></td>" 
+                        +"<td id='td_vocation"+i+"'></td>"
+                        +"<td id='td_address"+i+"'></td>"
+                        +"<td id='td_phone"+i+"'></td>"
+                        +"</tr>";                            
+                        $("#tbl_empl_with_adr").append(tmp);
+                        $("#td_id"+i).text(array_test[i].id_zaposleni);
+                        $("#td_name"+i).text(array_test[i].name);
+                        $("#td_vocation"+i).text(array_test[i].vocation);
+                        $("#td_address"+i).text(array_test[i].address);
+                        $("#td_phone"+i).text(array_test[i].phone);
+                    }            
+                });
+            }); 
         });
 
     </script>
@@ -262,6 +338,10 @@
     <button id="btn_empl_with_adr">GET employees with adress</button>
     <button id="btn_empl_with_phones">GET employees with phone</button>
     <button id="btn_empl_with_edu">GET employees with education</button>
+    <br>
+    <br>
+    <button id="btn_send_pdf">Send PDF</button>
+    <button id="btn_send_csv">Send CSV</button>
     <br>
     <br>
     <table id="tbl_employees" cellpadding="10">
