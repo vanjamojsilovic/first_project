@@ -349,7 +349,7 @@ class dbFunctions
     }
     
     function send_pdf(){
-        $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime "
+        $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni.prezime "
                 ."FROM zaposleni";
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
@@ -360,15 +360,18 @@ class dbFunctions
                 $result_row=array("id_zaposleni"=>"", "name"=>"", "address"=>"","phone"=>"","vocation"=>"");
                 $result_row['id_zaposleni']=$row['id_zaposleni'];
                 $result_row['name']=$row['ime'];
+                $result_row['lastname']=$row['prezime'];
                 
                 $address_array=array();
-                $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_adresa.ulica "
+                
+                $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, "
+                ." CONCAT(zaposleni_adresa.ulica,', ',zaposleni_adresa.opstina, zaposleni_adresa.mesto) AS address "
                 ." FROM zaposleni LEFT JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
                 ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
                 $sqlResult_adr = mysqli_query($this->db_conn, $sql_address);
                 if($sqlResult_adr->num_rows > 0){
                     while($row_adr = mysqli_fetch_assoc($sqlResult_adr)){
-                        $address_array[]=$row_adr['ulica'];
+                        $address_array[]=$row_adr['address'];
                     }
                 }
                 $result_row['address']=$address_array;
@@ -393,7 +396,10 @@ class dbFunctions
                 $sqlResult_voc = mysqli_query($this->db_conn, $sql_vocation);
                 if($sqlResult_voc->num_rows > 0){
                     while($row_voc = mysqli_fetch_assoc($sqlResult_voc)){
-                        $vocation_array[]=$row_voc['naziv'];
+                        if(!is_null($row_voc['naziv'])){
+                            $vocation_array[]=$row_voc['naziv'];
+                        }
+//                        $vocation_array[]=$row_voc['naziv'];
                     }
                 }
                 $result_row['vocation']=$vocation_array;
@@ -407,7 +413,7 @@ class dbFunctions
     
     function send_csv($pageNum = 1, $pageSize = 10){
 
-        $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime "
+        $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni.prezime "
                 ."FROM zaposleni";
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
@@ -415,30 +421,33 @@ class dbFunctions
         if($sqlResult->num_rows > 0){
             while($row = mysqli_fetch_assoc($sqlResult)){
                 $row = array_map('utf8_encode', $row);                
-                $result_row=array("id_zaposleni"=>"", "name"=>"", "address"=>"","phone"=>"","vocation"=>"");
+                $result_row=array("id_zaposleni"=>"", "name"=>"","lastname"=>"", "address"=>"","phone"=>"","vocation"=>"");
                 
                 $address_array=array();
                 $phone_array=array();
                 $vocation_array=array();
                 
-                $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_adresa.ulica "
+                $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, "
+                ." CONCAT(zaposleni_adresa.ulica ,zaposleni_adresa.opstina, zaposleni_adresa.mesto) AS address "
                 ." FROM zaposleni LEFT JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
                 ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
                 $sqlResult_adr = mysqli_query($this->db_conn, $sql_address);
                 if($sqlResult_adr->num_rows > 0){
                     while($row_adr = mysqli_fetch_assoc($sqlResult_adr)){
-                        $address_array[]=$row_adr['ulica'];
+                        $address_array[]=$row_adr['address'];
                     }
                 }
                 
                 
-                $sql_phone="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_telefon.broj "
+                $sql_phone="SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni_telefon.broj, "
+                ." IF(zaposleni_telefon.area IS NOT NULL, CONCAT(zaposleni_telefon.area, SUBSTRING(zaposleni_telefon.pozivni,2), zaposleni_telefon.broj), "
+                ." CONCAT(zaposleni_telefon.pozivni, zaposleni_telefon.broj)) AS phone_number "
                 ." FROM zaposleni LEFT JOIN zaposleni_telefon ON zaposleni.id_zaposleni=zaposleni_telefon.id_zaposleni "
                 ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
                 $sqlResult_adr = mysqli_query($this->db_conn, $sql_phone);
                 if($sqlResult_adr->num_rows > 0){
                     while($row_phone = mysqli_fetch_assoc($sqlResult_adr)){
-                        $phone_array[]=$row_phone['broj'];
+                        $phone_array[]=$row_phone['phone_number'];
                     }
                 }
                 
@@ -459,14 +468,24 @@ class dbFunctions
                     for ($x = 0; $x <$max_len; $x++) { 
                         $result_row['id_zaposleni']=$row['id_zaposleni'];
                         $result_row['name']=$row['ime'];
+                        $result_row['lastname']=$row['prezime'];
                         if(!empty($address_array[$x])){
                             $result_row['address']=$address_array[$x];
+                        }
+                        else{
+                            $result_row['address']="";
                         }
                         if(!empty($phone_array[$x])){
                             $result_row['phone']=$phone_array[$x];
                         }
+                        else{
+                            $result_row['phone']="";
+                        }
                         if(!empty($vocation_array[$x])){
                             $result_row['vocation']=$vocation_array[$x];                       
+                        }
+                        else{
+                            $result_row['vocation']="";
                         }
                         $result[] =$result_row;
                     }
@@ -474,6 +493,7 @@ class dbFunctions
                 else{
                     $result_row['id_zaposleni']=$row['id_zaposleni'];
                     $result_row['name']=$row['ime'];
+                    $result_row['lastname']=$row['prezime'];
                     $result[] =$result_row;
                 }
             }

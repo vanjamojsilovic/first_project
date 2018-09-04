@@ -254,24 +254,25 @@
                     for (i = 0; i < array_test.length; i++) {
                         var tmp="<tr id='tr_"+array_test[i].id_zaposleni+"'>"
                         +"<td id='td_id"+array_test[i].id_zaposleni+"'></td>"
-                        +"<td id='td_fname"+array_test[i].id_zaposleni+"'></td>" 
+                        +"<td id='td_name"+array_test[i].id_zaposleni+"'></td>" 
                         +"<td id='td_vocation"+array_test[i].id_zaposleni+"'></td>"
                         +"<td id='td_address"+array_test[i].id_zaposleni+"'></td>"
                         +"<td id='td_phone"+array_test[i].id_zaposleni+"'></td>"
                         +"</tr>";                            
                         $("#tbl_empl_with_adr").append(tmp);
                         $("#td_id"+array_test[i].id_zaposleni).text(array_test[i].id_zaposleni);
-                        $("#td_fname"+array_test[i].id_zaposleni).text(array_test[i].name);
+                        $("#td_name"+array_test[i].id_zaposleni).text(array_test[i].name+" "+array_test[i].lastname);
                         var vocations='';
                         if(array_test[i].vocation.length>0){
                             for (j = 0; j < array_test[i].vocation.length; j++) { 
-                                vocations=vocations + array_test[i].vocation[j] + "<br>";
+                                vocations=vocations + array_test[i].vocation[j] + "\n";
                             }                            
                         }
                         else{
-                            vocations="jjjj";
+                            vocations="";
                         }
-                        $("#td_vocation"+array_test[i].id_zaposleni).html(vocations);
+                        console.log(array_test[i].vocation);
+                        $("#td_vocation"+array_test[i].id_zaposleni).text(vocations);
                         
                         var addresses='';
                         for (l = 0; l < array_test[i].address.length; l++) { 
@@ -293,9 +294,10 @@
                $.get("send_csv.php?pageSize=200&pageNum=1", function(data, status){                   
                     empty_table(table_array); 
                     var header = "<tr>"
+                        +"<td >Number</td>"
                         +"<td >ID</td>"
                         +"<td >Name</td>"
-                        +"<td >Vocation</td>"
+                        +"<td >Vocation</td>" 
                         +"<td >Address</td>"
                         +"<td >Phone</td>"
                         +"</tr>";
@@ -305,6 +307,7 @@
                     console.log(array_test);
                     for (i = 0; i < array_test.length; i++) {
                         var tmp="<tr id='tr_"+i+"'>"
+                        +"<td id='td_number"+i+"'></td>"
                         +"<td id='td_id"+i+"'></td>"
                         +"<td id='td_name"+i+"'></td>" 
                         +"<td id='td_vocation"+i+"'></td>"
@@ -312,8 +315,10 @@
                         +"<td id='td_phone"+i+"'></td>"
                         +"</tr>";                            
                         $("#tbl_empl_with_adr").append(tmp);
+                        
+                        $("#td_number"+i).text(i+1);
                         $("#td_id"+i).text(array_test[i].id_zaposleni);
-                        $("#td_name"+i).text(array_test[i].name);
+                        $("#td_name"+i).text(array_test[i].name+" "+array_test[i].lastname);
                         $("#td_vocation"+i).text(array_test[i].vocation);
                         $("#td_address"+i).text(array_test[i].address);
                         $("#td_phone"+i).text(array_test[i].phone);

@@ -18,5 +18,24 @@ if (isset($_GET['pageSize']) && isset($_GET['pageNum'])){
 
 $response = json_encode($employees);
 
+$header = array
+(
+"Name",
+"Vocation",
+"Address",
+"Phone"
+);
+
+$file = fopen("tmp/employees.csv","w");
+
+fputcsv($file,$header);
+
+foreach ($employees as $line)
+  {
+  fputcsv($file,array($line['name']." ".$line['lastname'],$line['vocation'],$line['address'],$line['phone']));
+  }
+
+fclose($file);
+
 echo $response;
 
