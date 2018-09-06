@@ -1,6 +1,6 @@
 <?php
 require "PHPMailer.php";
-$GLOBALS['disable_ssl_for_gmail'] = TRUE;
+//$GLOBALS['disable_ssl_for_gmail'] = TRUE;
 require 'dbFunctions.php';
 require 'utilFunctions.php';
 require 'config.php';
@@ -8,18 +8,18 @@ require 'config.php';
 
 $mail = new PHPMailer();
 
-    $mail->IsSMTP();
+$mail->IsSMTP();
 //        $mail->SMTPDebug = 3;
 //        $mail->Debugoutput = 'html';
-    $mail->SMTPAuth   = $SMTPAuth;
-    $mail->SMTPSecure = $SMTPSecure;
-    $mail->Host       = $Host;
-    $mail->Username   = $Username;
-    $mail->Password   = $Password;
-    $mail->Port       = $Port;
-    $mail->SMTPDebug = $SMTPDebug;    
-    
-    $mail->SetFrom($Email, $Name); 
+$mail->SMTPAuth   = $SMTPAuth;
+$mail->SMTPSecure = $SMTPSecure;
+$mail->Host       = $Host;
+$mail->Username   = $Username;
+$mail->Password   = $Password;
+$mail->Port       = $Port;
+$mail->SMTPDebug = $SMTPDebug;    
+
+$mail->SetFrom($Email, $Name); 
      
 $mail->Subject = $Subject; 
 

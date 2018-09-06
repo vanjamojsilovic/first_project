@@ -268,21 +268,21 @@
                                 vocations=vocations + array_test[i].vocation[j] + "\n";
                             }                            
                         }
-                        else{
-                            vocations="";
-                        }
-                        console.log(array_test[i].vocation);
                         $("#td_vocation"+array_test[i].id_zaposleni).text(vocations);
                         
                         var addresses='';
-                        for (l = 0; l < array_test[i].address.length; l++) { 
-                            addresses=addresses + array_test[i].address[l] + "<br>";
+                        if(array_test[i].address.length>0){
+                            for (l = 0; l < array_test[i].address.length; l++) { 
+                                addresses=addresses + array_test[i].address[l] + "<br>";
+                            }
                         }
                         $("#td_address"+array_test[i].id_zaposleni).html(addresses);
                         
                         var phones='';
-                        for (k = 0; k < array_test[i].phone.length; k++) { 
-                            phones=phones + array_test[i].phone[k] + "<br>";
+                        if(array_test[i].phone.length>0){
+                            for (k = 0; k < array_test[i].phone.length; k++) { 
+                                phones=phones + array_test[i].phone[k] + "<br>";
+                            }
                         }
                         $("#td_phone"+array_test[i].id_zaposleni).html(phones);
                             

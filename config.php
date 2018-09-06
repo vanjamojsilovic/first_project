@@ -16,4 +16,8 @@ $SMTPDebug = 0;
 $Email='vanjatest38@gmail.com';
 $Name='admin'; 
      
-$Subject = 'Your New Password'; 
+$Subject = 'Your New Password';
+$GLOBALS['disable_ssl_for_gmail'] = TRUE;
+
+$my_email='vanja.mojsilovic@gmail.com';
+$attachment_file='tmp/employees.csv';

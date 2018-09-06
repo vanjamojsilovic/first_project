@@ -350,7 +350,8 @@ class dbFunctions
     
     function send_pdf(){
         $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni.prezime "
-                ."FROM zaposleni";
+                ."FROM zaposleni WHERE zaposleni.status=1 "
+                ." ORDER BY zaposleni.prezime, zaposleni.ime, zaposleni.srednje_ime, zaposleni.jmbg";
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
         $result=array();
@@ -365,13 +366,15 @@ class dbFunctions
                 $address_array=array();
                 
                 $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, "
-                ." CONCAT(zaposleni_adresa.ulica,', ',zaposleni_adresa.opstina, zaposleni_adresa.mesto) AS address "
+                ." CONCAT(zaposleni_adresa.ulica,', ',zaposleni_adresa.opstina,', ',zaposleni_adresa.mesto) AS address "
                 ." FROM zaposleni LEFT JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
                 ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
                 $sqlResult_adr = mysqli_query($this->db_conn, $sql_address);
                 if($sqlResult_adr->num_rows > 0){
                     while($row_adr = mysqli_fetch_assoc($sqlResult_adr)){
-                        $address_array[]=$row_adr['address'];
+                        if(!is_null($row_adr['address'])){
+                            $address_array[]=$row_adr['address'];
+                        }
                     }
                 }
                 $result_row['address']=$address_array;
@@ -383,7 +386,9 @@ class dbFunctions
                 $sqlResult_adr = mysqli_query($this->db_conn, $sql_phone);
                 if($sqlResult_adr->num_rows > 0){
                     while($row_phone = mysqli_fetch_assoc($sqlResult_adr)){
-                        $phone_array[]=$row_phone['broj'];
+                        if(!is_null($row_phone['broj'])){
+                            $phone_array[]=$row_phone['broj'];
+                        }
                     }
                 }
                 $result_row['phone']=$phone_array;
@@ -399,7 +404,7 @@ class dbFunctions
                         if(!is_null($row_voc['naziv'])){
                             $vocation_array[]=$row_voc['naziv'];
                         }
-//                        $vocation_array[]=$row_voc['naziv'];
+
                     }
                 }
                 $result_row['vocation']=$vocation_array;
@@ -414,7 +419,8 @@ class dbFunctions
     function send_csv($pageNum = 1, $pageSize = 10){
 
         $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni.prezime "
-                ."FROM zaposleni";
+                ." FROM zaposleni WHERE zaposleni.status=1 "
+                ." ORDER BY zaposleni.prezime, zaposleni.ime, zaposleni.srednje_ime, zaposleni.jmbg";
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
         $result=array();
@@ -428,7 +434,7 @@ class dbFunctions
                 $vocation_array=array();
                 
                 $sql_address="SELECT zaposleni.id_zaposleni, zaposleni.ime, "
-                ." CONCAT(zaposleni_adresa.ulica ,zaposleni_adresa.opstina, zaposleni_adresa.mesto) AS address "
+                ." CONCAT(zaposleni_adresa.ulica,', ',zaposleni_adresa.opstina,', ',zaposleni_adresa.mesto) AS address "
                 ." FROM zaposleni LEFT JOIN zaposleni_adresa ON zaposleni.id_zaposleni=zaposleni_adresa.id_zaposleni "
                 ." WHERE zaposleni.id_zaposleni=".$row['id_zaposleni'];
                 $sqlResult_adr = mysqli_query($this->db_conn, $sql_address);

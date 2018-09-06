@@ -8,6 +8,7 @@
         $(document).ready(function(){
             $("#lbl_email").text("");
             $("#lbl_password").text("");
+//            localStorage.setItem("message","");
             
             $("#lbl_message").text(localStorage.getItem("message"));
             $("#btn_submit").click(function(){
@@ -68,6 +69,10 @@
                 localStorage.setItem("message","");
                 $("#lbl_message").text(localStorage.getItem("message"));
             });
+            $("#a_home").click(function(){
+                localStorage.setItem("message","");
+                window.location.href = "login.html";
+            });
                 
         });
         
@@ -78,7 +83,7 @@
         <h1>Log in</h1> 
     </div>
     <div class="topnav">
-        <a href="" >Home</a>
+        <a href="" id="a_home">Home</a>
     </div> 
     <div class="column left">
         <h2>Left Side</h2>
