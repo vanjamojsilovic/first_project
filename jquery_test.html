@@ -238,7 +238,7 @@
                         });       
                     });
             $("#btn_send_pdf").click(function(){ 
-                $.get("send_pdf.php?pageSize=20&pageNum=1", function(data, status){                   
+                $.get("send_pdf.php?pageSize=2000&pageNum=1", function(data, status){                   
                     empty_table(table_array); 
                     var header = "<tr>"
                         +"<td >ID</td>"
@@ -291,7 +291,7 @@
             });
             
             $("#btn_send_csv").click(function(){ 
-               $.get("send_csv.php?pageSize=200&pageNum=1", function(data, status){                   
+               $.get("send_csv.php?pageSize=2000&pageNum=1", function(data, status){                   
                     empty_table(table_array); 
                     var header = "<tr>"
                         +"<td >Number</td>"

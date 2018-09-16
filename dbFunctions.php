@@ -348,10 +348,13 @@ class dbFunctions
         return $array;
     }
     
-    function send_pdf(){
+    function send_pdf($pageNum = 1, $pageSize = 2000){
+        $page=($pageNum - 1)*$pageSize;
+        
         $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni.prezime "
                 ."FROM zaposleni WHERE zaposleni.status=1 "
-                ." ORDER BY zaposleni.prezime, zaposleni.ime, zaposleni.srednje_ime, zaposleni.jmbg";
+                ." ORDER BY zaposleni.prezime, zaposleni.ime, zaposleni.srednje_ime, zaposleni.jmbg"
+                ." LIMIT " . $page . ", " . $pageSize;
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
         $result=array();
@@ -416,11 +419,12 @@ class dbFunctions
         return $result;
     }
     
-    function send_csv($pageNum = 1, $pageSize = 10){
-
+    function send_csv($pageNum = 1, $pageSize = 2000){
+        $page=($pageNum - 1)*$pageSize;
         $sql = "SELECT zaposleni.id_zaposleni, zaposleni.ime, zaposleni.prezime "
                 ." FROM zaposleni WHERE zaposleni.status=1 "
-                ." ORDER BY zaposleni.prezime, zaposleni.ime, zaposleni.srednje_ime, zaposleni.jmbg";
+                ." ORDER BY zaposleni.prezime, zaposleni.ime, zaposleni.srednje_ime, zaposleni.jmbg"
+                ." LIMIT " . $page . ", " . $pageSize;
         $sqlResult = mysqli_query($this->db_conn, $sql);
         
         $result=array();
