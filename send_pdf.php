@@ -36,10 +36,13 @@ $pdf->SetTextColor(255);
 $pdf->SetDrawColor(128,0,0);
 $pdf->SetLineWidth(.3);
 $pdf->SetFont('Arial','','9');
-$w = array(15, 40, 40, 60, 30);
+$w = array(15, 40, 40, 65, 25);
+$table_height=0;
+$header_height=7;
 for($i=0;$i<count($header);$i++){
-    $pdf->Cell($w[$i],7,$header[$i],1,0,'C',true);
+    $pdf->Cell($w[$i],$header_height,$header[$i],1,0,'C',true);
 }
+$table_height=$table_height+$header_height;
 $pdf->Ln();
 
 $data = $employees;
@@ -48,57 +51,97 @@ $pdf->SetTextColor(0);
 $pdf->SetFont('Arial','','9');
 // Data
 $fill = false;
+
 for($i=0;$i<count($data);$i++){
-    $max_height=6;
+    $max_height=5;
+    
     $h_array=array(count($data[$i]['vocation']),count($data[$i]['address']),count($data[$i]['phone']));
     if(max($h_array)>1){
-        $max_height=(max($h_array))*6;
+        $max_height=(max($h_array))*5;
     }
-  
-    $x_beginning = $pdf->GetX();
-    $pdf->Cell($w[0],$max_height,$data[$i]['id_zaposleni'],1,0,'L',$fill);
-    $full_name=$data[$i]['name'].' '.$data[$i]['lastname'];
+    $table_height=$table_height+$max_height;
     
-    $pdf->Cell($w[1],$max_height,$full_name,1,0,'L',$fill);
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+    $id=$data[$i]['id_zaposleni']." \n ";
+    for($j=1;$j<max($h_array);$j++){
+        $id=$id."  \n ";
+    }
+    $id=substr($id, 0, -3);
+    $pdf->MultiCell($w[0],5,$id,1,'L',$fill);
+    $pdf->SetAutoPageBreak(FALSE);
+    $pdf->SetXY($x+$w[0], $y);
+    
+    $full_name=$data[$i]['name'].' '.$data[$i]['lastname']." \n ";
+    for($j=1;$j<max($h_array);$j++){
+        $full_name=$full_name."  \n ";
+    }
+    $full_name=substr($full_name, 0, -3);
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+    $pdf->MultiCell($w[1],5,$full_name,1,'L',$fill);
+    
+    $pdf->SetXY($x+$w[1], $y);
     $vocations=' ';
     if(count($data[$i]['vocation']>0)){
-        for($j=0;$j<count($data[$i]['vocation']);$j++){
-            $vocations=$vocations.$data[$i]['vocation'][$j]." \n ";
+        for($j=0;$j<max($h_array);$j++){
+            if(!empty($data[$i]['vocation'][$j])){
+                $vocations=$vocations.$data[$i]['vocation'][$j]." \n ";
+            }
+            else{
+                $vocations=$vocations."  \n ";
+            }
         }
         $vocations=substr($vocations, 0, -3);
     }
     $x = $pdf->GetX();
     $y = $pdf->GetY();
-    $pdf->MultiCell($w[2],6,$vocations,1,'L',$fill);
+    $pdf->MultiCell($w[2],5,$vocations,1,'L',$fill);
+    
     $pdf->SetXY($x+$w[2], $y);
     
     $addresses=' ';
     if(count($data[$i]['address']>0)){
-        for($j=0;$j<count($data[$i]['address']);$j++){
-            $addresses=$addresses.$data[$i]['address'][$j]." \n ";
+        for($j=0;$j<max($h_array);$j++){
+            if(!empty($data[$i]['address'][$j])){
+                $addresses=$addresses.$data[$i]['address'][$j]." \n ";
+            }
+            else{
+                $addresses=$addresses."  \n ";
+            }
         }
         $addresses=substr($addresses, 0, -3);
     }
     $x = $pdf->GetX();
     $y = $pdf->GetY();
-    $pdf->MultiCell($w[3],6,$addresses,1,'L',$fill);
+    $pdf->MultiCell($w[3],5,$addresses,1,'L',$fill);
+    
     $pdf->SetXY($x+$w[3], $y);
     
     $phones=' ';
     if(count($data[$i]['phone']>0)){
-        for($j=0;$j<count($data[$i]['phone']);$j++){
-            $phones=$phones.$data[$i]['phone'][$j]." \n ";
+        for($j=0;$j<max($h_array);$j++){
+            if(!empty($data[$i]['phone'][$j])){
+                $phones=$phones.$data[$i]['phone'][$j]." \n ";
+            }
+            else{
+                $phones=$phones."  \n ";
+            }
         }
         $phones=substr($phones, 0, -3);
     }
-   
+    $x = $pdf->GetX();
     $y = $pdf->GetY();
-    $pdf->MultiCell($w[4],6,$phones,1,'L',$fill);
-
+    $pdf->MultiCell($w[4],5,$phones,1,'L',$fill);
     
-    
-    $pdf->Ln();
+    $pdf->SetY($y);
+    $pdf->Ln($max_height);
     $fill = !$fill;
+    $page_height=$pdf->GetPageHeight();
+    if($table_height>($page_height-20)){
+        $pdf->AddPage('L');
+        $table_height=0;
+    }
 }
 //$pdf->Cell(array_sum($w),0,'','T');
      

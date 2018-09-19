@@ -265,10 +265,10 @@
                         var vocations='';
                         if(array_test[i].vocation.length>0){
                             for (j = 0; j < array_test[i].vocation.length; j++) { 
-                                vocations=vocations + array_test[i].vocation[j] + "\n";
+                                vocations=vocations + array_test[i].vocation[j] + "<br>";
                             }                            
                         }
-                        $("#td_vocation"+array_test[i].id_zaposleni).text(vocations);
+                        $("#td_vocation"+array_test[i].id_zaposleni).html(vocations);
                         
                         var addresses='';
                         if(array_test[i].address.length>0){
